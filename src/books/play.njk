@@ -1,0 +1,265 @@
+---
+layout: base.njk
+title: Play. — A Novel by M. Patrick Furry | The Yard Lab Publishing Group
+description: Jack Plummer hasn't slept in months. Then he finds a 24-hour VHS rental store in San Francisco that shouldn't exist. A psychological horror novel from The Yard Lab Publishing Group.
+permalink: /books/play/index.html
+active_nav: catalog
+---
+
+<style>
+/* Book hero */
+.breadcrumb { max-width: 1400px; margin: 0 auto; padding: 28px 40px 0; font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+.breadcrumb a { color: var(--ink-muted); }
+.breadcrumb a:hover { color: var(--oxblood); }
+.breadcrumb .sep { margin: 0 10px; color: var(--rule-strong); }
+
+.book-hero { max-width: 1400px; margin: 0 auto; padding: 60px 40px 100px; }
+.book-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.book-hero-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+.book-hero-meta .badge { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--paper); background: var(--oxblood); padding: 5px 10px; }
+.book-hero-meta .meta-text { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-faint); }
+
+.book-hero h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(80px, 12vw, 160px); line-height: 0.9; letter-spacing: -0.03em; margin-bottom: 24px; color: var(--ink); }
+.book-hero h1 .period { color: var(--oxblood); }
+.book-hero .byline { font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--ink-muted); margin-bottom: 32px; }
+.book-hero .byline a { color: var(--ink); border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+.book-hero .byline a:hover { border-color: var(--oxblood); color: var(--oxblood); }
+.book-hero p.hook { font-family: var(--font-display); font-style: italic; font-size: 26px; line-height: 1.3; color: var(--ink); margin-bottom: 36px; max-width: 540px; }
+.book-hero p.hook em { font-style: italic; color: var(--oxblood); }
+.book-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 28px; }
+.book-hero-formats { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+.book-hero-formats .dot { color: var(--oxblood); margin: 0 8px; }
+.book-hero-cover { position: relative; display: flex; justify-content: center; align-items: center; }
+.book-hero-cover img { max-width: 480px; width: 100%; box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 8px 16px rgba(26, 20, 16, 0.12), 0 30px 60px rgba(26, 20, 16, 0.25); transform: rotate(-1.5deg); transition: transform 0.5s; }
+.book-hero-cover img:hover { transform: rotate(0) translateY(-4px); }
+
+.cover-sticker { position: absolute; top: 8%; right: 6%; background: #f4c542; color: var(--ink); font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px; text-align: center; line-height: 1.2; transform: rotate(8deg); box-shadow: 2px 3px 0 rgba(0,0,0,0.3); z-index: 2; }
+
+.cta-link-immersive { display: inline-block; margin-top: 24px; font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--oxblood); border-bottom: 1px solid var(--oxblood); padding-bottom: 3px; }
+.cta-link-immersive::after { content: ' ↗'; }
+.cta-link-immersive:hover { background: var(--oxblood); color: var(--paper); padding: 4px 10px; border-bottom-color: var(--oxblood); }
+
+/* Synopsis */
+.synopsis { background: var(--paper-deep); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 100px 40px; }
+.synopsis-inner { max-width: 880px; margin: 0 auto; }
+.synopsis .section-label { justify-content: center; }
+.synopsis .section-title { text-align: center; margin: 0 auto 48px; }
+.synopsis p { font-size: 21px; line-height: 1.6; color: var(--ink); margin-bottom: 22px; }
+.synopsis p:first-of-type::first-letter { font-family: var(--font-display); font-weight: 600; font-size: 3.6em; line-height: 0.85; float: left; margin: 0.06em 0.1em 0 0; color: var(--ink); }
+.synopsis p:last-of-type { font-style: italic; color: var(--ink-muted); font-size: 20px; text-align: center; max-width: 600px; margin: 32px auto 0; }
+.synopsis p em { font-style: italic; }
+
+/* Rules */
+.rules-section { padding: 120px 40px; background: radial-gradient(ellipse at center, var(--paper) 0%, var(--paper-deep) 100%); position: relative; }
+.rules-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+.rules-section .section-label { justify-content: center; margin-bottom: 16px; }
+.rules-section h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(36px, 5vw, 58px); line-height: 1.05; letter-spacing: -0.015em; margin-bottom: 12px; color: var(--ink); }
+.rules-section h2 em { font-style: italic; color: var(--oxblood); }
+.rules-section .rules-sub { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--ink-muted); margin-bottom: 60px; }
+.rules-card { background: var(--paper); color: var(--ink); padding: 56px 48px; max-width: 580px; margin: 0 auto; position: relative; font-family: var(--font-display); border: 1px solid var(--paper-edge); box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 10px 30px rgba(26, 20, 16, 0.1), 0 30px 60px rgba(26, 20, 16, 0.18); transform: rotate(-1deg); }
+.rules-card::after { content: ''; position: absolute; inset: 14px; border: 1px solid var(--rule); pointer-events: none; }
+.rules-card .store-name { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 8px; }
+.rules-card h3 { font-family: var(--font-display); font-weight: 500; font-size: 32px; margin-bottom: 8px; letter-spacing: -0.01em; }
+.rules-card .sub-title { font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--ink-faint); margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
+.rules-card ol { list-style: none; counter-reset: rules; text-align: left; max-width: 360px; margin: 0 auto; }
+.rules-card li { counter-increment: rules; padding: 16px 0; font-family: var(--font-display); font-size: 22px; display: flex; gap: 24px; align-items: baseline; border-bottom: 1px dashed var(--rule); }
+.rules-card li:last-child { border-bottom: none; }
+.rules-card li::before { content: counter(rules, upper-roman) "."; font-family: var(--font-display); font-style: italic; font-weight: 500; color: var(--oxblood); min-width: 40px; font-size: 20px; }
+.rules-stamp { position: absolute; bottom: -30px; right: -25px; width: 120px; height: 120px; border-radius: 50%; background: var(--oxblood); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-align: center; line-height: 1.2; transform: rotate(12deg); border: 3px solid var(--paper); box-shadow: 4px 4px 0 rgba(0,0,0,0.2); padding: 8px; }
+
+/* Pull quote */
+.pull-quote { padding: 120px 40px; text-align: center; background: var(--ink); color: var(--paper); position: relative; overflow: hidden; }
+.pull-quote-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+.pull-quote blockquote { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(32px, 4.5vw, 56px); line-height: 1.2; color: var(--paper); }
+.pull-quote blockquote::before { content: '“'; display: block; color: var(--gold); font-size: 1.4em; line-height: 0.5; margin-bottom: 8px; }
+.pull-quote cite { display: block; margin-top: 40px; font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(244, 237, 224, 0.5); font-style: normal; }
+
+/* Comps */
+.comps { max-width: 1400px; margin: 0 auto; padding: 100px 40px; }
+.comps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 40px; }
+.comp-card { background: var(--paper-deep); border: 1px solid var(--paper-edge); padding: 32px 28px; transition: all 0.3s; }
+.comp-card:hover { border-color: var(--ink); transform: translateY(-4px); }
+.comp-card .file-num { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 16px; }
+.comp-card h4 { font-family: var(--font-display); font-weight: 500; font-size: 24px; line-height: 1.15; margin-bottom: 12px; }
+.comp-card p { font-family: var(--font-display); font-style: italic; font-size: 15px; line-height: 1.45; color: var(--ink-muted); }
+.comp-card p em { color: var(--ink); }
+
+/* Praise */
+.praise { background: var(--paper-deep); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 100px 40px; }
+.praise-inner { max-width: 1100px; margin: 0 auto; }
+.praise-grid { display: grid; gap: 40px; margin-top: 50px; }
+.praise-item { border-left: 3px solid var(--oxblood); padding: 8px 0 8px 32px; }
+.praise-item blockquote { font-family: var(--font-display); font-style: italic; font-size: 24px; line-height: 1.5; margin-bottom: 14px; color: var(--ink); max-width: 880px; }
+.praise-item blockquote::before { content: '“'; color: var(--oxblood); }
+.praise-item blockquote::after { content: '”'; color: var(--oxblood); }
+.praise-item cite { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-faint); font-style: normal; }
+.praise-item cite .stars { color: var(--oxblood); margin-right: 10px; letter-spacing: 0.1em; }
+
+/* Audiobook */
+.audio { background: var(--ink); color: var(--paper); padding: 100px 40px; position: relative; overflow: hidden; }
+.audio-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; position: relative; z-index: 2; }
+.audio-cover { display: flex; justify-content: center; }
+.audio-cover img { width: 100%; max-width: 400px; transform: rotate(2deg); box-shadow: 0 4px 12px rgba(0,0,0,0.3), 0 30px 60px rgba(0,0,0,0.5); transition: transform 0.4s; }
+.audio-cover img:hover { transform: rotate(0); }
+.audio-body .section-label { color: var(--gold); }
+.audio-body .section-label::before { background: var(--gold); }
+.audio-body h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(36px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.015em; margin-bottom: 20px; color: var(--paper); }
+.audio-body h2 em { font-style: italic; color: var(--gold); }
+.audio-body .narrator { font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--gold); margin-bottom: 28px; }
+.audio-body p { font-size: 18px; line-height: 1.6; color: rgba(244, 237, 224, 0.78); margin-bottom: 32px; max-width: 540px; }
+
+/* Buy */
+.buy { padding: 120px 40px; text-align: center; background: radial-gradient(ellipse at top, rgba(139, 26, 38, 0.08) 0%, transparent 60%), var(--paper); }
+.buy-inner { max-width: 900px; margin: 0 auto; }
+.buy .section-label { justify-content: center; }
+.buy h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(44px, 6vw, 78px); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 16px; }
+.buy h2 em { font-style: italic; color: var(--oxblood); }
+.buy-sub { font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--ink-muted); margin-bottom: 56px; }
+.retailers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 720px; margin: 0 auto; }
+.retailer { display: block; padding: 22px 28px; border: 1px solid var(--rule-strong); color: var(--ink); text-decoration: none; font-family: var(--font-ui); font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; transition: all 0.2s; }
+.retailer:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); transform: translateY(-2px); }
+
+@media (max-width: 1024px) {
+  .book-hero-grid, .audio-inner { grid-template-columns: 1fr; gap: 60px; }
+  .book-hero-cover { order: -1; }
+  .comps-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .retailers { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .breadcrumb { padding: 20px 20px 0; font-size: 10px; }
+  .book-hero, .comps { padding: 60px 20px; }
+  .synopsis, .rules-section, .pull-quote, .praise, .audio, .buy { padding: 70px 20px; }
+  .book-hero h1 { font-size: 88px; }
+  .rules-card { padding: 40px 28px; }
+  .rules-card h3 { font-size: 26px; }
+  .rules-stamp { width: 96px; height: 96px; font-size: 10px; bottom: -20px; right: -10px; }
+  .comps-grid { grid-template-columns: 1fr; }
+  .retailers { grid-template-columns: 1fr; }
+  .audio-cover img { max-width: 280px; }
+}
+</style>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a> <span class="sep">/</span> <a href="/#catalog">Catalog</a> <span class="sep">/</span> Play.
+</div>
+
+<!-- BOOK HERO -->
+<section class="book-hero">
+  <div class="book-hero-grid">
+    <div class="book-hero-text">
+      <div class="book-hero-meta">
+        <span class="badge">New</span>
+        <span class="meta-text">A Novel · Psychological Horror · 2026</span>
+      </div>
+      <h1>Play<span class="period">.</span></h1>
+      <p class="byline">By <a href="/#authors">M. Patrick Furry</a></p>
+      <p class="hook">{{ play.tagline | safe }}</p>
+      <div class="book-hero-actions">
+        <a href="#buy" class="btn btn-primary">Order The Book <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-ghost">Read an Excerpt</a>
+      </div>
+      <div class="book-hero-formats">Hardcover <span class="dot">·</span> Paperback <span class="dot">·</span> eBook <span class="dot">·</span> Audiobook</div>
+      <a href="/play/" class="cta-link-immersive">Enter the Video Store</a>
+    </div>
+
+    <div class="book-hero-cover">
+      <div class="cover-sticker">Be Kind<br>Don't Rewind</div>
+      <img src="/assets/play-cover.jpg" alt="Play, a novel by M. Patrick Furry">
+    </div>
+  </div>
+</section>
+
+<!-- SYNOPSIS -->
+<section class="synopsis fade-in">
+  <div class="synopsis-inner">
+    <div class="section-label">About The Book</div>
+    <h2 class="section-title">{{ play.synopsis_heading | safe }}</h2>
+    {% for para in play.synopsis_paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+  </div>
+</section>
+
+<!-- RULES -->
+<section class="rules-section fade-in">
+  <div class="rules-inner">
+    <div class="section-label">The Premise</div>
+    <h2>{{ play.rules_heading | safe }}</h2>
+    <p class="rules-sub">{{ play.rules_sub }}</p>
+
+    <div class="rules-card">
+      <div class="store-name">Play It Again Video</div>
+      <h3>Membership Rules</h3>
+      <p class="sub-title">All members must read &amp; agree.</p>
+      <ol>{% for rule in play.rules %}<li>{{ rule }}</li>{% endfor %}</ol>
+      <div class="rules-stamp">NEW<br>MEMBER<br>★ ★ ★</div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pull-quote fade-in">
+  <div class="pull-quote-inner">
+    <blockquote>{{ play.pull_quote }}</blockquote>
+    <cite>{{ play.pull_quote_attribution }}</cite>
+  </div>
+</section>
+
+<!-- COMPS -->
+<section class="comps fade-in">
+  <div class="section-label">If You Loved</div>
+  <h2 class="section-title">&hellip;you'll want this on your <em>nightstand</em>.</h2>
+  <div class="comps-grid">
+    {% for comp in play.comps %}
+    <div class="comp-card">
+      <div class="file-num">File {{ comp.num }}</div>
+      <h4>{{ comp.name }}</h4>
+      <p>{{ comp.desc | safe }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- PRAISE -->
+<section class="praise fade-in">
+  <div class="praise-inner">
+    <div class="section-label">Early Praise</div>
+    <h2 class="section-title">What readers are saying.</h2>
+    <div class="praise-grid">
+      {% for p in play.praise %}
+      <div class="praise-item">
+        <blockquote>{{ p.quote }}</blockquote>
+        <cite><span class="stars">★★★★★</span> {{ p.by }}</cite>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- AUDIOBOOK -->
+<section class="audio fade-in">
+  <div class="audio-inner">
+    <div class="audio-cover"><img src="/assets/play-audiobook.jpg" alt="Play audiobook"></div>
+    <div class="audio-body">
+      <div class="section-label">Also On Audio</div>
+      <h2>{{ play.audiobook_heading | safe }}</h2>
+      <p class="narrator">{{ play.audiobook_narrator }}</p>
+      <p>{{ play.audiobook_body }}</p>
+      <a href="https://www.audible.com/search?keywords=Play+M+Patrick+Furry" target="_blank" rel="noopener noreferrer" class="btn btn-light">Listen On Audible <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- BUY -->
+<section class="buy fade-in" id="buy">
+  <div class="buy-inner">
+    <div class="section-label">Order The Book</div>
+    <h2>Rent <em>the tape</em>.</h2>
+    <p class="buy-sub">Available now in hardcover, paperback, ebook, and audiobook.</p>
+    <div class="retailers">
+      {% for r in play.retailers %}
+      <a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" class="retailer">{{ r.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>

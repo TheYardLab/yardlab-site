@@ -1,0 +1,302 @@
+# =============================================================
+# THE YARD LAB · DECAP CMS CONFIGURATION
+# =============================================================
+# This file defines what you can edit through /admin.
+# AFTER deploying: replace YOUR_GITHUB_USERNAME below with
+# your actual GitHub username.
+# =============================================================
+
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/yardlab-site
+  branch: main
+  # Public OAuth proxy hosted by Decap (free, no setup required)
+  # If you want full control, you can self-host this later
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+# Where uploaded images go (relative to repo root)
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
+
+site_url: https://theyardlab.com
+display_url: https://theyardlab.com
+
+# Editor settings
+editor:
+  preview: false  # disable preview since templates differ from production build
+
+# =============================================================
+# COLLECTIONS
+# =============================================================
+collections:
+
+  # ---------------------------------------------------------
+  # SITE SETTINGS
+  # ---------------------------------------------------------
+  - name: "settings"
+    label: "⚙ Site Settings"
+    files:
+      - file: "src/_data/settings.json"
+        name: "global"
+        label: "Global Settings"
+        fields:
+          - { label: "Site Name", name: "site_name", widget: "string" }
+          - { label: "Site URL", name: "site_url", widget: "string" }
+          - { label: "Press Tagline (footer)", name: "tagline", widget: "text" }
+          - { label: "Announcement Bar Text", name: "announcement_text", widget: "string", hint: "Use <strong> for bold, <em> for italics" }
+          - { label: "Announcement Link Label", name: "announcement_link_text", widget: "string" }
+          - { label: "Announcement Link URL", name: "announcement_link_url", widget: "string" }
+          - { label: "Contact Email", name: "contact_email", widget: "string" }
+          - { label: "Instagram URL", name: "instagram_url", widget: "string", required: false }
+          - { label: "Bluesky URL", name: "bluesky_url", widget: "string", required: false }
+          - { label: "Founded Year", name: "founded_year", widget: "string" }
+          - { label: "Location", name: "location", widget: "string" }
+
+  # ---------------------------------------------------------
+  # HOMEPAGE
+  # ---------------------------------------------------------
+  - name: "homepage"
+    label: "🏠 Homepage"
+    files:
+      - file: "src/_data/homepage.json"
+        name: "home"
+        label: "Homepage Content"
+        fields:
+          - label: "── HERO ──"
+            name: "_hero_divider"
+            widget: "hidden"
+          - { label: "Hero Eyebrow", name: "hero_eyebrow", widget: "string" }
+          - { label: "Hero Headline", name: "hero_headline", widget: "string", hint: "Use <em>...</em> for the red italic words" }
+          - { label: "Hero Description", name: "hero_description", widget: "text" }
+
+          - { label: "Now Reading — Title", name: "now_reading_title", widget: "string" }
+          - { label: "Now Reading — Issue", name: "now_reading_issue", widget: "string" }
+          - { label: "Now Reading — Description", name: "now_reading_desc", widget: "text" }
+          - { label: "Now Reading — Deadline", name: "now_reading_deadline", widget: "string" }
+
+          - { label: "Catalog Heading", name: "catalog_heading", widget: "string" }
+          - { label: "Catalog Subtitle", name: "catalog_sub", widget: "string" }
+
+          - label: "── FEATURED EXCERPT ──"
+            name: "_excerpt_divider"
+            widget: "hidden"
+          - { label: "Excerpt — Category Label", name: "excerpt_category", widget: "string" }
+          - { label: "Excerpt — Reading Time", name: "excerpt_reading_time", widget: "string" }
+          - { label: "Excerpt — Title", name: "excerpt_title", widget: "string" }
+          - { label: "Excerpt — Byline", name: "excerpt_byline", widget: "string" }
+          - { label: "Excerpt — Body", name: "excerpt_body", widget: "text", hint: "Separate paragraphs with blank lines" }
+          - { label: "Excerpt — Link URL", name: "excerpt_link", widget: "string" }
+          - { label: "Excerpt — Link Text", name: "excerpt_link_text", widget: "string" }
+
+          - label: "── CURRENTLY SIDEBAR ──"
+            name: "_currently_divider"
+            widget: "hidden"
+          - { label: "Currently — Section Title", name: "currently_title", widget: "string" }
+          - label: "Currently Items"
+            name: "currently_items"
+            widget: "list"
+            fields:
+              - { label: "When (label)", name: "when", widget: "string", hint: "e.g., Reading, Editing" }
+              - { label: "What (description)", name: "what", widget: "string" }
+
+          - { label: "Mission Statement", name: "mission_text", widget: "text" }
+          - { label: "Mission Attribution", name: "mission_attribution", widget: "string" }
+
+          - label: "Milestones (Press History)"
+            name: "milestones"
+            widget: "list"
+            fields:
+              - { label: "Year", name: "year", widget: "string" }
+              - { label: "Event", name: "event", widget: "string" }
+              - { label: "Note", name: "note", widget: "string" }
+
+          - { label: "Submissions Intro", name: "submissions_intro", widget: "text" }
+          - { label: "Submissions Detail", name: "submissions_detail", widget: "text" }
+
+  # ---------------------------------------------------------
+  # CATALOG — folder collection, one file per book
+  # ---------------------------------------------------------
+  - name: "catalog"
+    label: "📚 Catalog"
+    folder: "src/_data/catalog"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    summary: "{{title}} — {{author}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Title (with formatting)", name: "title_html", widget: "string", hint: "Use <em>...</em> for italics. e.g., 'Play<em>.</em>'" }
+      - { label: "Author", name: "author", widget: "string" }
+      - { label: "Format / Status", name: "format", widget: "string", hint: "e.g., 'Hardcover · Available' or 'Forthcoming'" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Shelf Talk Quote", name: "shelf_talk", widget: "text" }
+      - { label: "Shelf Talk Attribution", name: "shelf_talk_by", widget: "string" }
+      - label: "Cover Style"
+        name: "cover_style"
+        widget: "select"
+        options: ["image", "keene", "lab"]
+        hint: "Use 'image' for uploaded covers, or one of the styled templates"
+      - { label: "Cover Image", name: "cover_image", widget: "image", required: false }
+      - { label: "Page Link", name: "page_link", widget: "string", hint: "e.g., '/books/play/' or '#lab'" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", min: 1 }
+      - { label: "Show in Catalog Grid", name: "in_catalog", widget: "boolean", default: true }
+
+  # ---------------------------------------------------------
+  # PLAY BOOK PAGE — full editorial detail page
+  # ---------------------------------------------------------
+  - name: "play_page"
+    label: "📖 Page: Play"
+    files:
+      - file: "src/_data/play.json"
+        name: "play"
+        label: "Play Book Page"
+        fields:
+          - { label: "Hero Tagline", name: "tagline", widget: "string" }
+          - { label: "Synopsis Heading", name: "synopsis_heading", widget: "string" }
+          - label: "Synopsis Paragraphs"
+            name: "synopsis_paragraphs"
+            widget: "list"
+            field: { label: "Paragraph", name: "para", widget: "text" }
+          - { label: "Rules Heading", name: "rules_heading", widget: "string" }
+          - { label: "Rules Subtitle", name: "rules_sub", widget: "text" }
+          - label: "The Four Rules"
+            name: "rules"
+            widget: "list"
+            field: { label: "Rule", name: "rule", widget: "string" }
+          - { label: "Pull Quote", name: "pull_quote", widget: "text" }
+          - { label: "Pull Quote Attribution", name: "pull_quote_attribution", widget: "string" }
+          - label: "Comp Authors"
+            name: "comps"
+            widget: "list"
+            fields:
+              - { label: "File Number", name: "num", widget: "string", hint: "e.g., '01'" }
+              - { label: "Author Name", name: "name", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text" }
+          - label: "Praise Quotes"
+            name: "praise"
+            widget: "list"
+            fields:
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Attribution", name: "by", widget: "string" }
+          - { label: "Audiobook Heading", name: "audiobook_heading", widget: "string" }
+          - { label: "Audiobook Narrator", name: "audiobook_narrator", widget: "string" }
+          - { label: "Audiobook Body", name: "audiobook_body", widget: "text" }
+          - label: "Retailers"
+            name: "retailers"
+            widget: "list"
+            fields:
+              - { label: "Store Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+
+  # ---------------------------------------------------------
+  # FRANCIS KEENE BOOK PAGE
+  # ---------------------------------------------------------
+  - name: "francis_keene_page"
+    label: "📖 Page: Francis Keene"
+    files:
+      - file: "src/_data/francis_keene.json"
+        name: "francis_keene"
+        label: "Francis Keene Book Page"
+        fields:
+          - { label: "Hero Tagline", name: "tagline", widget: "string" }
+          - { label: "Synopsis Heading", name: "synopsis_heading", widget: "string" }
+          - label: "Synopsis Paragraphs"
+            name: "synopsis_paragraphs"
+            widget: "list"
+            field: { label: "Paragraph", name: "para", widget: "text" }
+          - { label: "Concept Heading", name: "concept_heading", widget: "string" }
+          - { label: "Concept Subtitle", name: "concept_sub", widget: "text" }
+          - { label: "The Tells — Term", name: "tells_term", widget: "string" }
+          - { label: "The Tells — Pronunciation", name: "tells_pronunciation", widget: "string" }
+          - label: "The Tells — Definitions"
+            name: "tells_definitions"
+            widget: "list"
+            field: { label: "Definition", name: "def", widget: "text" }
+          - { label: "The Tells — Usage Example", name: "tells_usage", widget: "text" }
+          - { label: "Pull Quote", name: "pull_quote", widget: "text" }
+          - { label: "Pull Quote Attribution", name: "pull_quote_attribution", widget: "string" }
+          - label: "Journey Stops"
+            name: "stops"
+            widget: "list"
+            fields:
+              - { label: "Roman Numeral", name: "roman", widget: "string" }
+              - { label: "Location", name: "location", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text" }
+          - label: "Praise Quotes"
+            name: "praise"
+            widget: "list"
+            fields:
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Attribution", name: "by", widget: "string" }
+          - { label: "Development Heading", name: "development_heading", widget: "string" }
+          - { label: "Development Body", name: "development_body", widget: "text" }
+          - label: "Retailers"
+            name: "retailers"
+            widget: "list"
+            fields:
+              - { label: "Store Name", name: "name", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+
+  # ---------------------------------------------------------
+  # READING ROOM ARTICLES
+  # ---------------------------------------------------------
+  - name: "articles"
+    label: "✎ Reading Room Articles"
+    folder: "src/_data/articles"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "Use <em>...</em> for italics" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["Essay · The Craft", "Editor's Note", "Interview", "Review", "Excerpt"]
+      - { label: "Reading Time", name: "reading_time", widget: "string", hint: "e.g., '12 Min Read'" }
+      - { label: "Byline", name: "byline", widget: "string" }
+      - { label: "Published Date", name: "published", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Snippet (for homepage)", name: "snippet", widget: "text" }
+      - label: "Image Style"
+        name: "image_style"
+        widget: "select"
+        options: ["play", "infinity", "quote"]
+      - { label: "Article URL", name: "link", widget: "string", default: "#" }
+      - { label: "Featured (large card)", name: "featured", widget: "boolean", default: false }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", min: 1 }
+
+  # ---------------------------------------------------------
+  # NEWS
+  # ---------------------------------------------------------
+  - name: "news"
+    label: "📰 News & Press"
+    folder: "src/_data/news"
+    create: true
+    format: "json"
+    slug: "{{year}}-{{month}}-{{slug}}"
+    summary: "{{headline}}"
+    fields:
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Headline", name: "headline", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Link URL", name: "link", widget: "string", required: false }
+      - { label: "Link Label", name: "label", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", min: 1 }
+
+  # ---------------------------------------------------------
+  # TEAM
+  # ---------------------------------------------------------
+  - name: "team"
+    label: "👥 Editorial Board"
+    folder: "src/_data/team"
+    create: true
+    format: "json"
+    slug: "{{slug}}"
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Role", name: "role", widget: "string" }
+      - { label: "Monogram", name: "monogram", widget: "string", hint: "Initials with middle dot, e.g., 'B·F'" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", min: 1 }

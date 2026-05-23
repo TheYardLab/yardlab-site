@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Casual Oblivion of Francis Keene — A Novel by M. Patrick Furry</title>
+<meta name="description" content="Three generations. Four thousand miles. One spectacular final hustle. A road-trip novel about the terrible grace of finally seeing your family clearly.">
+<meta property="og:title" content="The Casual Oblivion of Francis Keene">
+<meta property="og:description" content="Three generations. Four thousand miles. One spectacular final hustle.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Special+Elite&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --paper: #ede5d3;
+  --paper-deep: #d8cdb3;
+  --paper-edge: #b8a884;
+  --ink: #0a1420;
+  --midnight: #1a2b3d;
+  --midnight-deep: #0f1d2c;
+  --brass: #b89968;
+  --brass-bright: #d4b88a;
+  --rust: #8c4a2b;
+  --rule: rgba(237, 229, 211, 0.18);
+  --rule-strong: rgba(237, 229, 211, 0.35);
+}
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  background: var(--midnight-deep);
+  color: var(--paper);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* PAPER GRAIN OVERLAY — like an old atlas */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.15;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: screen;
+}
+
+/* HEADLIGHT FOG — soft glow at top, like driving at dawn */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212, 184, 138, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(140, 74, 43, 0.08) 0%, transparent 50%);
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+/* ============ MILEAGE BAR (top — emulates road atlas legend) ============ */
+.mileage-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(10, 20, 32, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(237, 229, 211, 0.55);
+  text-transform: uppercase;
+}
+
+.mileage-bar .route {
+  color: var(--brass-bright);
+}
+
+.mileage-bar .odometer {
+  display: flex;
+  gap: 4px;
+}
+
+.mileage-bar .odometer span {
+  background: rgba(237, 229, 211, 0.08);
+  padding: 2px 6px;
+  color: var(--brass-bright);
+  border: 1px solid rgba(237, 229, 211, 0.15);
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  padding: 100px 40px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-meta::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--brass);
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(56px, 8vw, 110px);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  margin-bottom: 32px;
+  color: var(--paper);
+}
+
+.hero h1 .casual {
+  display: block;
+  font-size: 0.42em;
+  font-weight: 400;
+  color: rgba(237, 229, 211, 0.65);
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  font-family: 'EB Garamond', serif;
+}
+
+.hero h1 .oblivion {
+  display: block;
+  font-style: italic;
+  color: var(--brass-bright);
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.hero h1 .francis {
+  display: block;
+  font-size: 0.42em;
+  font-weight: 400;
+  color: rgba(237, 229, 211, 0.65);
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  font-family: 'EB Garamond', serif;
+}
+
+.hero .byline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 32px;
+}
+
+.hero .tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.35;
+  color: var(--paper);
+  margin-bottom: 40px;
+  max-width: 540px;
+}
+
+.hero .tagline em {
+  font-style: italic;
+  color: var(--brass-bright);
+}
+
+.cta-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--brass);
+  color: var(--midnight-deep);
+}
+
+.btn-primary:hover {
+  background: var(--brass-bright);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid var(--rule-strong);
+}
+
+.btn-ghost:hover {
+  border-color: var(--brass);
+  color: var(--brass-bright);
+}
+
+.btn .arrow { transition: transform 0.2s; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+/* ============ HERO COVER ============ */
+.hero-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.cover-keene-large {
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 5/8;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(184, 153, 104, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, #2d3e50 0%, #1a2b3d 60%, #0f1d2c 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 32px;
+  color: #ede5d3;
+  position: relative;
+  font-family: 'Cormorant Garamond', serif;
+  text-align: center;
+  transform: rotate(-2deg);
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.3),
+    0 20px 40px rgba(0,0,0,0.4),
+    0 40px 80px rgba(0,0,0,0.5);
+  transition: transform 0.5s ease;
+}
+
+.cover-keene-large:hover {
+  transform: rotate(0) translateY(-6px);
+}
+
+.cover-keene-large .label-top {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.cover-keene-large .title-block {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cover-keene-large .t-small {
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(237, 229, 211, 0.85);
+}
+
+.cover-keene-large .t-big {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--brass-bright);
+  margin: 8px 0;
+}
+
+.cover-keene-large .ornament {
+  font-size: 22px;
+  color: var(--brass);
+  opacity: 0.6;
+  line-height: 1;
+  margin: 20px 0;
+}
+
+.cover-keene-large .author-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--paper);
+  font-weight: 500;
+}
+
+/* Stamp on cover — "Currently In Development" */
+.dev-stamp {
+  position: absolute;
+  top: 5%;
+  right: -10px;
+  background: var(--rust);
+  color: var(--paper);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  transform: rotate(8deg);
+  box-shadow: 2px 3px 0 rgba(0,0,0,0.4);
+  z-index: 3;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ============ THREE FACTS ============ */
+.facts {
+  padding: 80px 40px;
+  background: var(--midnight);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  z-index: 1;
+}
+
+.facts-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.fact {
+  position: relative;
+}
+
+.fact:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+  background: var(--rule-strong);
+}
+
+.fact .number {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(56px, 7vw, 88px);
+  line-height: 1;
+  color: var(--brass-bright);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.fact .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(237, 229, 211, 0.6);
+}
+
+/* ============ SYNOPSIS ============ */
+.synopsis {
+  padding: 120px 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.synopsis-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.synopsis-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.synopsis-label::before,
+.synopsis-label::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--brass);
+}
+
+.synopsis h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 48px;
+  text-align: center;
+  color: var(--paper);
+}
+
+.synopsis h2 em {
+  font-style: italic;
+  color: var(--brass-bright);
+}
+
+.synopsis p {
+  font-size: 21px;
+  line-height: 1.65;
+  color: rgba(237, 229, 211, 0.92);
+  margin-bottom: 24px;
+}
+
+.synopsis p:first-of-type::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 3.6em;
+  line-height: 0.85;
+  float: left;
+  margin: 0.06em 0.12em 0 0;
+  color: var(--brass-bright);
+}
+
+.synopsis p em { color: var(--brass-bright); font-style: italic; }
+
+/* ============ DICTIONARY CARD (The Tells) ============ */
+.tells-section {
+  padding: 120px 40px;
+  background:
+    radial-gradient(ellipse at center, var(--midnight) 0%, var(--midnight-deep) 80%);
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.tells-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tells-section .synopsis-label { color: var(--brass-bright); }
+.tells-section .synopsis-label::before,
+.tells-section .synopsis-label::after { background: var(--brass-bright); }
+
+.tells-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 24px;
+  color: var(--paper);
+}
+
+.tells-section h2 em {
+  font-style: italic;
+  color: var(--brass-bright);
+}
+
+.tells-section .sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(237, 229, 211, 0.65);
+  margin-bottom: 64px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tells-card {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 60px 56px;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+  position: relative;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.3),
+    0 30px 60px rgba(0,0,0,0.5);
+}
+
+.tells-card::after {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border: 1px solid rgba(10, 20, 32, 0.15);
+  pointer-events: none;
+}
+
+.tells-card .glossary-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.tells-card .term {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.tells-card .term em {
+  font-style: italic;
+  color: var(--midnight);
+}
+
+.tells-card .pronunciation {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 19px;
+  color: rgba(10, 20, 32, 0.55);
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(10, 20, 32, 0.15);
+}
+
+.tells-card .part-of-speech {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--rust);
+  margin-bottom: 14px;
+}
+
+.tells-card .definition {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+
+.tells-card .definition .num {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--rust);
+  margin-right: 10px;
+}
+
+.tells-card .usage {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: rgba(10, 20, 32, 0.7);
+  padding: 16px 0 16px 24px;
+  border-left: 2px solid var(--rust);
+  margin-top: 28px;
+}
+
+/* ============ PULL QUOTE ============ */
+.pull-quote {
+  padding: 140px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.pull-quote-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pull-quote blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(32px, 4.8vw, 64px);
+  line-height: 1.18;
+  color: var(--paper);
+  letter-spacing: -0.01em;
+}
+
+.pull-quote blockquote::before {
+  content: '“';
+  display: block;
+  color: var(--brass-bright);
+  font-size: 1.4em;
+  line-height: 0.5;
+  margin-bottom: 16px;
+}
+
+.pull-quote cite {
+  display: block;
+  margin-top: 48px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brass);
+  font-style: normal;
+}
+
+/* ============ ITINERARY (Three stops) ============ */
+.itinerary {
+  padding: 120px 40px;
+  background: var(--midnight);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  z-index: 1;
+}
+
+.itinerary-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.itinerary-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.itinerary-header .synopsis-label {
+  color: var(--brass-bright);
+  margin-bottom: 16px;
+}
+
+.itinerary-header .synopsis-label::before,
+.itinerary-header .synopsis-label::after { background: var(--brass-bright); }
+
+.itinerary-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--paper);
+}
+
+.itinerary-header h2 em {
+  font-style: italic;
+  color: var(--brass-bright);
+}
+
+.stops-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+}
+
+.stops-grid::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background:
+    linear-gradient(90deg, transparent, var(--brass) 20%, var(--brass) 80%, transparent);
+  z-index: 0;
+}
+
+.stop {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.stop .marker {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 32px;
+  background: var(--brass);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 0 6px var(--midnight), 0 0 0 7px var(--brass);
+}
+
+.stop .marker::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  background: var(--midnight-deep);
+  border-radius: 50%;
+}
+
+.stop .roman {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 24px;
+  color: var(--brass);
+  margin-bottom: 6px;
+}
+
+.stop .location {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(237, 229, 211, 0.5);
+  margin-bottom: 18px;
+}
+
+.stop h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--paper);
+}
+
+.stop h3 em { font-style: italic; color: var(--brass-bright); }
+
+.stop p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(237, 229, 211, 0.7);
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* ============ DEVELOPMENT (Film/TV) ============ */
+.development {
+  padding: 100px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at center, rgba(140, 74, 43, 0.15) 0%, transparent 70%);
+}
+
+.development-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.development .marker-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--rust);
+  padding: 8px 14px;
+  margin-bottom: 32px;
+}
+
+.development h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 24px;
+  color: var(--paper);
+}
+
+.development h2 em {
+  font-style: italic;
+  color: var(--brass-bright);
+}
+
+.development p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 21px;
+  color: rgba(237, 229, 211, 0.72);
+  max-width: 720px;
+  margin: 0 auto 32px;
+  line-height: 1.55;
+}
+
+/* ============ BUY ============ */
+.buy {
+  padding: 140px 40px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, rgba(184, 153, 104, 0.1) 0%, transparent 60%);
+  position: relative;
+  z-index: 1;
+}
+
+.buy-inner { max-width: 900px; margin: 0 auto; }
+
+.buy-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(48px, 7vw, 90px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin-bottom: 16px;
+  color: var(--paper);
+}
+
+.buy-title em {
+  font-style: italic;
+  color: var(--brass-bright);
+}
+
+.buy-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(237, 229, 211, 0.65);
+  margin-bottom: 56px;
+}
+
+.retailers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.retailer {
+  display: block;
+  padding: 22px 24px;
+  border: 1px solid var(--rule-strong);
+  color: var(--paper);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.retailer:hover {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--midnight-deep);
+  transform: translateY(-2px);
+}
+
+/* ============ FOOTER ============ */
+.foot {
+  padding: 60px 40px 40px;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.foot-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--brass-bright);
+  margin-bottom: 24px;
+}
+
+.foot-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(237, 229, 211, 0.4);
+}
+
+.foot-meta a {
+  color: rgba(237, 229, 211, 0.4);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.foot-meta a:hover {
+  color: var(--brass-bright);
+}
+
+.foot-meta .sep { margin: 0 12px; }
+
+/* ============ MOBILE ============ */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding: 100px 24px 60px;
+    text-align: left;
+  }
+  .hero-cover { order: -1; }
+  .cover-keene-large { max-width: 280px; transform: rotate(0); }
+  .stops-grid { grid-template-columns: 1fr; gap: 40px; }
+  .stops-grid::before { display: none; }
+  .retailers { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .mileage-bar { font-size: 10px; padding: 8px 14px; letter-spacing: 0.15em; }
+  .mileage-bar .route { display: none; }
+  .hero h1 { font-size: 64px; }
+  .facts, .synopsis, .tells-section, .pull-quote, .itinerary, .development, .buy { padding: 80px 20px; }
+  .facts-inner { grid-template-columns: 1fr; gap: 32px; }
+  .fact:not(:last-child)::after {
+    right: 50%; top: auto; bottom: -16px;
+    width: 60%; height: 1px;
+    transform: translateX(50%);
+  }
+  .fact .number { font-size: 56px; }
+  .tells-card { padding: 36px 24px; }
+  .tells-card .term { font-size: 38px; }
+  .retailers { grid-template-columns: 1fr; }
+}
+
+/* ============ ENTRANCE ============ */
+.hero > * { opacity: 0; animation: rise 0.8s forwards; }
+.hero > div:nth-child(1) > * { animation-delay: 0.1s; }
+.hero > div:nth-child(2) { animation-delay: 0.3s; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-section { opacity: 0; transform: translateY(30px); transition: opacity 0.9s, transform 0.9s; }
+.fade-section.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- MILEAGE BAR -->
+<div class="mileage-bar">
+  <div class="route">CA · NV · UT · CO · KS · MO · TN · GA · FL</div>
+  <div class="odometer"><span>0</span><span>0</span><span>4</span><span>2</span><span>1</span><span>3</span></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-meta">A Novel by M. Patrick Furry</div>
+    <h1>
+      <span class="casual">The Casual</span>
+      <span class="oblivion">Oblivion</span>
+      <span class="francis">of Francis Keene</span>
+    </h1>
+    <div class="byline">Three Generations · 4,000 Miles · One Final Hustle</div>
+    <p class="tagline">
+      A lifelong grifter. A road trip he may have invented. A grandson who's starting to <em>see what no one else can.</em>
+    </p>
+    <div class="cta-row">
+      <a href="#buy" class="btn btn-primary">Order The Book <span class="arrow">→</span></a>
+      <a href="#synopsis" class="btn btn-ghost">Read More</a>
+    </div>
+  </div>
+
+  <div class="hero-cover">
+    <div class="cover-keene-large">
+      <div class="dev-stamp">★ Optioned<br>For Screen</div>
+      <div class="label-top">A Novel</div>
+      <div class="title-block">
+        <span class="t-small">The Casual</span>
+        <span class="t-big">Oblivion</span>
+        <span class="t-small">of Francis Keene</span>
+      </div>
+      <div class="ornament">❦</div>
+      <div class="author-line">M. Patrick Furry</div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE FACTS -->
+<div class="facts">
+  <div class="facts-inner">
+    <div class="fact">
+      <div class="number">3</div>
+      <div class="label">Generations</div>
+    </div>
+    <div class="fact">
+      <div class="number">4,000</div>
+      <div class="label">Miles</div>
+    </div>
+    <div class="fact">
+      <div class="number">1</div>
+      <div class="label">Final Hustle</div>
+    </div>
+  </div>
+</div>
+
+<!-- SYNOPSIS -->
+<section class="synopsis fade-section" id="synopsis">
+  <div class="synopsis-inner">
+    <div class="synopsis-label">About The Novel</div>
+    <h2>A dying wish. A family secret. <em>A road that ends in Florida.</em></h2>
+
+    <p>
+      Frank Keene has a gift for talking people into things they never intended to do. To his exhausted, newly divorced son David, that's just a polite way of saying his father is a lifelong conman. Now stuck in an assisted living facility, Frank drops a bombshell: his cancer has returned. His dying wish is one last cross-country road trip to a colossal Florida amusement park he once promised his late wife they'd visit.
+    </p>
+    <p>
+      David expects bad diner coffee, cheap motels, and his father slipping right back into his old manipulative ways. He gets all of it. But with his thirteen-year-old son Eli in the backseat, David soon realizes this is no ordinary farewell tour.
+    </p>
+    <p>
+      Frank hasn't just been hiding the truth about his prognosis. He's been hiding the reality of his gift. Frank's legendary ability to read people isn't charm — it's something <em>darker</em>. And it's surfacing in Eli.
+    </p>
+    <p>
+      Funny, razor-sharp, and devastatingly tender, <em>The Casual Oblivion of Francis Keene</em> is a big-hearted American road trip about the weight of our deceptions, the painful burden of human empathy, and the terrifying grace of finally seeing your family clearly.
+    </p>
+  </div>
+</section>
+
+<!-- THE TELLS -->
+<section class="tells-section fade-section">
+  <div class="tells-inner">
+    <div class="synopsis-label">The Concept</div>
+    <h2>What if you could see what <em>everyone</em> was hiding?</h2>
+    <p class="sub">At the heart of the novel is a single, devastating gift — one Frank has carried his whole life, and one he never wanted to pass on.</p>
+
+    <div class="tells-card">
+      <div class="glossary-label">From The Glossary</div>
+      <div class="term">The <em>Tells</em></div>
+      <div class="pronunciation">/ðə tɛlz/</div>
+
+      <div class="part-of-speech">noun, plural</div>
+      <div class="definition">
+        <span class="num">1.</span> The visual projections of a person's deepest traumas, lies, and unspoken truths — visible only to those born with the gift to see them.
+      </div>
+      <div class="definition">
+        <span class="num">2.</span> A family inheritance Francis Keene has spent seventy years trying to forget.
+      </div>
+      <div class="usage">
+        "Frank's legendary ability to read people isn't charm. It's something darker. And it's surfacing in Eli."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pull-quote fade-section">
+  <div class="pull-quote-inner">
+    <blockquote>The terrifying grace of finally seeing your family for who they really are.</blockquote>
+    <cite>— From The Novel</cite>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section class="itinerary fade-section">
+  <div class="itinerary-inner">
+    <div class="itinerary-header">
+      <div class="synopsis-label">The Journey</div>
+      <h2>Three travelers. <em>One road.</em> Forty-eight hours.</h2>
+    </div>
+
+    <div class="stops-grid">
+      <div class="stop">
+        <div class="marker"></div>
+        <div class="roman">I.</div>
+        <div class="location">California · Departure</div>
+        <h3>The Lifelong <em>Grifter</em></h3>
+        <p>Frank Keene, seventy years old, stage-manages his own farewell. A diagnosis he may have invented. A promise to a late wife he may have never made.</p>
+      </div>
+
+      <div class="stop">
+        <div class="marker"></div>
+        <div class="roman">II.</div>
+        <div class="location">The Heartland · Passage</div>
+        <h3>The Exhausted <em>Son</em></h3>
+        <p>David, newly divorced, drives. He has heard every story. He knows every con. He thinks he knows what this trip is for.</p>
+      </div>
+
+      <div class="stop">
+        <div class="marker"></div>
+        <div class="roman">III.</div>
+        <div class="location">Florida · Arrival</div>
+        <h3>The Anxious <em>Grandson</em></h3>
+        <p>Eli, thirteen, is starting to see things he can't explain. Then he realizes his grandfather can see them too — and always has.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPMENT -->
+<section class="development fade-section">
+  <div class="development-inner">
+    <div class="marker-tag">★ Currently In Development</div>
+    <h2>Under consideration for <em>film &amp; television</em>.</h2>
+    <p>
+      The Casual Oblivion of Francis Keene is currently under consideration for film and television adaptation. For rights and adaptation inquiries, please contact The Yard Lab.
+    </p>
+  </div>
+</section>
+
+<!-- BUY -->
+<section class="buy fade-section" id="buy">
+  <div class="buy-inner">
+    <h2 class="buy-title">Take <em>the trip</em>.</h2>
+    <p class="buy-sub">Available now in paperback, eBook, and on Kindle Unlimited.</p>
+
+    <div class="retailers">
+      <a href="https://www.amazon.com/Caual-Oblivion-Francis-Keene-ebook/dp/B0GHQ8Y4Y2" target="_blank" rel="noopener noreferrer" class="retailer">Amazon</a>
+      <a href="https://www.barnesandnoble.com/s/The+Casual+Oblivion+of+Francis+Keene" target="_blank" rel="noopener noreferrer" class="retailer">Barnes &amp; Noble</a>
+      <a href="https://www.booksamillion.com/" target="_blank" rel="noopener noreferrer" class="retailer">Books-A-Million</a>
+      <a href="https://bookshop.org/search?keywords=Casual+Oblivion+Francis+Keene" target="_blank" rel="noopener noreferrer" class="retailer">Bookshop.org</a>
+      <a href="https://books.apple.com/search?term=Casual+Oblivion+Francis+Keene" target="_blank" rel="noopener noreferrer" class="retailer">Apple Books</a>
+      <a href="https://www.kobo.com/us/en/search?query=Casual+Oblivion+Francis+Keene" target="_blank" rel="noopener noreferrer" class="retailer">Kobo</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <img src="/assets/yardlab-icon-light.png" alt="The Yard Lab Publishing Group" style="width: 56px; height: auto; margin: 0 auto 24px; opacity: 0.6;">
+  <div class="foot-tagline">"The road ends where the truth begins."</div>
+  <div class="foot-meta">
+    © 2026 The Yard Lab Publishing Group, LLC
+    <span class="sep">·</span>
+    <a href="/">Visit The Yard Lab</a>
+    <span class="sep">·</span>
+    <a href="/books/francis-keene">Editorial Page</a>
+  </div>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-section').forEach(el => io.observe(el));
+  setTimeout(() => {
+    document.querySelectorAll('.fade-section:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 4000);
+
+  // Animate the odometer — increments slowly
+  let odo = 4213;
+  const odoSpans = document.querySelectorAll('.odometer span');
+  setInterval(() => {
+    odo += 1;
+    const str = String(odo).padStart(6, '0');
+    odoSpans.forEach((s, i) => s.textContent = str[i]);
+  }, 1500);
+</script>
+
+</body>
+</html>

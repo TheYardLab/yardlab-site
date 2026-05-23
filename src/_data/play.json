@@ -1,0 +1,37 @@
+{
+  "tagline": "Jack Plummer hasn't slept in months. <em>Then he finds a video store that shouldn't exist.</em>",
+  "synopsis_heading": "Pick a movie. Don't rewind. <em>Sleep</em>.",
+  "synopsis_paragraphs": [
+    "Jack Plummer hasn't slept in months. Doctors can't help. Pills don't work. Nights stretch endlessly until exhaustion becomes a way of life. Then, at two in the morning, he finds something impossible: a fully stocked, twenty-four-hour VHS rental store in San Francisco — a relic of the past that shouldn't exist anymore.",
+    "The tapes work. Jack sleeps — deeply, completely — for the first time in years. But the sleep comes with side effects. Lost hours. Blackouts. Memories that don't come back the same way they left. Faces blur. Words vanish. Phone calls are made that Jack can't remember placing.",
+    "The more he returns to the store, the more it seems to know exactly what he's lost — and what he's willing to sacrifice to forget. As the boundaries between waking life, memory, and recorded media begin to dissolve, Jack realizes the tapes aren't just helping him rest.",
+    "A haunting, slow-burn psychological horror novel about insomnia, grief, and the terrifying cost of nostalgia."
+  ],
+  "rules_heading": "There are <em>only four rules.</em>",
+  "rules_sub": "Posted by the register at Play It Again Video. The new member tags don't mention what happens if you break them.",
+  "rules": ["Pick a movie.", "Don't rewind.", "Sleep.", "Bring it back when you're done."],
+  "pull_quote": "Insomnia had started to feel less like a medical condition and more like a haunting.",
+  "pull_quote_attribution": "From Chapter One",
+  "comps": [
+    { "num": "01", "name": "Grady Hendrix", "desc": "The pop-culture dread of <em>Horrorstör</em> meets a quieter, sadder grief." },
+    { "num": "02", "name": "Paul Tremblay", "desc": "Slow-burn psychological horror where the threat is half-internal." },
+    { "num": "03", "name": "Stephen King", "desc": "Lonely men, small obsessions, a town that knows too much." },
+    { "num": "04", "name": "Analog Horror", "desc": "If <em>The Ring</em> scared you as a kid and <em>Skinamarink</em> scared you as an adult." }
+  ],
+  "praise": [
+    { "quote": "Read it in two sittings, then couldn't sleep — which felt thematically appropriate. Furry writes loneliness like a horror element.", "by": "Advance Reader" },
+    { "quote": "A love letter to video stores written in the language of nightmares. The wall scene is going to live in my head.", "by": "Advance Reader" },
+    { "quote": "The most unsettling book I've read this year. Quiet, patient, devastating.", "by": "Advance Reader" }
+  ],
+  "audiobook_heading": "Press play. <em>Close your eyes.</em>",
+  "audiobook_narrator": "Narrated by Spencer David Blair.",
+  "audiobook_body": "Some horror is meant to be heard. The full novel, performed in a voice that knows exactly when to whisper and exactly when to stop. Perfect for late-night drives, longer walks, and the hours when you should be sleeping.",
+  "retailers": [
+    { "name": "Amazon", "url": "https://www.amazon.com/s?k=Play+M+Patrick+Furry" },
+    { "name": "Barnes & Noble", "url": "https://www.barnesandnoble.com/s/Play+M+Patrick+Furry" },
+    { "name": "Bookshop.org", "url": "https://bookshop.org/search?keywords=Play+M+Patrick+Furry" },
+    { "name": "Apple Books", "url": "https://books.apple.com/search?term=Play+M+Patrick+Furry" },
+    { "name": "Kobo", "url": "https://www.kobo.com/us/en/search?query=Play+M+Patrick+Furry" },
+    { "name": "Audible", "url": "https://www.audible.com/search?keywords=Play+M+Patrick+Furry" }
+  ]
+}

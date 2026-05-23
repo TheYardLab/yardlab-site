@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title or settings.site_name }}</title>
+<meta name="description" content="{{ description or settings.tagline }}">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+{% block head %}{% endblock %}
+</head>
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce">
+  <span class="pin">●</span>
+  {{ settings.announcement_text | safe }} &nbsp; <a href="{{ settings.announcement_link_url }}">{{ settings.announcement_link_text }} →</a>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <img src="/assets/yardlab-icon.png" alt="The Yard Lab" class="logo-mark">
+      <span class="logo-text">
+        <span class="logo-name">The Yard Lab<span class="ampersand">.</span></span>
+        <span class="logo-sub">Publishing Group · Est. {{ settings.founded_year }}</span>
+      </span>
+    </a>
+    <nav class="primary">
+      <a href="/#catalog"{% if active_nav == 'catalog' %} class="active"{% endif %}>Catalog</a>
+      <a href="/#lab"{% if active_nav == 'lab' %} class="active"{% endif %}>The Lab.</a>
+      <a href="/#reading-room"{% if active_nav == 'reading' %} class="active"{% endif %}>Reading Room</a>
+      <a href="/#authors"{% if active_nav == 'authors' %} class="active"{% endif %}>Authors</a>
+      <a href="/#submissions"{% if active_nav == 'submissions' %} class="active"{% endif %}>Submissions</a>
+      <a href="/#about"{% if active_nav == 'about' %} class="active"{% endif %}>About</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#" aria-label="Search">
+        <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      </a>
+      <a href="/#newsletter">Subscribe</a>
+    </div>
+  </div>
+</header>
+
+{{ content | safe }}
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="/assets/yardlab-logo-full-light.png" alt="The Yard Lab Publishing Group" class="footer-logo-image">
+        <p>{{ settings.tagline | safe }}</p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Catalog</h5>
+        <ul>
+          {% for book in catalog %}
+          <li><a href="{{ book.page_link }}">{{ book.title }}</a></li>
+          {% endfor %}
+          <li><a href="#">Forthcoming</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>The Lab.</h5>
+        <ul>
+          <li><a href="/#lab">About the Annual</a></li>
+          <li><a href="/#submissions">Submit</a></li>
+          <li><a href="#">Subscribe</a></li>
+          <li><a href="#">Archive</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>The Press</h5>
+        <ul>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#submissions">Submissions</a></li>
+          <li><a href="/#authors">Authors</a></li>
+          <li><a href="/#reading-room">Reading Room</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="/#newsletter">Newsletter</a></li>
+          {% if settings.instagram_url %}<li><a href="{{ settings.instagram_url }}">Instagram</a></li>{% endif %}
+          {% if settings.bluesky_url %}<li><a href="{{ settings.bluesky_url }}">Bluesky</a></li>{% endif %}
+          <li><a href="mailto:{{ settings.contact_email }}">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="colophon">Set in Cormorant Garamond &amp; EB Garamond. Printed in California.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">© 2026 The Yard Lab Publishing Group, LLC</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 4000);
+</script>
+
+</body>
+</html>

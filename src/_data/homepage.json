@@ -1,0 +1,43 @@
+{
+  "hero_eyebrow": "The Yard Lab Publishing Group · Independent Press · Est. 2023",
+  "hero_headline": "Fiction that earns its <em>strangeness</em>.",
+  "hero_description": "We are an independent publisher of literary horror, speculative novels, and short fiction. We read every submission. We pay our writers. We publish the work that doesn't quite fit anywhere else.",
+
+  "now_reading_title": "The Lab. <em>Annual</em>",
+  "now_reading_issue": "N°1 · 2026",
+  "now_reading_desc": "Our inaugural annual — short fiction, novel excerpts, and prose miscellany from independent writers. Open to all submissions. No reading fees. We pay on acceptance.",
+  "now_reading_deadline": "January 31, 2026",
+
+  "catalog_heading": "Our <em>catalog</em>.",
+  "catalog_sub": "Two novels and an annual — what we've published so far.",
+
+  "excerpt_category": "An Excerpt · From The Lab.",
+  "excerpt_reading_time": "3 Min Read",
+  "excerpt_title": "The hours before <em>morning</em>.",
+  "excerpt_byline": "From the opening of <em>Play</em> — M. Patrick Furry",
+  "excerpt_body": "Jack had given up on the word *tired*. The word had stopped meaning anything around month four, when sleep became less of an event and more of a rumor — something other people did, in other rooms, at appropriate hours.\n\nWhat he had instead was a long grey corridor of time that started at eleven and ended whenever the light came back. He walked it. He read paperbacks he could no longer remember the next morning. He learned which floorboards in the apartment creaked and which ones lied.\n\nIt was on the long grey corridor — on the fourth or fifth or possibly hundredth night of it — that he walked past the storefront on Columbus Avenue and saw the neon sign humming, even though the building had been empty since spring.",
+  "excerpt_link": "/play/",
+  "excerpt_link_text": "Continue reading",
+
+  "currently_title": "What the press is <em>doing</em> this season.",
+  "currently_items": [
+    { "when": "Reading", "what": "Open submissions for <em>The Lab. Annual N°1</em>" },
+    { "when": "Promoting", "what": "<em>Play</em> — debut horror novel from M. Patrick Furry" },
+    { "when": "Editing", "what": "Manuscript by a forthcoming author — announcing spring" },
+    { "when": "Watching", "what": "Film & TV development on <em>Francis Keene</em>" },
+    { "when": "Building", "what": "Print production for the annual's Fall 2026 release" }
+  ],
+
+  "mission_text": "We publish writers whose work doesn't quite fit anywhere else — literary horror, speculative fiction, and short stories that earn their strangeness. We read every submission, and we pay our writers.",
+  "mission_attribution": "The Yard Lab Editorial Board",
+
+  "milestones": [
+    { "year": "2023", "event": "<em>The Yard Lab</em> founded", "note": "Novato, California" },
+    { "year": "2024", "event": "First seven issues of <em>The Lab. Magazine</em>", "note": "Quarterly · Fall 23 — Summer 24" },
+    { "year": "2025", "event": "First novel: <em>The Casual Oblivion of Francis Keene</em>", "note": "M. Patrick Furry" },
+    { "year": "2026", "event": "<em>Play</em> + the inaugural <em>Annual N°1</em>", "note": "Hardcover · Audio · Print" }
+  ],
+
+  "submissions_intro": "<em>The Lab. Annual N°1</em> is open for submissions through January 31, 2026. We welcome short fiction, novel excerpts, and prose miscellany from independent and emerging writers.",
+  "submissions_detail": "Full manuscripts and book-length projects are accepted by query first. We respond to every submission. Simultaneous submissions are welcome — just let us know."
+}

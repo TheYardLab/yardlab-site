@@ -1,0 +1,316 @@
+---
+layout: base.njk
+title: The Casual Oblivion of Francis Keene — A Novel by M. Patrick Furry | The Yard Lab Publishing Group
+description: Three generations. Four thousand miles. One spectacular final hustle. A road-trip novel about the terrible grace of finally seeing your family clearly.
+permalink: /books/francis-keene/index.html
+active_nav: catalog
+---
+
+<style>
+:root {
+  --keene-midnight: #1a2b3d;
+  --keene-deep: #0f1d2c;
+  --keene-brass: #b89968;
+  --keene-brass-bright: #d4b88a;
+  --keene-cream: #ede5d3;
+}
+
+.breadcrumb { max-width: 1400px; margin: 0 auto; padding: 28px 40px 0; font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+.breadcrumb a { color: var(--ink-muted); }
+.breadcrumb a:hover { color: var(--keene-midnight); }
+.breadcrumb .sep { margin: 0 10px; color: var(--rule-strong); }
+
+.book-hero { max-width: 1400px; margin: 0 auto; padding: 60px 40px 100px; }
+.book-hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.book-hero-meta { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+.book-hero-meta .badge { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--keene-cream); background: var(--keene-midnight); padding: 5px 10px; }
+.book-hero-meta .meta-text { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-faint); }
+
+.book-hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(48px, 7vw, 92px); line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink); }
+.book-hero h1 .casual, .book-hero h1 .of-francis { display: block; font-size: 0.55em; font-weight: 400; color: var(--ink-muted); letter-spacing: 0.02em; line-height: 1.1; }
+.book-hero h1 .oblivion { display: block; font-style: italic; font-weight: 500; color: var(--keene-midnight); margin: 4px 0; }
+.book-hero .byline { font-family: var(--font-display); font-style: italic; font-size: 24px; color: var(--ink-muted); margin: 32px 0; }
+.book-hero .byline a { color: var(--ink); border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+.book-hero .byline a:hover { border-color: var(--keene-brass); color: var(--keene-midnight); }
+.book-hero p.tagline { font-family: var(--font-display); font-style: italic; font-size: 28px; line-height: 1.25; color: var(--ink); margin-bottom: 36px; max-width: 540px; }
+.book-hero p.tagline em { font-style: italic; color: var(--keene-midnight); }
+.book-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 28px; }
+.book-hero-formats { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); }
+.book-hero-formats .dot { color: var(--keene-brass); margin: 0 8px; }
+.book-hero-actions .btn-primary { background: var(--keene-midnight); }
+.book-hero-actions .btn-primary:hover { background: var(--keene-deep); }
+.book-hero-actions .btn-ghost { border-color: var(--keene-midnight); color: var(--keene-midnight); }
+.book-hero-actions .btn-ghost:hover { background: var(--keene-midnight); color: var(--keene-cream); }
+
+.cta-link-immersive { display: inline-block; margin-top: 24px; font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--keene-midnight); border-bottom: 1px solid var(--keene-midnight); padding-bottom: 3px; }
+.cta-link-immersive::after { content: ' ↗'; }
+.cta-link-immersive:hover { background: var(--keene-midnight); color: var(--keene-cream); padding: 4px 10px; }
+
+.book-hero-cover { display: flex; justify-content: center; }
+.book-hero-cover .cover-keene { width: 100%; max-width: 460px; aspect-ratio: 5/8; box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 8px 16px rgba(26, 20, 16, 0.15), 0 30px 60px rgba(26, 20, 16, 0.3); transform: rotate(-1.5deg); transition: transform 0.5s; }
+.book-hero-cover .cover-keene:hover { transform: rotate(0) translateY(-4px); }
+.book-hero-cover .cover-keene .t-small { font-size: 22px; }
+.book-hero-cover .cover-keene .t-big { font-size: 60px; }
+
+/* Three facts banner */
+.facts-banner { background: var(--keene-midnight); color: var(--keene-cream); padding: 60px 40px; }
+.facts-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+.fact { position: relative; }
+.fact:not(:last-child)::after { content: ''; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); width: 1px; height: 60%; background: rgba(184, 153, 104, 0.3); }
+.fact .number { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 64px; line-height: 1; color: var(--keene-brass-bright); margin-bottom: 8px; letter-spacing: -0.02em; }
+.fact .label { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(237, 229, 211, 0.7); }
+
+/* Synopsis */
+.synopsis { background: var(--paper-deep); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 100px 40px; }
+.synopsis-inner { max-width: 880px; margin: 0 auto; }
+.synopsis .section-label { justify-content: center; color: var(--keene-midnight); }
+.synopsis .section-label::before { background: var(--keene-midnight); }
+.synopsis .section-title { text-align: center; margin: 0 auto 48px; }
+.synopsis .section-title em { color: var(--keene-midnight); }
+.synopsis p { font-size: 21px; line-height: 1.6; color: var(--ink); margin-bottom: 22px; }
+.synopsis p:first-of-type::first-letter { font-family: var(--font-display); font-weight: 600; font-size: 3.6em; line-height: 0.85; float: left; margin: 0.06em 0.1em 0 0; color: var(--keene-midnight); }
+.synopsis p:last-of-type { font-style: italic; color: var(--ink-muted); font-size: 20px; text-align: center; max-width: 640px; margin: 32px auto 0; }
+.synopsis p em { font-style: italic; }
+
+/* The Tells dictionary card */
+.tells { padding: 120px 40px; background: radial-gradient(ellipse at center, var(--paper) 0%, var(--paper-deep) 100%); }
+.tells-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+.tells .section-label { justify-content: center; color: var(--keene-midnight); margin-bottom: 16px; }
+.tells .section-label::before { background: var(--keene-midnight); }
+.tells h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 5.5vw, 64px); line-height: 1.05; letter-spacing: -0.015em; margin-bottom: 24px; color: var(--ink); }
+.tells h2 em { font-style: italic; color: var(--keene-midnight); }
+.tells .tells-sub { font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--ink-muted); margin-bottom: 64px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.tells-card { background: var(--paper); border: 1px solid var(--paper-edge); padding: 56px 48px; max-width: 720px; margin: 0 auto; position: relative; text-align: left; box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 10px 30px rgba(26, 20, 16, 0.08), 0 30px 60px rgba(26, 20, 16, 0.12); }
+.tells-card::after { content: ''; position: absolute; inset: 14px; border: 1px solid var(--rule); pointer-events: none; }
+.tells-card .glossary-label { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: var(--keene-brass); margin-bottom: 16px; text-align: center; }
+.tells-card .term { font-family: var(--font-display); font-weight: 500; font-size: 48px; line-height: 1; letter-spacing: -0.01em; text-align: center; margin-bottom: 6px; color: var(--ink); }
+.tells-card .term em { font-style: italic; color: var(--keene-midnight); }
+.tells-card .pronunciation { font-family: var(--font-display); font-style: italic; font-size: 18px; color: var(--ink-faint); text-align: center; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
+.tells-card .part-of-speech { font-family: var(--font-display); font-style: italic; font-size: 16px; color: var(--keene-brass); margin-bottom: 12px; }
+.tells-card .definition { font-family: var(--font-display); font-size: 20px; line-height: 1.55; color: var(--ink); margin-bottom: 20px; }
+.tells-card .definition .num { font-family: var(--font-display); font-style: italic; font-weight: 500; color: var(--keene-brass); margin-right: 8px; }
+.tells-card .usage { font-family: var(--font-display); font-style: italic; font-size: 17px; color: var(--ink-muted); padding-left: 24px; border-left: 2px solid var(--keene-brass); margin-top: 24px; }
+
+/* Pull quote */
+.pull-quote { padding: 120px 40px; text-align: center; background: var(--keene-midnight); color: var(--keene-cream); position: relative; overflow: hidden; }
+.pull-quote-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+.pull-quote blockquote { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(32px, 4.5vw, 54px); line-height: 1.2; color: var(--keene-cream); }
+.pull-quote blockquote::before { content: '“'; display: block; color: var(--keene-brass-bright); font-size: 1.4em; line-height: 0.5; margin-bottom: 8px; }
+.pull-quote cite { display: block; margin-top: 40px; font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(237, 229, 211, 0.5); font-style: normal; }
+
+/* Trip itinerary */
+.trip { max-width: 1400px; margin: 0 auto; padding: 100px 40px; }
+.trip .section-label { color: var(--keene-midnight); }
+.trip .section-label::before { background: var(--keene-midnight); }
+.trip .section-title em { color: var(--keene-midnight); }
+.trip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+.stop-card { background: var(--paper-deep); border: 1px solid var(--paper-edge); padding: 36px 32px; position: relative; transition: all 0.3s; }
+.stop-card:hover { border-color: var(--keene-midnight); transform: translateY(-4px); }
+.stop-num { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 52px; line-height: 1; color: var(--keene-brass); margin-bottom: 12px; }
+.stop-place { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 14px; }
+.stop-card h4 { font-family: var(--font-display); font-weight: 500; font-size: 26px; line-height: 1.15; margin-bottom: 12px; color: var(--ink); }
+.stop-card h4 em { font-style: italic; }
+.stop-card p { font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--ink-muted); }
+
+/* Praise */
+.praise { background: var(--paper-deep); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 100px 40px; }
+.praise-inner { max-width: 1100px; margin: 0 auto; }
+.praise .section-label { color: var(--keene-midnight); }
+.praise .section-label::before { background: var(--keene-midnight); }
+.praise .section-title em { color: var(--keene-midnight); }
+.praise-grid { display: grid; gap: 40px; margin-top: 50px; }
+.praise-item { border-left: 3px solid var(--keene-brass); padding: 8px 0 8px 32px; }
+.praise-item blockquote { font-family: var(--font-display); font-style: italic; font-size: 24px; line-height: 1.5; margin-bottom: 14px; color: var(--ink); max-width: 880px; }
+.praise-item blockquote::before { content: '“'; color: var(--keene-brass); }
+.praise-item blockquote::after { content: '”'; color: var(--keene-brass); }
+.praise-item cite { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-faint); font-style: normal; }
+.praise-item cite .stars { color: var(--keene-brass); margin-right: 10px; letter-spacing: 0.1em; }
+
+/* Development */
+.development { background: var(--keene-deep); color: var(--keene-cream); padding: 80px 40px; position: relative; overflow: hidden; }
+.development-inner { max-width: 1000px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
+.development .dev-label { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: var(--keene-brass-bright); margin-bottom: 20px; }
+.development h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(32px, 4.5vw, 48px); line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 16px; color: var(--keene-cream); }
+.development h2 em { font-style: italic; color: var(--keene-brass-bright); }
+.development p { font-family: var(--font-display); font-style: italic; font-size: 19px; color: rgba(237, 229, 211, 0.7); max-width: 700px; margin: 0 auto; }
+
+/* Buy */
+.buy { padding: 120px 40px; text-align: center; background: radial-gradient(ellipse at top, rgba(26, 43, 61, 0.08) 0%, transparent 60%), var(--paper); }
+.buy-inner { max-width: 900px; margin: 0 auto; }
+.buy .section-label { justify-content: center; color: var(--keene-midnight); }
+.buy .section-label::before { background: var(--keene-midnight); }
+.buy h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(44px, 6vw, 78px); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 16px; }
+.buy h2 em { font-style: italic; color: var(--keene-midnight); }
+.buy-sub { font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--ink-muted); margin-bottom: 56px; }
+.retailers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 720px; margin: 0 auto; }
+.retailer { display: block; padding: 22px 28px; border: 1px solid var(--rule-strong); color: var(--ink); text-decoration: none; font-family: var(--font-ui); font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; transition: all 0.2s; }
+.retailer:hover { background: var(--keene-midnight); border-color: var(--keene-midnight); color: var(--keene-cream); transform: translateY(-2px); }
+
+@media (max-width: 1024px) {
+  .book-hero-grid { grid-template-columns: 1fr; gap: 60px; }
+  .book-hero-cover { order: -1; }
+  .facts-inner { gap: 24px; }
+  .fact:not(:last-child)::after { right: -12px; height: 50%; }
+  .trip-grid { grid-template-columns: 1fr; gap: 20px; }
+  .retailers { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .breadcrumb { padding: 20px 20px 0; font-size: 10px; }
+  .book-hero, .trip { padding: 60px 20px; }
+  .synopsis, .tells, .pull-quote, .praise, .development, .buy { padding: 70px 20px; }
+  .facts-banner { padding: 50px 20px; }
+  .facts-inner { grid-template-columns: 1fr; gap: 32px; }
+  .fact:not(:last-child)::after { right: 50%; top: auto; bottom: -16px; transform: translateX(50%); width: 60%; height: 1px; }
+  .fact .number { font-size: 48px; }
+  .book-hero h1 { font-size: 48px; }
+  .book-hero p.tagline { font-size: 22px; }
+  .tells-card { padding: 36px 24px; }
+  .tells-card .term { font-size: 36px; }
+  .retailers { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a> <span class="sep">/</span> <a href="/#catalog">Catalog</a> <span class="sep">/</span> The Casual Oblivion of Francis Keene
+</div>
+
+<!-- BOOK HERO -->
+<section class="book-hero">
+  <div class="book-hero-grid">
+    <div class="book-hero-text">
+      <div class="book-hero-meta">
+        <span class="badge">Available</span>
+        <span class="meta-text">A Novel · Literary Fiction · 2025</span>
+      </div>
+      <h1>
+        <span class="casual">The Casual</span>
+        <span class="oblivion">Oblivion</span>
+        <span class="of-francis">of Francis Keene</span>
+      </h1>
+      <p class="byline">By <a href="/#authors">M. Patrick Furry</a></p>
+      <p class="tagline">{{ francis_keene.tagline | safe }}</p>
+      <div class="book-hero-actions">
+        <a href="#buy" class="btn btn-primary">Order The Book <span class="arrow">→</span></a>
+        <a href="#" class="btn btn-ghost">Read an Excerpt</a>
+      </div>
+      <div class="book-hero-formats">Paperback <span class="dot">·</span> eBook <span class="dot">·</span> Kindle Unlimited</div>
+      <a href="/francis-keene/" class="cta-link-immersive">Take The Trip</a>
+    </div>
+
+    <div class="book-hero-cover">
+      <div class="cover-keene">
+        <div class="label-top">A Novel</div>
+        <div class="title">
+          <span class="t-small">The Casual</span>
+          <span class="t-big">Oblivion</span>
+          <span class="t-small">of Francis Keene</span>
+        </div>
+        <div class="ornament">❦</div>
+        <div class="author">M. Patrick Furry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE FACTS -->
+<div class="facts-banner">
+  <div class="facts-inner">
+    <div class="fact"><div class="number">3</div><div class="label">Generations</div></div>
+    <div class="fact"><div class="number">4,000</div><div class="label">Miles</div></div>
+    <div class="fact"><div class="number">1</div><div class="label">Final Hustle</div></div>
+  </div>
+</div>
+
+<!-- SYNOPSIS -->
+<section class="synopsis fade-in">
+  <div class="synopsis-inner">
+    <div class="section-label">About The Book</div>
+    <h2 class="section-title">{{ francis_keene.synopsis_heading | safe }}</h2>
+    {% for para in francis_keene.synopsis_paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+  </div>
+</section>
+
+<!-- TELLS -->
+<section class="tells fade-in">
+  <div class="tells-inner">
+    <div class="section-label">The Concept</div>
+    <h2>{{ francis_keene.concept_heading | safe }}</h2>
+    <p class="tells-sub">{{ francis_keene.concept_sub }}</p>
+
+    <div class="tells-card">
+      <div class="glossary-label">From The Glossary</div>
+      <div class="term">{{ francis_keene.tells_term | safe }}</div>
+      <div class="pronunciation">{{ francis_keene.tells_pronunciation }}</div>
+      <div class="part-of-speech">noun, plural</div>
+      {% for def in francis_keene.tells_definitions %}
+      <div class="definition"><span class="num">{{ loop.index }}.</span> {{ def }}</div>
+      {% endfor %}
+      <div class="usage">"{{ francis_keene.tells_usage }}"</div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<section class="pull-quote fade-in">
+  <div class="pull-quote-inner">
+    <blockquote>{{ francis_keene.pull_quote }}</blockquote>
+    <cite>{{ francis_keene.pull_quote_attribution }}</cite>
+  </div>
+</section>
+
+<!-- TRIP -->
+<section class="trip fade-in">
+  <div class="section-label">The Journey</div>
+  <h2 class="section-title">Three travelers. <em>One road</em>. Forty-eight hours.</h2>
+  <div class="trip-grid">
+    {% for stop in francis_keene.stops %}
+    <div class="stop-card">
+      <div class="stop-num">{{ stop.roman }}</div>
+      <div class="stop-place">{{ stop.location }}</div>
+      <h4>{{ stop.title | safe }}</h4>
+      <p>{{ stop.desc }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- PRAISE -->
+<section class="praise fade-in">
+  <div class="praise-inner">
+    <div class="section-label">Praise</div>
+    <h2 class="section-title">What <em>readers</em> are saying.</h2>
+    <div class="praise-grid">
+      {% for p in francis_keene.praise %}
+      <div class="praise-item">
+        <blockquote>{{ p.quote }}</blockquote>
+        <cite><span class="stars">★★★★★</span> {{ p.by }}</cite>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPMENT -->
+<section class="development fade-in">
+  <div class="development-inner">
+    <div class="dev-label">★ Currently In Development</div>
+    <h2>{{ francis_keene.development_heading | safe }}</h2>
+    <p>{{ francis_keene.development_body }}</p>
+  </div>
+</section>
+
+<!-- BUY -->
+<section class="buy fade-in" id="buy">
+  <div class="buy-inner">
+    <div class="section-label">Order The Book</div>
+    <h2>One last <em>hustle</em>.</h2>
+    <p class="buy-sub">Available now in paperback, eBook, and on Kindle Unlimited.</p>
+    <div class="retailers">
+      {% for r in francis_keene.retailers %}
+      <a href="{{ r.url }}" target="_blank" rel="noopener noreferrer" class="retailer">{{ r.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>

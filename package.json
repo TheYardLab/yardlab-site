@@ -1,0 +1,14 @@
+{
+  "name": "yardlab-site",
+  "version": "1.0.0",
+  "description": "The Yard Lab Publishing Group — official site",
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "start": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
