@@ -312,23 +312,23 @@ permalink: /index.html
 </section>
 
 <!-- NYT RECOMMENDED READING -->
-<section class="section fade-in" id="recommended" style="border-top: 1px solid var(--rule);">
+<section class="section" id="recommended" style="border-top: 1px solid var(--rule); padding-top: 60px; padding-bottom: 60px;">
   <div class="section-label">Recommended Reading</div>
   <h2 class="section-title">The <em>New York Times</em> 10 Best Books of 2026, So Far.</h2>
   <p class="section-sub">Selected by the Times Book Review staff — titles we're reading, talking about, and pressing into people's hands.</p>
 
-  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-top: 40px;">
+  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 40px;">
     {% for book in catalog %}{% if book.nyt_best %}
     <a href="{{ book.page_link }}" class="news-card" target="_blank" rel="noopener" style="text-decoration:none;">
       <div class="news-date">{{ book.format }}</div>
-      <h4 style="font-size:20px; margin-bottom:8px;">{{ book.title_html | safe }}</h4>
-      <p style="font-family:var(--font-display); font-style:italic; font-size:15px; color:var(--ink-muted); margin-bottom:10px;">{{ book.author }}</p>
-      <p style="font-size:14px; line-height:1.5; color:var(--ink-muted); margin-bottom:14px;">{{ book.description }}</p>
+      <h4 style="font-size:19px; margin-bottom:6px;">{{ book.title_html | safe }}</h4>
+      <p style="font-family:var(--font-display); font-style:italic; font-size:14px; color:var(--ink-muted); margin-bottom:10px;">{{ book.author }}</p>
+      <p style="font-size:13px; line-height:1.5; color:var(--ink-muted); margin-bottom:14px;">{{ book.description }}</p>
       <span class="read-more">Find it at Bookshop</span>
     </a>
     {% endif %}{% endfor %}
   </div>
-  <p style="margin-top:32px; font-family:var(--font-ui); font-size:11px; color:var(--ink-faint); letter-spacing:0.15em; text-transform:uppercase;">Bookshop links support independent bookstores. Yard Lab may earn a small commission.</p>
+  <p style="margin-top:24px; font-family:var(--font-ui); font-size:11px; color:var(--ink-faint); letter-spacing:0.15em; text-transform:uppercase;">Bookshop links support independent bookstores.</p>
 </section>
 
 <!-- READING ROOM -->
