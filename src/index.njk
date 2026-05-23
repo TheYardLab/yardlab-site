@@ -477,20 +477,22 @@ permalink: /index.html
       <p>{{ homepage.submissions_intro | safe }}</p>
       <p>{{ homepage.submissions_detail | safe }}</p>
       <form action="https://formspree.io/f/team@theyardlab.com" method="POST" id="submit-form" style="margin-top:24px;">
-        <input type="hidden" name="_subject" value="Submission Inquiry — The Yard Lab">
+        <input type="hidden" name="_subject" value="Submission — The Yard Lab">
         <div style="display:flex;flex-direction:column;gap:12px;max-width:460px;">
           <input type="text" name="name" placeholder="Your name" required style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
           <input type="email" name="email" placeholder="your@email.com" required style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
-          <input type="text" name="title" placeholder="Work title" style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
+          <input type="text" name="title" placeholder="Work title" required style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
+          <input type="number" name="wordcount" placeholder="Word count" min="1" style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
           <select name="type" required style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
             <option value="">Type of submission…</option>
             <option>Short Fiction (up to 7,500 words)</option>
             <option>Novel Excerpt (up to 15,000 words)</option>
             <option>Full Manuscript (query first)</option>
           </select>
-          <button type="submit" class="btn btn-primary" id="submit-btn">Send Submission <span class="arrow">→</span></button>
+          <textarea name="bio" placeholder="Brief bio (2–3 sentences)" rows="3" style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);resize:vertical;"></textarea>
+          <button type="submit" class="btn btn-primary" id="submit-btn">Submit <span class="arrow">→</span></button>
         </div>
-        <div id="submit-msg" style="margin-top:12px;font-family:var(--font-ui);font-size:13px;"></div>
+        <div id="submit-msg" style="margin-top:12px;font-family:var(--font-ui);font-size:13px;line-height:1.6;"></div>
       </form>
     </div>
 
@@ -576,17 +578,17 @@ permalink: /index.html
       headers: { 'Accept': 'application/json' }
     }).then(function(r) {
       if (r.ok) {
-        btn.textContent = '✓ Received!';
-        msg.textContent = 'Thanks — we\'ll be in touch within 8 weeks.';
-        msg.style.color = 'var(--oxblood)';
+        btn.textContent = '✓ Details received!';
+        msg.innerHTML = 'Thanks — one last step: email your manuscript as a <strong>.docx or .pdf</strong> to <a href="mailto:team@theyardlab.com?subject=Manuscript%20Attached" style="color:var(--oxblood);border-bottom:1px solid var(--oxblood);">team@theyardlab.com</a> with your name and title in the subject line. We respond to every submission within 8 weeks.';
+        msg.style.color = 'var(--ink)';
         form.reset();
       } else {
-        btn.textContent = 'Send Submission →';
+        btn.textContent = 'Submit →';
         btn.disabled = false;
         msg.textContent = 'Something went wrong. Email us directly at team@theyardlab.com.';
       }
     }).catch(function() {
-      btn.textContent = 'Send Submission →';
+      btn.textContent = 'Submit →';
       btn.disabled = false;
       msg.textContent = 'Something went wrong. Email us directly at team@theyardlab.com.';
     });
