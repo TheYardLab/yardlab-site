@@ -650,14 +650,13 @@ footer.site-footer {
 
 /* ============ FADE IN ON SCROLL ============ */
 .fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.9s, transform 0.9s;
+  opacity: 1;
+  transform: none;
 }
 
 .fade-in.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* ============ MOBILE BASE ============ */
