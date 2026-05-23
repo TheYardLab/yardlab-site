@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-01-15",
+    "headline": "<em>The Lab. Annual N°1</em> opens for submissions.",
+    "summary": "Our inaugural annual is open for submissions through January 31. Read the call and guidelines.",
+    "link": "#submissions",
+    "label": "Submission call",
+    "order": 1
+  },
+  {
+    "date": "2025-12-10",
+    "headline": "The press goes annual <em>—</em> a note on the rebrand.",
+    "summary": "An editor's note on why we're moving <em>The Lab.</em> from quarterly to annual, and what to expect.",
+    "link": "#",
+    "label": "Read the note",
+    "order": 2
+  },
+  {
+    "date": "2025-11-04",
+    "headline": "Francis Keene optioned for <em>film &amp; television</em>.",
+    "summary": "Furry's speculative novel <em>The Casual Oblivion of Francis Keene</em> enters early development.",
+    "link": "#",
+    "label": "Press release",
+    "order": 3
+  }
+]

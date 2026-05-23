@@ -1,0 +1,38 @@
+[
+  {
+    "title": "On writing analog horror in a streaming age.",
+    "category": "Essay · The Craft",
+    "reading_time": "12 Min Read",
+    "byline": "By M. Patrick Furry",
+    "published": "2026-01-08",
+    "snippet": "When I started <em>Play</em>, I knew the central image — a man entering a 24-hour video store that shouldn't exist — but I didn't know yet why he kept going back. The answer turned out to be older than any technology in the book, and it took three drafts to find it.",
+    "image_style": "play",
+    "link": "#",
+    "featured": true,
+    "order": 1
+  },
+  {
+    "title": "Why we made <em>The Lab.</em> an annual.",
+    "category": "Editor's Note",
+    "reading_time": "6 Min Read",
+    "byline": "By Burgen Fiese, Editor",
+    "published": "2025-12-05",
+    "snippet": "The decision to move from quarterly to annual wasn't about scaling back. It was about giving each issue room to mean something — and giving our writers more than ninety days of shelf life.",
+    "image_style": "infinity",
+    "link": "#",
+    "featured": false,
+    "order": 2
+  },
+  {
+    "title": "The Tells: a conversation about <em>Francis Keene</em>.",
+    "category": "Interview",
+    "reading_time": "18 Min Read",
+    "byline": "M. Patrick Furry & Sydney Gott",
+    "published": "2025-11-12",
+    "snippet": "On grief, generational inheritance, and writing a conman with a conscience. We sat down with Furry the week before the paperback shipped to talk about the book's long road from short story to novel.",
+    "image_style": "quote",
+    "link": "#",
+    "featured": false,
+    "order": 3
+  }
+]

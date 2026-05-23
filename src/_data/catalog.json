@@ -1,0 +1,44 @@
+[
+  {
+    "title": "The Casual Oblivion of Francis Keene",
+    "title_html": "The Casual <em>Oblivion</em> of Francis Keene",
+    "author": "M. Patrick Furry",
+    "format": "Paperback & eBook · Available",
+    "description": "Three generations. Four thousand miles. One spectacular final hustle. A road-trip novel about the terrible grace of finally seeing your family clearly.",
+    "shelf_talk": "Funny, razor-sharp, and devastatingly tender. The ending will sit with you for weeks.",
+    "shelf_talk_by": "Yard Lab editorial",
+    "cover_style": "keene",
+    "cover_image": "",
+    "page_link": "/books/francis-keene/",
+    "order": 1,
+    "in_catalog": true
+  },
+  {
+    "title": "Play.",
+    "title_html": "Play<em>.</em>",
+    "author": "M. Patrick Furry",
+    "format": "Hardcover & Audiobook · Available",
+    "description": "A psychological horror novel about a 24-hour VHS rental store that shouldn't exist, the insomniac it cures, and the price of every tape.",
+    "shelf_talk": "For readers of Grady Hendrix and Paul Tremblay. A slow-burn that earns its dread.",
+    "shelf_talk_by": "Yard Lab editorial",
+    "cover_style": "image",
+    "cover_image": "/assets/play-cover.jpg",
+    "page_link": "/books/play/",
+    "order": 2,
+    "in_catalog": true
+  },
+  {
+    "title": "The Lab.",
+    "title_html": "The Lab.",
+    "author": "N°1 · Annual 2026",
+    "format": "Annual · Forthcoming Fall 2026",
+    "description": "Our inaugural annual publication of short fiction and essays. Currently reading submissions through January 31.",
+    "shelf_talk": "We read every story. We respond to every writer. We pay on acceptance.",
+    "shelf_talk_by": "Burgen Fiese, Editor",
+    "cover_style": "lab",
+    "cover_image": "",
+    "page_link": "#lab",
+    "order": 3,
+    "in_catalog": true
+  }
+]
