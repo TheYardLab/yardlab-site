@@ -311,6 +311,26 @@ permalink: /index.html
   </div>
 </section>
 
+<!-- NYT RECOMMENDED READING -->
+<section class="section fade-in" id="recommended" style="border-top: 1px solid var(--rule);">
+  <div class="section-label">Recommended Reading</div>
+  <h2 class="section-title">The <em>New York Times</em> 10 Best Books of 2026, So Far.</h2>
+  <p class="section-sub">Selected by the Times Book Review staff — titles we're reading, talking about, and pressing into people's hands.</p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-top: 40px;">
+    {% for book in catalog %}{% if book.nyt_best %}
+    <a href="{{ book.page_link }}" class="news-card" target="_blank" rel="noopener" style="text-decoration:none;">
+      <div class="news-date">{{ book.format }}</div>
+      <h4 style="font-size:20px; margin-bottom:8px;">{{ book.title_html | safe }}</h4>
+      <p style="font-family:var(--font-display); font-style:italic; font-size:15px; color:var(--ink-muted); margin-bottom:10px;">{{ book.author }}</p>
+      <p style="font-size:14px; line-height:1.5; color:var(--ink-muted); margin-bottom:14px;">{{ book.description }}</p>
+      <span class="read-more">Find it at Bookshop</span>
+    </a>
+    {% endif %}{% endfor %}
+  </div>
+  <p style="margin-top:32px; font-family:var(--font-ui); font-size:11px; color:var(--ink-faint); letter-spacing:0.15em; text-transform:uppercase;">Bookshop links support independent bookstores. Yard Lab may earn a small commission.</p>
+</section>
+
 <!-- READING ROOM -->
 <section class="reading-room fade-in" id="reading-room">
   <div class="reading-room-inner">
@@ -319,7 +339,7 @@ permalink: /index.html
         <div class="section-label">The Reading Room</div>
         <h2 class="section-title">Essays, notes, and <em>dispatches</em> from the press.</h2>
       </div>
-      <a href="#" class="view-all">All Articles</a>
+      <a href="/#reading-room" class="view-all">All Articles</a>
     </div>
 
     <div class="articles-grid">
@@ -385,7 +405,7 @@ permalink: /index.html
       </div>
       <div class="lab-actions">
         <a href="#submissions" class="btn btn-light">Submit to The Lab. <span class="arrow">→</span></a>
-        <a href="#" class="btn btn-outline-light">Subscribe</a>
+        <a href="/#newsletter" class="btn btn-outline-light">Subscribe</a>
       </div>
     </div>
     <div class="lab-cover-display">
@@ -458,7 +478,7 @@ permalink: /index.html
       <h2>We're <em>reading</em>.</h2>
       <p>{{ homepage.submissions_intro | safe }}</p>
       <p>{{ homepage.submissions_detail | safe }}</p>
-      <a href="#" class="btn btn-primary" style="margin-top: 16px;">Full Guidelines <span class="arrow">→</span></a>
+      <a href="mailto:team@theyardlab.com?subject=Submission%20Guidelines%20Request" class="btn btn-primary" style="margin-top: 16px;">Full Guidelines <span class="arrow">→</span></a>
     </div>
 
     <div class="submissions-stats">
@@ -487,9 +507,7 @@ permalink: /index.html
     </div>
     {% endfor %}
   </div>
-  <div class="team-pets">
-    <em>Webmaster:</em> Poe Ripley <span>·</span> <em>Office dogs:</em> Poe &amp; Harriet
-  </div>
+
 </section>
 
 <!-- NEWS -->
@@ -517,10 +535,18 @@ permalink: /index.html
     <div class="section-label">From the Press</div>
     <h2>Letters from <em>the lab.</em></h2>
     <p>A monthly dispatch on new books, the annual, open reading periods, and the work behind the work. No spam.</p>
-    <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent = '✓ Check your inbox';">
-      <input type="email" placeholder="your@email.com" required>
+    <form class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+      <input type="email" id="newsletter-email" placeholder="your@email.com" required>
       <button type="submit">Subscribe</button>
     </form>
     <div class="fine-print">Unsubscribe at any time</div>
   </div>
 </section>
+
+<script>
+function handleNewsletterSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('newsletter-email').value;
+  window.location.href = 'mailto:team@theyardlab.com?subject=Newsletter%20Subscription&body=Please%20subscribe%20me%20to%20Letters%20from%20The%20Lab.%0A%0AEmail%3A%20' + encodeURIComponent(email);
+  e.target.querySelector('button').textContent = '✓ Opening your mail app…';
+}
