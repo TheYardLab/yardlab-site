@@ -117,5 +117,86 @@
   }, 4000);
 </script>
 
+
+<!-- Cookie consent banner -->
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <div class="cookie-banner-inner">
+    <p class="cookie-text">
+      This site uses essential cookies for form submissions and basic functionality. We do not use tracking, analytics, or advertising cookies. <a href="/privacy/">Privacy policy</a>.
+    </p>
+    <div class="cookie-actions">
+      <button type="button" class="cookie-btn cookie-decline" id="cookie-decline">Decline</button>
+      <button type="button" class="cookie-btn cookie-accept" id="cookie-accept">Accept</button>
+    </div>
+  </div>
+</div>
+
+<style>
+.cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--ink); color: var(--paper);
+  border-top: 1px solid var(--gold);
+  padding: 20px 40px; z-index: 1000;
+  font-family: var(--font-ui);
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.18);
+  transform: translateY(100%);
+  transition: transform 0.45s ease;
+}
+.cookie-banner.visible { transform: translateY(0); }
+.cookie-banner-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+.cookie-text {
+  font-size: 13px; line-height: 1.55;
+  color: rgba(244,237,224,0.85); margin: 0;
+  max-width: 760px;
+}
+.cookie-text a {
+  color: var(--gold);
+  border-bottom: 1px solid rgba(184,153,104,0.4);
+  text-decoration: none;
+}
+.cookie-text a:hover { border-bottom-color: var(--gold); }
+.cookie-actions { display: flex; gap: 12px; }
+.cookie-btn {
+  font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 10px 20px; cursor: pointer;
+  border: 1px solid var(--paper); background: transparent; color: var(--paper);
+  transition: all 0.2s;
+}
+.cookie-accept { background: var(--paper); color: var(--ink); }
+.cookie-accept:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+.cookie-decline:hover { border-color: var(--gold); color: var(--gold); }
+@media (max-width: 640px) {
+  .cookie-banner { padding: 16px 20px; }
+  .cookie-banner-inner { gap: 16px; }
+  .cookie-actions { width: 100%; }
+  .cookie-btn { flex: 1; }
+}
+</style>
+
+<script>
+(function() {
+  var KEY = 'yardlab-cookie-consent';
+  var banner = document.getElementById('cookie-banner');
+  if (!banner) return;
+  var stored = null;
+  try { stored = localStorage.getItem(KEY); } catch(e) {}
+  if (stored === 'accepted' || stored === 'declined') return;
+  banner.hidden = false;
+  requestAnimationFrame(function() { banner.classList.add('visible'); });
+  function dismiss(choice) {
+    try { localStorage.setItem(KEY, choice); } catch(e) {}
+    banner.classList.remove('visible');
+    setTimeout(function() { banner.hidden = true; }, 450);
+  }
+  document.getElementById('cookie-accept').addEventListener('click', function() { dismiss('accepted'); });
+  document.getElementById('cookie-decline').addEventListener('click', function() { dismiss('declined'); });
+})();
+</script>
+
 </body>
 </html>
