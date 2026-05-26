@@ -475,8 +475,9 @@ permalink: /index.html
       <h2>We're <em>reading</em>.</h2>
       <p>{{ homepage.submissions_intro | safe }}</p>
       <p>{{ homepage.submissions_detail | safe }}</p>
-      <form action="https://formspree.io/f/team@theyardlab.com" method="POST" id="submit-form" style="margin-top:24px;">
+      <form action="https://formspree.io/f/mzdwkedl" method="POST" id="submit-form" style="margin-top:24px;">
         <input type="hidden" name="_subject" value="Submission — The Yard Lab">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
         <div style="display:flex;flex-direction:column;gap:12px;max-width:460px;">
           <input type="text" name="name" placeholder="Your name" required style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
           <input type="email" name="email" placeholder="your@email.com" required style="padding:12px 16px;border:1px solid var(--paper-edge);background:var(--paper);font-family:var(--font-ui);font-size:14px;color:var(--ink);">
@@ -549,10 +550,10 @@ permalink: /index.html
     <div class="section-label">From the Press</div>
     <h2>Letters from <em>the lab.</em></h2>
     <p>A monthly dispatch on new books, the annual, open reading periods, and the work behind the work. No spam.</p>
-    <form class="newsletter-form" action="https://formspree.io/f/team@theyardlab.com" method="POST" id="newsletter-form">
+    <form class="newsletter-form" action="https://formspree.io/f/mdajpeel" method="POST" id="newsletter-form">
       <input type="email" name="email" placeholder="your@email.com" required>
       <input type="hidden" name="_subject" value="Newsletter Subscription — The Yard Lab">
-      <input type="hidden" name="_next" value="/">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
       <button type="submit">Subscribe</button>
     </form>
     <div class="fine-print" id="newsletter-msg"></div>
