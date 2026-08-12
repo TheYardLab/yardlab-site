@@ -5,6 +5,7 @@
 // Game rules live in ./src/game.js so they can be tested on their own.
 
 import http from 'node:http';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -559,9 +560,22 @@ setInterval(async () => {
   }
 }, 15 * 60 * 1000).unref();
 
+/** Every address on the local network this server can be reached at. */
+function lanAddresses() {
+  return Object.values(os.networkInterfaces())
+    .flat()
+    .filter((iface) => iface && iface.family === 'IPv4' && !iface.internal)
+    .map((iface) => iface.address);
+}
+
 const PORT = Number(process.env.PORT) || 3000;
 server.listen(PORT, () => {
-  console.log(`Y2K WORD SLAM running on port ${PORT} — ${dictionarySize().toLocaleString()} words loaded.`);
+  console.log(`\n  Y2K WORD SLAM · ${dictionarySize().toLocaleString()} words loaded\n`);
+  console.log(`  On this computer:  http://localhost:${PORT}`);
+  for (const address of lanAddresses()) {
+    console.log(`  On your wifi:      http://${address}:${PORT}   <- use this on phones`);
+  }
+  console.log('\n  Ctrl+C to stop. Games live in memory, so stopping the server clears them.\n');
 });
 
 export { app, server, io, games };
