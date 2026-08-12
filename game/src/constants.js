@@ -63,6 +63,10 @@ const STARTING_SCORE = 50;
 // Six consecutive scoreless turns (passes / swaps) ends the game.
 const MAX_SCORELESS_TURNS = 6;
 
+// How long a player has to be offline before the table can skip their turn.
+// Overridable so tests (and impatient hosts) do not have to wait it out.
+const ABANDON_SKIP_MS = Number(process.env.ABANDON_SKIP_MS) || 2 * 60 * 1000;
+
 const MAX_PLAYERS = 4;
 
 export {
@@ -81,5 +85,6 @@ export {
   DEFAULT_TRADE_POINTS,
   STARTING_SCORE,
   MAX_SCORELESS_TURNS,
+  ABANDON_SKIP_MS,
   MAX_PLAYERS
 };

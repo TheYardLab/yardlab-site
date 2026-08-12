@@ -18,7 +18,8 @@ game/
 │   ├── index.html
 │   ├── style.css        ← the neon crime scene
 │   └── client.js
-└── test/                ← node:test suites (engine + end-to-end sockets)
+├── test/                ← node:test suites (engine + end-to-end sockets)
+└── Dockerfile           ← for container hosts; see also ../render.yaml
 ```
 
 ## Running it
@@ -27,7 +28,7 @@ game/
 cd game
 npm install
 npm start          # http://localhost:3000
-npm test           # 25 tests: rules engine + socket end-to-end
+npm test           # 34 tests: rules engine + socket end-to-end
 npm run dev        # restarts on file changes
 ```
 
@@ -36,6 +37,8 @@ Open the URL, and it drops you into a room with a generated code
 whoever you want to play. Two to four players per room.
 
 `PORT` is read from the environment; everything else is zero-config.
+`ABANDON_SKIP_MS` (default two minutes) tunes how long a player has to be
+offline before the table can skip their turn.
 
 ## The two house mechanics
 
@@ -92,6 +95,27 @@ at the end (with the leftovers going to whoever went out).
 The game ends when the bag is empty and someone plays their last tile, or after
 six consecutive scoreless turns.
 
+## When someone walks away
+
+Closing a tab does not forfeit your seat — you can come back to it. But an
+absent player must not be able to freeze the table indefinitely, so once the
+player whose turn it is has been offline for two minutes, everyone else gets a
+**SKIP THEM** button with a live countdown. Skipping counts as a pass, which
+means a fully abandoned game winds itself down to the six-pass ending rather
+than hanging forever.
+
+You cannot skip yourself, and you cannot skip someone who is still connected.
+
+## Rematches
+
+The game-over screen has **RUN IT BACK**: same room, same seats, same names,
+fresh board and bag, scores back to 50. Whoever opened the last game does not
+open the next one — the first move rotates.
+
+The house dictionary carries over, with its use counts intact. Words the room
+invented stay legal forever, but their one-point-per-letter debut is spent, so
+they score full face value from then on. No re-farming the discount.
+
 ## Design notes
 
 **Racks stay private.** The server builds a per-player view of the game
@@ -107,8 +131,9 @@ trusted.
 
 **Seats survive reconnects.** Players are keyed by a UUID kept in
 `localStorage`, not by socket id, so a phone that drops its connection or locks
-its screen rejoins to the same seat, score and rack. A disconnected player
-keeps their turn — the game waits rather than skipping them.
+its screen rejoins to the same seat, score and rack. Clearing site data loses
+the seat, though: the player rejoins as a new one and the abandoned seat still
+counts toward the four-player cap.
 
 **Rooms are in memory.** Restarting the server clears every game. Empty rooms
 are swept after two hours. Persistence would mean swapping the `games` object
@@ -116,9 +141,43 @@ for a store; nothing else in the design assumes memory.
 
 ## Deploying
 
-This needs a real Node process with WebSocket support — a static host will not
-work. Anything that runs `npm start` and holds a connection open (Render,
-Railway, Fly.io, a VPS) is fine; point it at this `game/` directory.
+This needs a real Node process holding WebSocket connections open. A static
+host will not work, and neither will the repository's existing Vercel setup —
+serverless functions cannot hold a socket open or keep the in-memory `games`
+object alive between invocations. The Eleventy site and this game server deploy
+to different places and do not interact; Eleventy only builds from `src/`.
 
-Note that the repository root is a separate Eleventy static site with its own
-`package.json`. The two do not interact: Eleventy only builds from `src/`.
+**Render** (config included). `render.yaml` at the repository root is a Render
+blueprint pointing at `game/`. In Render: New → Blueprint → pick this repo →
+Apply. It installs with `npm ci --omit=dev`, starts with `npm start`, and
+health-checks `/healthz`. The free plan sleeps when idle, which will drop any
+game in progress — see the persistence note below.
+
+**Anywhere else.** `game/Dockerfile` builds a self-contained image for Fly.io,
+Railway, a VPS, or any container host:
+
+```bash
+cd game
+docker build -t y2k-word-slam .
+docker run -p 3000:3000 y2k-word-slam
+```
+
+**Quick test with no hosting at all.** Run it locally and tunnel:
+
+```bash
+npm start
+cloudflared tunnel --url http://localhost:3000
+```
+
+That prints a public HTTPS URL you can text to someone. It lives as long as the
+process does.
+
+**A note on persistence.** Games are held in memory, so a restart, a redeploy,
+or a free-tier idle-sleep wipes every board in progress. That is fine for games
+played in one sitting and not fine for play-by-text over days. Fixing it means
+swapping the `games` object for a store; nothing else in the design assumes
+memory.
+
+**Custom domain.** Prefer a subdomain (`game.theyardlab.com`) CNAME'd at the
+Node host over a rewrite from the Vercel site — Vercel's external rewrites do
+not reliably proxy the WebSocket upgrade.

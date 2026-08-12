@@ -50,6 +50,10 @@
       <span>BAG: <b id="bag-count">100</b></span>
       <span id="turn-banner">WAITING…</span>
     </div>
+    <div id="awol-bar" class="hidden">
+      <span id="awol-text"></span>
+      <button id="skip-btn" class="button-y2k small" disabled>⏭ SKIP THEM</button>
+    </div>
   </section>
 
   <!-- ============ BOARD ============ -->
@@ -190,7 +194,11 @@
     <div class="modal-body">
       <h2 class="rainbow">GAME OVER</h2>
       <ol id="standings"></ol>
-      <p class="fine-print">Refresh with a new room code to run it back.</p>
+      <div class="modal-actions">
+        <button id="rematch-btn" class="button-y2k">🔁 RUN IT BACK</button>
+        <button class="button-y2k alt" data-close="over-modal">CLOSE</button>
+      </div>
+      <p class="fine-print">A rematch keeps your seats and the house dictionary, and deals a fresh board.</p>
     </div>
   </div>
 </div>

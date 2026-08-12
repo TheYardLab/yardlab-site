@@ -17,6 +17,7 @@ import {
   PREMIUM_MULTIPLIER,
   STARTING_SCORE,
   MAX_SCORELESS_TURNS,
+  ABANDON_SKIP_MS,
   MAX_PLAYERS
 } from './constants.js';
 import { checkStandardDictionary } from './dictionary.js';
@@ -49,6 +50,8 @@ function createGame(roomId) {
     players: {},          // playerId -> player
     order: [],            // seating order of playerIds
     turnIndex: 0,
+    startingIndex: 0,     // who opened this game; rotates on a rematch
+    round: 1,
     customDictionary: {}, // { YEET: { uses: 0, addedBy, approvedBy } }
     pendingWord: null,    // move parked while the table votes on it
     pendingTrade: null,   // open trade offer
@@ -64,6 +67,7 @@ function addPlayer(game, playerId, name) {
   const existing = game.players[playerId];
   if (existing) {
     existing.connected = true;
+    existing.offlineSince = null;
     if (name) existing.name = name;
     return { ok: true, player: existing, rejoined: true };
   }
@@ -76,6 +80,7 @@ function addPlayer(game, playerId, name) {
     score: STARTING_SCORE,
     rack: drawTiles(game, RACK_SIZE),
     connected: true,
+    offlineSince: null,
     seat: game.order.length
   };
   game.players[playerId] = player;
@@ -112,6 +117,62 @@ function isCurrentPlayer(game, playerId) {
 function advanceTurn(game) {
   if (game.order.length === 0) return;
   game.turnIndex = (game.turnIndex + 1) % game.order.length;
+}
+
+function markDisconnected(game, playerId) {
+  const player = game.players[playerId];
+  if (!player) return;
+  player.connected = false;
+  player.offlineSince = Date.now();
+}
+
+/**
+ * Can `requesterId` force the current player's turn along?
+ * Only when that player has been gone longer than ABANDON_SKIP_MS — otherwise
+ * an abandoned game sits on one seat forever with no way out.
+ */
+function canSkipTurn(game, requesterId, now = Date.now()) {
+  if (game.over) return { ok: false, error: 'The game is already over.' };
+  if (!game.players[requesterId]) return { ok: false, error: 'You are not in this game.' };
+  const turnId = currentPlayerId(game);
+  if (!turnId) return { ok: false, error: 'Nobody is up.' };
+  if (turnId === requesterId) return { ok: false, error: 'Use PASS to skip your own turn.' };
+
+  const target = game.players[turnId];
+  if (target.connected) return { ok: false, error: `${target.name} is still online — give them a sec.` };
+  if (!target.offlineSince || now - target.offlineSince < ABANDON_SKIP_MS) {
+    return { ok: false, error: `${target.name} has not been gone long enough yet.` };
+  }
+  return { ok: true, target };
+}
+
+/**
+ * Restart the room: fresh board, bag, racks and scores, same seats.
+ * The house dictionary carries over — words the room invented stay legal, at
+ * full face value, since their one-point-per-letter debut is already spent.
+ */
+function resetForRematch(game) {
+  if (game.order.length === 0) return { ok: false, error: 'Nobody here to rematch.' };
+
+  game.board = Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(null));
+  game.bag = buildBag();
+  game.pendingWord = null;
+  game.pendingTrade = null;
+  game.moveCount = 0;
+  game.scorelessTurns = 0;
+  game.over = false;
+  game.round += 1;
+  // Rotate who opens so the same player does not always get the first move.
+  game.startingIndex = (game.startingIndex + 1) % game.order.length;
+  game.turnIndex = game.startingIndex;
+
+  for (const id of game.order) {
+    const player = game.players[id];
+    player.score = STARTING_SCORE;
+    player.rack = drawTiles(game, RACK_SIZE);
+  }
+
+  return { ok: true, round: game.round };
 }
 
 function isBlocked(game) {
@@ -556,10 +617,13 @@ function viewFor(game, playerId) {
         score: p.score,
         tiles: p.rack.length,
         connected: p.connected,
+        offlineSince: p.offlineSince,
         seat: p.seat
       };
     }),
     turn: currentPlayerId(game),
+    skipAfterMs: ABANDON_SKIP_MS,
+    round: game.round,
     bagCount: game.bag.length,
     customDictionary: game.customDictionary,
     pendingWord: game.pendingWord
@@ -585,6 +649,9 @@ export {
   currentPlayerId,
   isCurrentPlayer,
   advanceTurn,
+  markDisconnected,
+  canSkipTurn,
+  resetForRematch,
   isBlocked,
   evaluateMove,
   applyMove,

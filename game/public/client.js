@@ -192,6 +192,14 @@
 
     socket.on('trade_rejected', function (data) { toast(data.message); });
 
+    socket.on('rematch_started', function (data) {
+      pending = [];
+      selectedRackIdx = -1;
+      rackOrder = null;
+      $('over-modal').classList.add('hidden');
+      toast('Round ' + data.round + '! Fresh board, same rivalry.');
+    });
+
     socket.on('game_over', function (data) {
       var list = $('standings');
       list.innerHTML = '';
@@ -254,6 +262,34 @@
     renderRack();
     renderDictionary();
     renderControls();
+    renderAwol();
+  }
+
+  /**
+   * Offer an escape hatch when the player whose turn it is has gone offline.
+   * Ticks on a timer because eligibility is a function of wall-clock time,
+   * not of anything the server pushes.
+   */
+  function renderAwol() {
+    var bar = $('awol-bar');
+    if (!state || state.over) { bar.classList.add('hidden'); return; }
+
+    var current = state.players.filter(function (p) { return p.id === state.turn; })[0];
+    if (!current || current.connected || current.id === state.you) {
+      bar.classList.add('hidden');
+      return;
+    }
+
+    var waited = current.offlineSince ? Date.now() - current.offlineSince : 0;
+    var left = Math.ceil((state.skipAfterMs - waited) / 1000);
+    bar.classList.remove('hidden');
+    if (left > 0) {
+      $('awol-text').textContent = current.name + ' dropped out — skippable in ' + left + 's';
+      $('skip-btn').disabled = true;
+    } else {
+      $('awol-text').textContent = current.name + ' is AWOL.';
+      $('skip-btn').disabled = false;
+    }
   }
 
   function renderPlayers() {
@@ -269,9 +305,11 @@
       name.className = 'pname';
       name.textContent = p.name;
       var right = document.createElement('span');
+      right.className = 'pmeta';
       var tiles = document.createElement('span');
       tiles.className = 'ptiles';
-      tiles.textContent = p.tiles + ' tiles ';
+      tiles.textContent = p.tiles + '▮';
+      tiles.title = p.tiles + ' tiles on their rack';
       var score = document.createElement('b');
       score.className = 'pscore';
       score.textContent = p.score;
@@ -580,7 +618,18 @@
       input.value = '';
     });
 
+    $('skip-btn').addEventListener('click', function () {
+      socket.emit('skip_player', roomId);
+    });
+
+    $('rematch-btn').addEventListener('click', function () {
+      socket.emit('rematch', roomId);
+    });
+
     $('copy-link').addEventListener('click', copyLink);
+
+    // Eligibility to skip an absent player depends on elapsed time alone.
+    setInterval(renderAwol, 1000);
 
     document.addEventListener('click', function (e) {
       var target = e.target.dataset ? e.target.dataset.close : null;

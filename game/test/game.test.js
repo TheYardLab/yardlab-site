@@ -9,9 +9,12 @@ import {
   approveWords,
   openTrade,
   acceptTrade,
-  passTurn
+  passTurn,
+  markDisconnected,
+  canSkipTurn,
+  resetForRematch
 } from '../src/game.js';
-import { STARTING_SCORE } from '../src/constants.js';
+import { STARTING_SCORE, ABANDON_SKIP_MS } from '../src/constants.js';
 
 function tableFor(racks) {
   const game = createGame('TEST');
@@ -177,6 +180,83 @@ test('you cannot offer a bounty you cannot cover', () => {
   const opened = openTrade(game, ids[0], 'Q', 5);
   assert.equal(opened.ok, false);
   assert.match(opened.error, /afford/);
+});
+
+test('an online player cannot be skipped', () => {
+  const { game, ids } = tableFor([['A'], ['B']]);
+  const verdict = canSkipTurn(game, ids[1]);
+  assert.equal(verdict.ok, false);
+  assert.match(verdict.error, /still online/);
+});
+
+test('a player who just dropped cannot be skipped yet', () => {
+  const { game, ids } = tableFor([['A'], ['B']]);
+  markDisconnected(game, ids[0]);
+  const verdict = canSkipTurn(game, ids[1]);
+  assert.equal(verdict.ok, false);
+  assert.match(verdict.error, /not been gone long enough/);
+});
+
+test('a long-absent player can be skipped by anyone else', () => {
+  const { game, ids } = tableFor([['A'], ['B']]);
+  markDisconnected(game, ids[0]);
+  const later = Date.now() + ABANDON_SKIP_MS + 1000;
+
+  assert.equal(canSkipTurn(game, ids[1], later).ok, true);
+  // Not by themselves, though.
+  assert.equal(canSkipTurn(game, ids[0], later).ok, false);
+
+  passTurn(game);
+  assert.equal(game.order[game.turnIndex], ids[1]);
+});
+
+test('an abandoned game runs itself out instead of hanging', () => {
+  const { game, ids } = tableFor([['A'], ['B']]);
+  markDisconnected(game, ids[0]);
+  const later = Date.now() + ABANDON_SKIP_MS + 1000;
+
+  // The remaining player skips the absentee and passes, over and over.
+  for (let i = 0; i < 6 && !game.over; i += 1) {
+    if (game.order[game.turnIndex] === ids[0]) {
+      assert.equal(canSkipTurn(game, ids[1], later).ok, true);
+    }
+    passTurn(game);
+  }
+  assert.equal(game.over, true);
+});
+
+test('a rematch keeps seats and the house dictionary but resets the board', () => {
+  const { game, ids } = tableFor([['C', 'A', 'T'], ['D', 'O', 'G']]);
+  approveWords(game, ['YEET'], ids[0], ids[1]);
+  game.customDictionary.YEET.uses = 3;
+  applyMove(game, game.players[ids[0]], [at(7, 7, 'C'), at(7, 8, 'A'), at(7, 9, 'T')]);
+  game.over = true;
+
+  const reset = resetForRematch(game);
+  assert.equal(reset.ok, true);
+  assert.equal(game.over, false);
+  assert.equal(game.round, 2);
+  assert.equal(game.board[7][7], null);
+  assert.equal(game.moveCount, 0);
+  assert.deepEqual(game.order, ids);
+
+  for (const id of ids) {
+    assert.equal(game.players[id].score, STARTING_SCORE);
+    assert.equal(game.players[id].rack.length, 7);
+  }
+
+  // Invented words survive, and keep their spent first-use discount.
+  assert.equal(game.customDictionary.YEET.uses, 3);
+  // The other player opens round two.
+  assert.equal(game.order[game.turnIndex], ids[1]);
+});
+
+test('a rematch cannot be scored against the old bag', () => {
+  const { game } = tableFor([['C', 'A', 'T'], ['D', 'O', 'G']]);
+  game.over = true;
+  resetForRematch(game);
+  // Two full racks dealt out of a fresh 100-tile bag.
+  assert.equal(game.bag.length, 100 - 14);
 });
 
 test('six scoreless turns end the game', () => {

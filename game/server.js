@@ -21,6 +21,9 @@ import {
   createGame,
   addPlayer,
   isCurrentPlayer,
+  markDisconnected,
+  canSkipTurn,
+  resetForRematch,
   isBlocked,
   evaluateMove,
   applyMove,
@@ -429,6 +432,48 @@ io.on('connection', (socket) => {
     await broadcastState(roomId);
   });
 
+  // Rescue a table stuck behind someone who walked away.
+  socket.on('skip_player', async (rawRoomId) => {
+    const roomId = cleanRoomId(rawRoomId);
+    const game = getGame(roomId);
+    const playerId = socket.data.playerId;
+    if (!game || !playerId) return;
+
+    const blocked = isBlocked(game);
+    if (blocked) return fail(socket, blocked);
+
+    const allowed = canSkipTurn(game, playerId);
+    if (!allowed.ok) return fail(socket, allowed.error);
+
+    const { ended } = passTurn(game);
+    announce(roomId, `${allowed.target.name} went AWOL — turn skipped. *crickets*`, 'turn');
+    if (ended) announceGameOver(roomId);
+    await broadcastState(roomId);
+  });
+
+  // Same seats, same house dictionary, fresh board.
+  socket.on('rematch', async (rawRoomId) => {
+    const roomId = cleanRoomId(rawRoomId);
+    const game = getGame(roomId);
+    const playerId = socket.data.playerId;
+    if (!game || !playerId || !game.players[playerId]) return;
+    if (!game.over) return fail(socket, 'Finish this game first!');
+
+    clearTimer(roomId, 'word');
+    clearTimer(roomId, 'trade');
+
+    const reset = resetForRematch(game);
+    if (!reset.ok) return fail(socket, reset.error);
+
+    io.to(roomId).emit('rematch_started', { round: reset.round });
+    announce(
+      roomId,
+      `${game.players[playerId].name} hit RUN IT BACK. Round ${reset.round}! ${cheer()}`,
+      'join'
+    );
+    await broadcastState(roomId);
+  });
+
   socket.on('chat', (rawRoomId, text) => {
     const roomId = cleanRoomId(rawRoomId);
     const game = getGame(roomId);
@@ -451,7 +496,7 @@ io.on('connection', (socket) => {
     );
     if (stillHere) return;
 
-    game.players[playerId].connected = false;
+    markDisconnected(game, playerId);
     announce(roomId, `${game.players[playerId].name} got disconnected. *modem screech*`, 'leave');
     await broadcastState(roomId);
   });

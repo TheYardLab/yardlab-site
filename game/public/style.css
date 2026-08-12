@@ -152,6 +152,16 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+/* Keep the tile count and score on one line so the name gets the slack. */
+.player-card .pmeta {
+    flex: none;
+    white-space: nowrap;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
 }
 .player-card .pscore { color: var(--hot-yellow); font-size: 1.3rem; }
 .player-card.is-turn {
@@ -173,6 +183,18 @@ main {
     border-top: 1px dashed #6a3fa0;
     padding-top: 4px;
 }
+#awol-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 1px dashed #6a3fa0;
+    padding-top: 6px;
+    font-family: var(--pixel);
+    font-size: 0.95rem;
+    color: #ff8c8c;
+}
+
 #turn-banner { color: var(--lime-green); }
 #turn-banner.your-turn { color: var(--hot-yellow); animation: blink 1s steps(2, start) infinite; }
 

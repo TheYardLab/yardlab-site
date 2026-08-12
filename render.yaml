@@ -1,0 +1,16 @@
+# Render blueprint for the Y2K Word Slam game server.
+# Render looks for this file at the repository root; the app itself lives in
+# game/. The Eleventy site at the root is unaffected — it keeps deploying to
+# Vercel from vercel.json.
+services:
+  - type: web
+    name: y2k-word-slam
+    runtime: node
+    rootDir: game
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

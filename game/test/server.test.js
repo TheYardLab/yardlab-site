@@ -7,6 +7,7 @@ import { once } from 'node:events';
 import { io as ioClient } from 'socket.io-client';
 
 process.env.PORT = '0';
+process.env.ABANDON_SKIP_MS = '150';
 const { server, games } = await import('../server.js');
 
 if (!server.listening) await once(server, 'listening');
@@ -238,6 +239,78 @@ test('a reconnecting player keeps their seat, score and rack', async (t) => {
   assert.equal(view.players.length, 2);
   assert.equal(view.players[0].score, 123);
   assert.deepEqual(view.yourRack, rackBefore);
+});
+
+test('an abandoned turn can be skipped once the player is gone long enough', async (t) => {
+  const { a, b, game } = await seatTwo('ROOM9');
+  t.after(() => { a.close(); b.close(); });
+
+  const turnId = game.order[game.turnIndex];
+  const quitter = turnId === 'player-aaaaaaaa' ? a : b;
+  const stayer = quitter === a ? b : a;
+
+  quitter.close();
+  await new Promise((resolve) => setTimeout(resolve, 60));
+
+  // Too soon — the seat is still warm.
+  const tooSoon = next(stayer, 'error_message');
+  stayer.emit('skip_player', 'ROOM9');
+  assert.match((await tooSoon).message, /not been gone long enough/);
+  assert.equal(game.order[game.turnIndex], turnId);
+
+  await new Promise((resolve) => setTimeout(resolve, 200));
+
+  const updated = next(stayer, 'game_state_update');
+  stayer.emit('skip_player', 'ROOM9');
+  await updated;
+  assert.notEqual(game.order[game.turnIndex], turnId);
+});
+
+test('you cannot skip your own turn', async (t) => {
+  const { a, b, game } = await seatTwo('ROOM10');
+  t.after(() => { a.close(); b.close(); });
+
+  const turnId = game.order[game.turnIndex];
+  const mover = turnId === 'player-aaaaaaaa' ? a : b;
+
+  const refused = next(mover, 'error_message');
+  mover.emit('skip_player', 'ROOM10');
+  assert.match((await refused).message, /your own turn/);
+  assert.equal(game.order[game.turnIndex], turnId);
+});
+
+test('a rematch deals a fresh board to the same seats', async (t) => {
+  const { a, b, game } = await seatTwo('ROOM11');
+  t.after(() => { a.close(); b.close(); });
+
+  const turnId = game.order[game.turnIndex];
+  const mover = turnId === 'player-aaaaaaaa' ? a : b;
+  game.players[turnId].rack = ['C', 'A', 'T', 'E', 'R', 'S', 'N'];
+
+  const played = next(mover, 'move_played');
+  mover.emit('play_word', 'ROOM11', {
+    placements: [place(7, 7, 'C'), place(7, 8, 'A'), place(7, 9, 'T')]
+  });
+  await played;
+
+  // Rematching mid-game is refused.
+  const refused = next(a, 'error_message');
+  a.emit('rematch', 'ROOM11');
+  assert.match((await refused).message, /Finish this game first/);
+  assert.equal(game.board[7][7].letter, 'C');
+
+  game.over = true;
+  const started = next(b, 'rematch_started');
+  const fresh = next(a, 'game_state_update');
+  a.emit('rematch', 'ROOM11');
+
+  assert.equal((await started).round, 2);
+  const view = await fresh;
+  assert.equal(view.over, false);
+  assert.equal(view.board[7][7], null);
+  assert.equal(view.players.length, 2);
+  assert.equal(view.players[0].score, 50);
+  assert.equal(view.yourRack.length, 7);
 });
 
 test.after(() => {
