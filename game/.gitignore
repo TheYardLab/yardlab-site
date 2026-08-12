@@ -1,0 +1,2 @@
+# Keep the lockfile for the game server so deploys are reproducible.
+!package-lock.json

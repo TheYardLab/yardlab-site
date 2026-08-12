@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+<meta name="description" content="Y2K WORD SLAM — a totally rad multiplayer word game with a trading economy and a democratic dictionary.">
+<meta name="theme-color" content="#120024">
+<title>Y2K WORD SLAM :: The Radical Word Arena</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>💾</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ JOIN SCREEN ============ -->
+<div id="join-screen" class="overlay">
+  <div class="modal join-modal">
+    <div class="titlebar">
+      <span>welcome.exe</span>
+      <span class="titlebar-buttons"><i>_</i><i>□</i><i>×</i></span>
+    </div>
+    <div class="modal-body">
+      <h2 class="rainbow">Y2K WORD SLAM</h2>
+      <p class="blink-slow">★ 2 to 4 players ★ No download required ★</p>
+      <label for="name-input">ENTER YOUR HANDLE:</label>
+      <input id="name-input" class="input-y2k" maxlength="16" placeholder="xXx_WordLord_xXx" autocomplete="nickname">
+      <label for="room-input">ROOM CODE:</label>
+      <input id="room-input" class="input-y2k" maxlength="8" placeholder="RAD1">
+      <button id="join-btn" class="button-y2k big">ENTER THE ARENA »</button>
+      <p class="fine-print">Best viewed in Netscape Navigator 4.0 at 800×600</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <h1 id="logo">Y2K Word Slam</h1>
+  <div class="marquee"><span id="ticker">★ WELCOME TO THE WORD ARENA ★ TRADE TILES ★ VOTE IN FAKE WORDS ★ NO CHEATING ★</span></div>
+  <div id="room-bar" class="panel">
+    <span>ROOM: <b id="room-code">----</b></span>
+    <button id="copy-link" class="button-y2k small">📋 Copy Link to Invite Buddy</button>
+    <span id="conn-status" class="status-dot" title="connection">●</span>
+  </div>
+</header>
+
+<main>
+  <!-- ============ SCOREBOARD ============ -->
+  <section id="scoreboard" class="panel">
+    <div id="players"></div>
+    <div id="meta">
+      <span>BAG: <b id="bag-count">100</b></span>
+      <span id="turn-banner">WAITING…</span>
+    </div>
+  </section>
+
+  <!-- ============ BOARD ============ -->
+  <section id="board-wrap">
+    <div id="board" role="grid" aria-label="Game board"></div>
+  </section>
+
+  <!-- ============ RACK + CONTROLS ============ -->
+  <section id="rack-wrap" class="panel">
+    <div id="rack" aria-label="Your tiles"></div>
+    <div id="pending-score" class="hidden"></div>
+    <div class="controls">
+      <button id="play-btn" class="button-y2k">✔ PLAY</button>
+      <button id="recall-btn" class="button-y2k alt">↩ RECALL</button>
+      <button id="shuffle-btn" class="button-y2k alt">🔀 SHUFFLE</button>
+      <button id="pass-btn" class="button-y2k alt">⏭ PASS</button>
+      <button id="swap-btn" class="button-y2k alt">♻ SWAP</button>
+      <button id="trade-btn" class="button-y2k hot">📟 PAGE OPPONENT…</button>
+    </div>
+    <p id="hint" class="hint">Tap a tile, then tap a square. Tap a placed tile to take it back.</p>
+  </section>
+
+  <!-- ============ DICTIONARY + LOG ============ -->
+  <section id="side" class="panel">
+    <details id="dict-box" open>
+      <summary>📖 HOUSE DICTIONARY <span id="dict-count">(0)</span></summary>
+      <ul id="dict-list"><li class="muted">No made-up words yet. Boring!</li></ul>
+    </details>
+    <div id="log" aria-live="polite"></div>
+    <form id="chat-form" autocomplete="off">
+      <input id="chat-input" class="input-y2k" maxlength="200" placeholder="say something rad…">
+      <button class="button-y2k small" type="submit">SEND</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>
+    <span class="construction">🚧 UNDER CONSTRUCTION 🚧</span>
+    You are visitor number <b id="visitor">000<span id="visitor-n">1</span></b>
+  </p>
+  <p class="fine-print">© 199<span id="year-wobble">9</span> Y2K Word Slam · Sign my guestbook!</p>
+</footer>
+
+<!-- ============ MODALS ============ -->
+
+<!-- Trade request (outgoing) -->
+<div id="trade-modal" class="overlay hidden">
+  <div class="modal">
+    <div class="titlebar"><span>pager.exe</span><span class="titlebar-buttons"><i data-close="trade-modal">×</i></span></div>
+    <div class="modal-body">
+      <h3>📟 PAGE YOUR OPPONENT</h3>
+      <p>Beg for a tile. It costs you points — they gain them.</p>
+      <label for="trade-letter">I WANT THIS LETTER:</label>
+      <div id="letter-grid"></div>
+      <label for="trade-points">BOUNTY: <b id="points-label">5</b> PTS</label>
+      <input id="trade-points" type="range" min="1" max="25" value="5">
+      <p class="fine-print">You pay <b id="cost-preview">5</b> pts · They earn <b id="gain-preview">5</b> pts</p>
+      <div class="modal-actions">
+        <button id="trade-send" class="button-y2k">SEND PAGE »</button>
+        <button class="button-y2k alt" data-close="trade-modal">NEVER MIND</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Trade offer (incoming) -->
+<div id="offer-modal" class="overlay hidden">
+  <div class="modal alert">
+    <div class="titlebar"><span>Incoming Page!</span></div>
+    <div class="modal-body">
+      <div class="alert-row">
+        <div class="alert-icon">💰</div>
+        <div>
+          <p id="offer-text">Opponent wants a tile.</p>
+          <p class="fine-print">Accepting hands over the tile and pays you the bounty. You draw a replacement.</p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="offer-accept" class="button-y2k">DEAL!</button>
+        <button id="offer-reject" class="button-y2k alt">NO DEAL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Word vote -->
+<div id="vote-modal" class="overlay hidden">
+  <div class="modal alert">
+    <div class="titlebar"><span>Dictionary Dispute</span></div>
+    <div class="modal-body">
+      <div class="alert-row">
+        <div class="alert-icon">⚠️</div>
+        <div>
+          <p id="vote-text">Opponent played a word.</p>
+          <p class="fine-print">Approve and it joins this room's dictionary forever. First play scores 1 point per letter; after that it scores full face value.</p>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button id="vote-yes" class="button-y2k">ALLOW IT</button>
+        <button id="vote-no" class="button-y2k alt">TALK TO THE HAND</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Blank tile picker -->
+<div id="blank-modal" class="overlay hidden">
+  <div class="modal">
+    <div class="titlebar"><span>blank.exe</span><span class="titlebar-buttons"><i data-close="blank-modal">×</i></span></div>
+    <div class="modal-body">
+      <h3>WILD TILE! PICK A LETTER</h3>
+      <div id="blank-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Swap picker -->
+<div id="swap-modal" class="overlay hidden">
+  <div class="modal">
+    <div class="titlebar"><span>recycle.exe</span><span class="titlebar-buttons"><i data-close="swap-modal">×</i></span></div>
+    <div class="modal-body">
+      <h3>♻ DUMP TILES</h3>
+      <p>Tap the duds. Costs your whole turn.</p>
+      <div id="swap-grid"></div>
+      <div class="modal-actions">
+        <button id="swap-confirm" class="button-y2k">DUMP 'EM</button>
+        <button class="button-y2k alt" data-close="swap-modal">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Game over -->
+<div id="over-modal" class="overlay hidden">
+  <div class="modal">
+    <div class="titlebar"><span>gameover.exe</span></div>
+    <div class="modal-body">
+      <h2 class="rainbow">GAME OVER</h2>
+      <ol id="standings"></ol>
+      <p class="fine-print">Refresh with a new room code to run it back.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="hidden"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="client.js"></script>
+</body>
+</html>

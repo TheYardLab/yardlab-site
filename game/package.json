@@ -1,0 +1,24 @@
+{
+  "name": "y2k-word-slam",
+  "version": "1.0.0",
+  "description": "A totally rad multiplayer word game with a trading economy and a democratic dictionary",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.22.2",
+    "socket.io": "^4.8.3",
+    "word-list": "^4.1.0"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.3"
+  }
+}
