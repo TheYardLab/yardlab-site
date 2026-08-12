@@ -14,3 +14,23 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "22"
+
+    # NOTE ON SAVED GAMES
+    # The free plan has an ephemeral filesystem: it is wiped whenever the
+    # instance restarts, redeploys, or spins down after 15 minutes idle. Games
+    # are saved to disk, but on the free plan that disk does not survive, so a
+    # game left overnight will be gone.
+    #
+    # To keep saved games on Render, switch to a paid plan and mount a disk:
+    #
+    #   plan: starter
+    #   disk:
+    #     name: y2k-saves
+    #     mountPath: /var/data
+    #     sizeGB: 1
+    #   envVars:
+    #     - key: DATA_DIR
+    #       value: /var/data
+    #
+    # Running the server on your own machine gets you persistence for free —
+    # see "Saving and resuming" in game/README.md.

@@ -3,3 +3,4 @@ test
 *.md
 .dockerignore
 Dockerfile
+data

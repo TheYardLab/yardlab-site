@@ -119,6 +119,55 @@ function advanceTurn(game) {
   game.turnIndex = (game.turnIndex + 1) % game.order.length;
 }
 
+/**
+ * Move an existing seat onto a new player id.
+ *
+ * This is how someone gets back into a saved game after their browser forgot
+ * who they were — cleared data, private browsing, or a different phone. The
+ * seat keeps its score, rack and turn position; only the key changes.
+ */
+function rekeySeat(game, oldId, newId, name) {
+  const player = game.players[oldId];
+  if (!player) return { ok: false, error: 'That seat is gone.' };
+  if (player.connected) return { ok: false, error: 'Someone is already sitting there.' };
+  if (game.players[newId]) return { ok: false, error: 'You already have a seat at this table.' };
+
+  delete game.players[oldId];
+  player.id = newId;
+  if (name) player.name = name;
+  player.connected = true;
+  player.offlineSince = null;
+  game.players[newId] = player;
+
+  const slot = game.order.indexOf(oldId);
+  if (slot !== -1) game.order[slot] = newId;
+
+  // Anything else holding the old id has to follow it.
+  for (const row of game.board) {
+    for (const cell of row) {
+      if (cell && cell.playerId === oldId) cell.playerId = newId;
+    }
+  }
+  if (game.pendingWord?.playerId === oldId) game.pendingWord.playerId = newId;
+  if (game.pendingTrade?.from === oldId) game.pendingTrade.from = newId;
+  for (const entry of Object.values(game.customDictionary)) {
+    if (entry.addedBy === oldId) entry.addedBy = newId;
+    if (entry.approvedBy === oldId) entry.approvedBy = newId;
+  }
+
+  return { ok: true, player };
+}
+
+/** Seats nobody is currently sitting in — offer these to an unrecognised arrival. */
+function claimableSeats(game) {
+  return game.order
+    .filter((id) => !game.players[id].connected)
+    .map((id) => {
+      const p = game.players[id];
+      return { id, name: p.name, score: p.score, tiles: p.rack.length, seat: p.seat };
+    });
+}
+
 function markDisconnected(game, playerId) {
   const player = game.players[playerId];
   if (!player) return;
@@ -652,6 +701,8 @@ export {
   markDisconnected,
   canSkipTurn,
   resetForRematch,
+  rekeySeat,
+  claimableSeats,
   isBlocked,
   evaluateMove,
   applyMove,

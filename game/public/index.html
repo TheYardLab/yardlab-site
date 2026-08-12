@@ -39,6 +39,7 @@
     <span>ROOM: <b id="room-code">----</b></span>
     <button id="copy-link" class="button-y2k small">📋 Copy Link to Invite Buddy</button>
     <span id="conn-status" class="status-dot" title="connection">●</span>
+    <button id="not-you" class="linkish" title="Forget this device">not you?</button>
   </div>
 </header>
 
@@ -156,6 +157,19 @@
         <button id="vote-yes" class="button-y2k">ALLOW IT</button>
         <button id="vote-no" class="button-y2k alt">TALK TO THE HAND</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Seat picker: returning to a saved game -->
+<div id="seat-modal" class="overlay hidden">
+  <div class="modal">
+    <div class="titlebar"><span>Welcome back!</span></div>
+    <div class="modal-body">
+      <h3>WHO ARE YOU?</h3>
+      <p>There's a game already going in this room. Pick your seat to carry on.</p>
+      <div id="seat-list"></div>
+      <p class="fine-print">Your browser forgot you — that's normal after clearing history or on a new phone.</p>
     </div>
   </div>
 </div>

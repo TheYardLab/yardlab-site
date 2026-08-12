@@ -126,6 +126,16 @@ main {
 }
 #room-code { color: var(--hot-yellow); letter-spacing: 3px; }
 .status-dot { color: #666; font-size: 1.2rem; }
+.linkish {
+    background: none;
+    border: none;
+    color: #a98fd0;
+    font-family: var(--comic);
+    font-size: 0.72rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 2px 4px;
+}
 .status-dot.online { color: var(--lime-green); text-shadow: 0 0 6px var(--lime-green); }
 .status-dot.offline { color: #ff3b3b; }
 
@@ -529,6 +539,16 @@ footer p { margin: 4px 0; font-size: 0.8rem; }
 #swap-grid .tile.picked { box-shadow: 0 0 0 3px #ff0066; }
 
 #standings { font-size: 1.3rem; padding-left: 24px; }
+
+#seat-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.seat-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    text-align: left;
+}
+.seat-btn small { font-family: var(--pixel); font-size: 0.85rem; opacity: 0.75; }
 
 /* ---------- toast ---------- */
 

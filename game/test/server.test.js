@@ -4,10 +4,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { once } from 'node:events';
 
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+
 import { io as ioClient } from 'socket.io-client';
 
 process.env.PORT = '0';
 process.env.ABANDON_SKIP_MS = '150';
+// Isolate persistence: these tests must not read or write real saved games.
+const DATA_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'y2k-server-'));
+process.env.DATA_DIR = DATA_DIR;
+
 const { server, games } = await import('../server.js');
 
 if (!server.listening) await once(server, 'listening');
@@ -313,6 +321,70 @@ test('a rematch deals a fresh board to the same seats', async (t) => {
   assert.equal(view.yourRack.length, 7);
 });
 
+test('a browser that forgot its id is offered the empty seat, not a new one', async (t) => {
+  const { a, b, game } = await seatTwo('ROOM12');
+  t.after(() => { a.close(); });
+
+  // The second player's phone wipes its storage and comes back as a stranger.
+  b.close();
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
+  const stranger = connect();
+  t.after(() => { stranger.close(); });
+  await once(stranger, 'connect');
+
+  const offer = next(stranger, 'seat_choice');
+  stranger.emit('join_game', 'ROOM12', 'Buddy', 'totally-different-id');
+  const choice = await offer;
+
+  assert.equal(choice.seats.length, 1);
+  assert.equal(choice.seats[0].name, 'Buddy');
+  assert.equal(choice.seats[0].id, 'player-bbbbbbbb');
+  assert.equal(choice.canJoinNew, true);
+  // Nothing was seated behind our back.
+  assert.equal(game.order.length, 2);
+
+  game.players['player-bbbbbbbb'].score = 77;
+
+  const joined = next(stranger, 'joined');
+  const state = next(stranger, 'game_state_update');
+  stranger.emit('claim_seat', 'ROOM12', 'player-bbbbbbbb', 'Buddy', 'totally-different-id');
+  await joined;
+
+  const view = await state;
+  assert.equal(view.you, 'totally-different-id');
+  assert.equal(game.order.length, 2);
+  assert.deepEqual(game.order, ['player-aaaaaaaa', 'totally-different-id']);
+  assert.equal(game.players['totally-different-id'].score, 77);
+  assert.equal(game.players['player-bbbbbbbb'], undefined);
+  assert.equal(view.yourRack.length, 7);
+});
+
+test('a seat someone is sitting in is not offered or claimable', async (t) => {
+  const { a, b, game } = await seatTwo('ROOM13');
+  t.after(() => { a.close(); b.close(); });
+
+  const stranger = connect();
+  t.after(() => { stranger.close(); });
+  await once(stranger, 'connect');
+
+  // Both seats are occupied, so a third player is simply dealt in.
+  const joined = next(stranger, 'joined');
+  stranger.emit('join_game', 'ROOM13', 'Gatecrasher', 'third-player-id');
+  await joined;
+  assert.equal(game.order.length, 3);
+
+  // And an outright steal of a connected seat is refused.
+  const fourth = connect();
+  t.after(() => { fourth.close(); });
+  await once(fourth, 'connect');
+  const refused = next(fourth, 'error_message');
+  fourth.emit('claim_seat', 'ROOM13', 'player-aaaaaaaa', 'Thief', 'fourth-player-id');
+  assert.match((await refused).message, /already sitting there/);
+  assert.ok(game.players['player-aaaaaaaa']);
+});
+
 test.after(() => {
   server.close();
+  fs.rmSync(DATA_DIR, { recursive: true, force: true });
 });

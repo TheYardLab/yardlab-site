@@ -18,6 +18,7 @@ import {
   MAX_PLAYERS
 } from './src/constants.js';
 import { dictionarySize } from './src/dictionary.js';
+import { loadGames, scheduleSave, flush, SAVE_FILE } from './src/store.js';
 import {
   createGame,
   addPlayer,
@@ -25,6 +26,8 @@ import {
   markDisconnected,
   canSkipTurn,
   resetForRematch,
+  rekeySeat,
+  claimableSeats,
   isBlocked,
   evaluateMove,
   applyMove,
@@ -58,12 +61,13 @@ app.get('/healthz', (_req, res) => {
 // In-memory game state
 // -------------------------------------------------------------
 
-const games = {};
-// roomId -> { word?: Timeout, trade?: Timeout }
+const games = loadGames();
+// roomId -> { word?: Timeout, trade?: Timeout }  (never persisted)
 const timers = {};
 
 const PENDING_TIMEOUT_MS = 90_000;
-const EMPTY_ROOM_TTL_MS = 2 * 60 * 60 * 1000;
+// Long enough to finish a game over a few evenings.
+const ROOM_TTL_MS = (Number(process.env.ROOM_TTL_DAYS) || 30) * 24 * 60 * 60 * 1000;
 
 const CHEERS = [
   'Booyah!',
@@ -105,6 +109,12 @@ function setTimer(roomId, kind, fn) {
 async function broadcastState(roomId) {
   const game = getGame(roomId);
   if (!game) return;
+
+  // Every mutating handler ends here, so this is the one place that needs to
+  // mark the room alive and queue a save.
+  game.lastActivity = Date.now();
+  scheduleSave(games);
+
   const sockets = await io.in(roomId).fetchSockets();
   for (const s of sockets) {
     const playerId = s.data.playerId;
@@ -165,29 +175,46 @@ io.on('connection', (socket) => {
     if (!games[roomId]) games[roomId] = createGame(roomId);
     const game = games[roomId];
 
+    // An id we do not recognise arriving at a room that already has empty
+    // seats is usually someone coming back on a phone that forgot them —
+    // offer the seats rather than dealing them a meaningless new rack.
+    if (!game.players[playerId] && game.order.length > 0) {
+      const seats = claimableSeats(game);
+      const canJoinNew = game.order.length < MAX_PLAYERS;
+      if (seats.length > 0) {
+        socket.emit('seat_choice', { roomId, seats, canJoinNew, round: game.round });
+        return;
+      }
+      if (!canJoinNew) return fail(socket, 'This room is full. Bogus!');
+    }
+
     const result = addPlayer(game, playerId, playerName);
     if (!result.ok) return fail(socket, result.error);
+    await seatPlayer(socket, roomId, playerId, result.player, result.rejoined);
+  });
 
-    socket.data.roomId = roomId;
-    socket.data.playerId = playerId;
-    socket.join(roomId);
+  // Take over an empty seat in a saved game.
+  socket.on('claim_seat', async (rawRoomId, seatId, rawName, rawPlayerId) => {
+    const roomId = cleanRoomId(rawRoomId);
+    const game = getGame(roomId);
+    if (!game) return fail(socket, 'That game is gone.');
 
-    socket.emit('joined', {
-      roomId,
-      playerId,
-      seat: result.player.seat,
-      rejoined: result.rejoined,
-      maxPlayers: MAX_PLAYERS
-    });
+    const playerId = cleanPlayerId(rawPlayerId) ?? socket.id;
+    const playerName = cleanName(rawName);
 
-    announce(
-      roomId,
-      result.rejoined
-        ? `${result.player.name} is back online. *dial-up noises*`
-        : `${result.player.name} entered the chat room. ${cheer()}`,
-      'join'
-    );
-    await broadcastState(roomId);
+    // `seatId` of null means "deal me in as someone new".
+    if (!seatId) {
+      const result = addPlayer(game, playerId, playerName);
+      if (!result.ok) return fail(socket, result.error);
+      await seatPlayer(socket, roomId, playerId, result.player, result.rejoined);
+      return;
+    }
+
+    const result = rekeySeat(game, String(seatId), playerId, playerName);
+    if (!result.ok) return fail(socket, result.error);
+
+    announce(roomId, `${result.player.name} picked their game back up. *dial-up noises*`, 'join');
+    await seatPlayer(socket, roomId, playerId, result.player, true, true);
   });
 
   // --- PLAYING A WORD ------------------------------------------------------
@@ -507,6 +534,32 @@ io.on('connection', (socket) => {
 // Announcements
 // -------------------------------------------------------------
 
+/** Shared tail of every way into a room: bind the socket, greet, broadcast. */
+async function seatPlayer(socket, roomId, playerId, player, rejoined, silent = false) {
+  socket.data.roomId = roomId;
+  socket.data.playerId = playerId;
+  socket.join(roomId);
+
+  socket.emit('joined', {
+    roomId,
+    playerId,
+    seat: player.seat,
+    rejoined,
+    maxPlayers: MAX_PLAYERS
+  });
+
+  if (!silent) {
+    announce(
+      roomId,
+      rejoined
+        ? `${player.name} is back online. *dial-up noises*`
+        : `${player.name} entered the chat room. ${cheer()}`,
+      'join'
+    );
+  }
+  await broadcastState(roomId);
+}
+
 function announceMove(roomId, player, move) {
   const game = getGame(roomId);
   const headline = move.breakdown
@@ -550,15 +603,27 @@ function announceGameOver(roomId) {
 
 setInterval(async () => {
   const now = Date.now();
+  let swept = 0;
   for (const [roomId, game] of Object.entries(games)) {
     const sockets = await io.in(roomId).fetchSockets();
-    if (sockets.length === 0 && now - game.createdAt > EMPTY_ROOM_TTL_MS) {
+    const idleFor = now - (game.lastActivity ?? game.createdAt ?? 0);
+    if (sockets.length === 0 && idleFor > ROOM_TTL_MS) {
       for (const kind of Object.keys(timers[roomId] ?? {})) clearTimer(roomId, kind);
       delete timers[roomId];
       delete games[roomId];
+      swept += 1;
     }
   }
+  if (swept > 0) scheduleSave(games);
 }, 15 * 60 * 1000).unref();
+
+// Never lose a move to a restart or a redeploy.
+for (const signal of ['SIGINT', 'SIGTERM']) {
+  process.on(signal, () => {
+    flush();
+    process.exit(0);
+  });
+}
 
 /** Every address on the local network this server can be reached at. */
 function lanAddresses() {
@@ -570,12 +635,16 @@ function lanAddresses() {
 
 const PORT = Number(process.env.PORT) || 3000;
 server.listen(PORT, () => {
+  const saved = Object.keys(games).length;
   console.log(`\n  Y2K WORD SLAM · ${dictionarySize().toLocaleString()} words loaded\n`);
   console.log(`  On this computer:  http://localhost:${PORT}`);
   for (const address of lanAddresses()) {
     console.log(`  On your wifi:      http://${address}:${PORT}   <- use this on phones`);
   }
-  console.log('\n  Ctrl+C to stop. Games live in memory, so stopping the server clears them.\n');
+  console.log(`\n  Saving games to:   ${SAVE_FILE}`);
+  console.log(saved > 0
+    ? `  ${saved} game(s) picked up where you left off. Ctrl+C is safe.\n`
+    : '  No saved games yet. Ctrl+C is safe — progress is written to disk.\n');
 });
 
 export { app, server, io, games };

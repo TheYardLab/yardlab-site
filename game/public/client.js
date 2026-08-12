@@ -72,9 +72,12 @@
     return room;
   }
 
+  var hadStoredId = false;
+
   function getPlayerId() {
     var id = null;
     try { id = localStorage.getItem('y2k-player-id'); } catch (e) { /* private mode */ }
+    hadStoredId = Boolean(id);
     if (!id) {
       id = (window.crypto && crypto.randomUUID)
         ? crypto.randomUUID()
@@ -111,6 +114,22 @@
     $('join-btn').addEventListener('click', join);
     $('name-input').addEventListener('keydown', function (e) { if (e.key === 'Enter') join(); });
     $('room-input').addEventListener('keydown', function (e) { if (e.key === 'Enter') join(); });
+
+    $('not-you').addEventListener('click', function () {
+      if (!confirm('Forget this device and start over as someone else?')) return;
+      try {
+        localStorage.removeItem('y2k-player-id');
+        localStorage.removeItem('y2k-player-name');
+      } catch (e) { /* ignore */ }
+      window.location.reload();
+    });
+
+    // A returning player should land back in their game, not fill in a form
+    // again. Anyone we have never seen still gets the join screen.
+    if (hadStoredId && savedName()) {
+      $('join-screen').classList.add('hidden');
+      connect(savedName());
+    }
   }
 
   function join() {
@@ -145,7 +164,40 @@
     socket.on('disconnect', function () { setStatus(false); });
 
     socket.on('joined', function (data) {
+      $('seat-modal').classList.add('hidden');
       if (data.rejoined) toast('Welcome back! Your seat was saved.');
+    });
+
+    // The server does not recognise us but the room has a game in progress.
+    socket.on('seat_choice', function (data) {
+      var list = $('seat-list');
+      list.innerHTML = '';
+
+      data.seats.forEach(function (seat) {
+        var btn = document.createElement('button');
+        btn.className = 'button-y2k seat-btn';
+        btn.innerHTML = '';
+        btn.appendChild(document.createTextNode("I'm " + seat.name));
+        var meta = document.createElement('small');
+        meta.textContent = seat.score + ' pts · ' + seat.tiles + ' tiles';
+        btn.appendChild(meta);
+        btn.addEventListener('click', function () {
+          socket.emit('claim_seat', roomId, seat.id, seat.name, playerId);
+        });
+        list.appendChild(btn);
+      });
+
+      if (data.canJoinNew) {
+        var fresh = document.createElement('button');
+        fresh.className = 'button-y2k alt seat-btn';
+        fresh.textContent = 'None of these — deal me in';
+        fresh.addEventListener('click', function () {
+          socket.emit('claim_seat', roomId, null, $('name-input').value.trim() || 'Player', playerId);
+        });
+        list.appendChild(fresh);
+      }
+
+      $('seat-modal').classList.remove('hidden');
     });
 
     socket.on('game_state_update', function (next) {
