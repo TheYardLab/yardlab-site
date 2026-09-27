@@ -241,17 +241,17 @@ permalink: /index.html
       <p class="lede">{{ homepage.hero_description }}</p>
       <div class="hero-actions">
         <a href="#catalog" class="btn btn-primary">Browse The Catalog <span class="arrow">→</span></a>
-        <a href="#submissions" class="btn btn-ghost">Submit Your Work</a>
+        <a href="#submissions" class="btn btn-ghost">Submission Info</a>
       </div>
     </div>
 
     <div class="hero-feature">
-      <div class="hero-feature-label">Now Reading</div>
+      <div class="hero-feature-label">Currently Closed</div>
       <h3>{{ homepage.now_reading_title | safe }}</h3>
       <p class="issue">{{ homepage.now_reading_issue }}</p>
       <p>{{ homepage.now_reading_desc }}</p>
       <div class="deadline">
-        <span>Reading Through</span>
+        <span>Reopens</span>
         <strong>{{ homepage.now_reading_deadline }}</strong>
       </div>
       <a href="#submissions" class="small-link">Submission Guidelines</a>
@@ -305,6 +305,7 @@ permalink: /index.html
         <strong>Shelf Talk</strong>
         "{{ book.shelf_talk }}" — {{ book.shelf_talk_by }}
       </div>
+      {% if book.audible_url %}<div style="margin-top:12px;font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-faint);">🎧 Audiobook available</div>{% endif %}
       <span class="title-link">Read more</span>
     </a>
     {% endif %}{% endfor %}
@@ -396,15 +397,15 @@ permalink: /index.html
     <div class="lab-feature-text">
       <div class="section-label">The Lab. <span style="color: rgba(244,237,224,0.3); margin-left: 8px;">N°1</span></div>
       <h2>An annual of <em>independent</em> short fiction.</h2>
-      <p><em>The Lab.</em> is our annual publication — short stories, novel excerpts, and prose miscellany from emerging and established independent writers. We read every submission. We pay our writers. We publish work that doesn't quite fit anywhere else.</p>
+      <p><em>The Lab.</em> is our annual publication — short stories, novel excerpts, and prose miscellany from emerging and established independent writers. We read every submission we receive. We pay our writers. We publish work that doesn't quite fit anywhere else.</p>
       <p>Each year's issue is curated by our editorial team and produced as a print volume, with the full contents also available digitally to subscribers.</p>
       <div class="feature-meta">
         <div>Inaugural Issue<strong>N°1 · Annual 2026</strong></div>
-        <div>Reading Period<strong>Through January 31</strong></div>
+        <div>Submissions<strong>Reopen Jan 15, 2027</strong></div>
         <div>Publication<strong>Fall 2026</strong></div>
       </div>
       <div class="lab-actions">
-        <a href="#submissions" class="btn btn-light">Submit to The Lab. <span class="arrow">→</span></a>
+        <a href="#submissions" class="btn btn-light">Submission Info <span class="arrow">→</span></a>
         <a href="/#newsletter" class="btn btn-outline-light">Subscribe</a>
       </div>
     </div>
@@ -418,22 +419,6 @@ permalink: /index.html
           Forthcoming Fall 2026 — featuring selected work from open submissions, plus original essays and a featured excerpt.
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- AUTHOR SPOTLIGHT -->
-<section class="author-spotlight fade-in" id="authors">
-  <div class="section-label">Author Spotlight</div>
-  <div class="author-grid">
-    <div class="author-portrait" style="padding:0;overflow:hidden;border:none;background:none;">
-      <img src="/assets/mpf-headshot.jpg" alt="M. Patrick Furry" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
-    </div>
-
-    <div class="author-body">
-      <h3>The unsettling spaces where <em>reality frays.</em></h3>
-      <p>M. Patrick Furry is an author of speculative fiction who explores the unsettling spaces where reality frays. His work creates a blend of grounded, character-driven storytelling, focused on how ordinary people navigate extraordinary terrors and dark wonders.</p>
-      <p>His portfolio includes diverse narratives ranging from the dark persistence of childhood imaginary friends to the analog nightmares of <em>Play</em>, his horror novel. His speculative novel <em>The Casual Oblivion of Francis Keene</em> — a story of a lifelong grifter, a final road trip, and a thirteen-year-old who inherits his grandfather's terrible gift — is his most recent work.</p>
     </div>
   </div>
 </section>
@@ -472,9 +457,16 @@ permalink: /index.html
   <div class="submissions-grid">
     <div class="submissions-body">
       <div class="section-label">Submissions</div>
-      <h2>We're <em>reading</em>.</h2>
+      <h2>We're <em>closed</em>.</h2>
       <p>{{ homepage.submissions_intro | safe }}</p>
       <p>{{ homepage.submissions_detail | safe }}</p>
+      <div style="margin-top:32px;padding:28px 32px;background:var(--paper-deep);border:1px solid var(--paper-edge);max-width:460px;">
+        <div style="font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--oxblood);margin-bottom:12px;">Reopening January 15, 2027</div>
+        <p style="font-size:15px;line-height:1.55;color:var(--ink-muted);margin-bottom:0;">The submission form will return here when reading resumes. In the meantime, <a href="#newsletter" style="color:var(--ink);border-bottom:1px solid var(--ink);">subscribe to our newsletter</a> and we'll send a note the day we reopen.</p>
+      </div>
+      <!--
+      SUBMISSION FORM — commented out while submissions are closed.
+      Restore by deleting this comment wrapper (and the closed-notice div above) when reading reopens January 15, 2027.
       <form action="https://formspree.io/f/mzdwkedl" method="POST" id="submit-form" style="margin-top:24px;">
         <input type="hidden" name="_subject" value="Submission — The Yard Lab">
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
@@ -494,6 +486,7 @@ permalink: /index.html
         </div>
         <div id="submit-msg" style="margin-top:12px;font-family:var(--font-ui);font-size:13px;line-height:1.6;"></div>
       </form>
+      -->
     </div>
 
     <div class="submissions-stats">

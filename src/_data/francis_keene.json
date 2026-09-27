@@ -36,6 +36,7 @@
     { "name": "Books-A-Million", "url": "https://www.booksamillion.com/" },
     { "name": "Bookshop.org", "url": "https://bookshop.org/search?keywords=Casual+Oblivion+Francis+Keene" },
     { "name": "Apple Books", "url": "https://books.apple.com/search?term=Casual+Oblivion+Francis+Keene" },
-    { "name": "Kobo", "url": "https://www.kobo.com/us/en/search?query=Casual+Oblivion+Francis+Keene" }
+    { "name": "Kobo", "url": "https://www.kobo.com/us/en/search?query=Casual+Oblivion+Francis+Keene" },
+    { "name": "Audible", "url": "https://www.audible.com/pd/B0HJB3PDJ3/?source_code=AUDFPWS0223189MWT-BK-ACX0-530637&ref=acx_bty_BK_ACX0_530637_rh_us" }
   ]
 }

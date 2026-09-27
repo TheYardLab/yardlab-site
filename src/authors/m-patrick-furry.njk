@@ -1,0 +1,49 @@
+---
+layout: base.njk
+title: M. Patrick Furry — Author | The Yard Lab Publishing Group
+description: M. Patrick Furry is an author of speculative fiction exploring the unsettling spaces where reality frays. Author of Play. and The Casual Oblivion of Francis Keene.
+permalink: /authors/m-patrick-furry/index.html
+active_nav: authors
+---
+
+<style>
+.author-page { max-width: 1400px; margin: 0 auto; padding: 100px 40px; }
+.author-page .breadcrumb { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 48px; }
+.author-page .breadcrumb a { color: var(--ink-muted); }
+.author-page .author-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center; }
+.author-page .author-portrait { aspect-ratio: 4/5; overflow: hidden; }
+.author-page .author-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.author-page .author-body h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.015em; margin-bottom: 24px; }
+.author-page .author-body h1 em { font-style: italic; color: var(--oxblood); }
+.author-page .author-body p { font-size: 18px; line-height: 1.65; color: var(--ink-muted); margin-bottom: 20px; max-width: 640px; }
+.author-page .author-body p:first-of-type::first-letter { font-family: var(--font-display); font-weight: 600; font-size: 3.4em; line-height: 0.85; float: left; margin: 0.08em 0.1em 0 0; color: var(--oxblood); }
+.author-page .author-books { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; }
+.author-page .author-books a { font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 14px 24px; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.author-page .author-books a:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 1024px) {
+  .author-page .author-grid { grid-template-columns: 1fr; gap: 60px; }
+}
+@media (max-width: 640px) {
+  .author-page { padding: 60px 20px; }
+}
+</style>
+
+<div class="author-page">
+  <div class="breadcrumb"><a href="/">Home</a> <span>/</span> Authors</div>
+  <div class="section-label">Author Spotlight</div>
+  <div class="author-grid">
+    <div class="author-portrait">
+      <img src="/assets/mpf-headshot.jpg" alt="M. Patrick Furry">
+    </div>
+
+    <div class="author-body">
+      <h1>The unsettling spaces where <em>reality frays.</em></h1>
+      <p>M. Patrick Furry is an author of speculative fiction who explores the unsettling spaces where reality frays. His work creates a blend of grounded, character-driven storytelling, focused on how ordinary people navigate extraordinary terrors and dark wonders.</p>
+      <p>His portfolio includes diverse narratives ranging from the dark persistence of childhood imaginary friends to the analog nightmares of <em>Play</em>, his horror novel. His speculative novel <em>The Casual Oblivion of Francis Keene</em> — a story of a lifelong grifter, a final road trip, and a thirteen-year-old who inherits his grandfather's terrible gift — is his most recent work.</p>
+      <div class="author-books">
+        <a href="/books/francis-keene/">The Casual Oblivion of Francis Keene</a>
+        <a href="/books/play/">Play.</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,8 +5,8 @@
 
   "now_reading_title": "The Lab. <em>Annual</em>",
   "now_reading_issue": "N°1 · 2026",
-  "now_reading_desc": "Our inaugural annual — short fiction, novel excerpts, and prose miscellany from independent writers. Open to all submissions. No reading fees. We pay on acceptance.",
-  "now_reading_deadline": "January 31, 2026",
+  "now_reading_desc": "Our inaugural annual — short fiction, novel excerpts, and prose miscellany from independent writers. Submissions are currently closed while our editorial team reads through the current queue.",
+  "now_reading_deadline": "January 15, 2027",
 
   "catalog_heading": "Our <em>catalog</em>.",
   "catalog_sub": "Two novels and an annual — what we've published so far.",
@@ -21,7 +21,7 @@
 
   "currently_title": "What the press is <em>doing</em> this season.",
   "currently_items": [
-    { "when": "Reading", "what": "Open submissions for <em>The Lab. Annual N°1</em>" },
+    { "when": "Closed", "what": "Submissions reopen <em>January 15, 2027</em>" },
     { "when": "Promoting", "what": "<em>Play</em> — debut horror novel from M. Patrick Furry" },
     { "when": "Editing", "what": "Manuscript by a forthcoming author — announcing spring" },
     { "when": "Watching", "what": "Film & TV development on <em>Francis Keene</em>" },
@@ -38,6 +38,6 @@
     { "year": "2026", "event": "<em>Play</em> + the inaugural <em>Annual N°1</em>", "note": "Hardcover · Audio · Print" }
   ],
 
-  "submissions_intro": "<em>The Lab. Annual N°1</em> is open for submissions through January 31, 2026. We welcome short fiction, novel excerpts, and prose miscellany from independent and emerging writers.",
-  "submissions_detail": "Full manuscripts and book-length projects are accepted by query first. We respond to every submission. Simultaneous submissions are welcome — just let us know."
+  "submissions_intro": "We're closed to all submissions — <em>The Lab. Annual N°1</em>, short fiction, novel excerpts, and full-manuscript queries alike — while our editorial team reads through the current queue.",
+  "submissions_detail": "We reopen on January 15, 2027. Subscribe to our newsletter below and we'll let you know the moment reading resumes — no need to check back."
 }
