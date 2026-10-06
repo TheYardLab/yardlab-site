@@ -221,7 +221,7 @@ permalink: /index.html
     <div class="hero-text">
       <div class="hero-eyebrow">{{ homepage.hero_eyebrow }}</div>
       <h1>{{ homepage.hero_headline | safe }}</h1>
-      <p class="lede">{{ homepage.hero_description }}</p>
+      <p class="lede">{{ homepage.hero_description | safe }}</p>
       <div class="hero-actions">
         <a href="#catalog" class="btn btn-primary">Browse The Catalog <span class="arrow">→</span></a>
         <a href="#submissions" class="btn btn-ghost">Submission Info</a>
@@ -232,7 +232,7 @@ permalink: /index.html
       <div class="hero-feature-label">Currently Closed</div>
       <h3>{{ homepage.now_reading_title | safe }}</h3>
       <p class="issue">{{ homepage.now_reading_issue }}</p>
-      <p>{{ homepage.now_reading_desc }}</p>
+      <p>{{ homepage.now_reading_desc | safe }}</p>
       <div class="deadline">
         <span>Reopens</span>
         <strong>{{ homepage.now_reading_deadline }}</strong>
@@ -246,7 +246,7 @@ permalink: /index.html
 <section class="section new-notable fade-in" id="catalog">
   <div class="section-label">Available Now</div>
   <h2 class="section-title">{{ homepage.catalog_heading | safe }}</h2>
-  <p class="section-sub">{{ homepage.catalog_sub }}</p>
+  <p class="section-sub">{{ homepage.catalog_sub | safe }}</p>
 
   <div class="titles-grid">
     {% for book in catalog %}{% if book.in_catalog %}
@@ -410,7 +410,7 @@ permalink: /index.html
 <section class="mission fade-in" id="about">
   <div class="mission-inner">
     <div class="section-label">Our Mission</div>
-    <blockquote>{{ homepage.mission_text }}</blockquote>
+    <blockquote>{{ homepage.mission_text | safe }}</blockquote>
     <div class="mission-attribution">{{ homepage.mission_attribution }}</div>
   </div>
 </section>
@@ -428,7 +428,7 @@ permalink: /index.html
         <div class="dot"></div>
         <div class="year">{{ m.year }}</div>
         <div class="event">{{ m.event | safe }}</div>
-        <div class="note">{{ m.note }}</div>
+        <div class="note">{{ m.note | safe }}</div>
       </div>
       {% endfor %}
     </div>
