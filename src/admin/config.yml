@@ -230,8 +230,6 @@ collections:
             fields:
               - { label: "Quote", name: "quote", widget: "text" }
               - { label: "Attribution", name: "by", widget: "string" }
-          - { label: "Development Heading", name: "development_heading", widget: "string" }
-          - { label: "Development Body", name: "development_body", widget: "text" }
           - label: "Retailers"
             name: "retailers"
             widget: "list"
