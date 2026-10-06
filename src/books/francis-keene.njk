@@ -124,13 +124,6 @@ active_nav: catalog
 .praise-item cite { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-faint); font-style: normal; }
 .praise-item cite .stars { color: var(--keene-brass); margin-right: 10px; letter-spacing: 0.1em; }
 
-/* Development */
-.development { background: var(--keene-deep); color: var(--keene-cream); padding: 80px 40px; position: relative; overflow: hidden; }
-.development-inner { max-width: 1000px; margin: 0 auto; text-align: center; position: relative; z-index: 2; }
-.development .dev-label { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: var(--keene-brass-bright); margin-bottom: 20px; }
-.development h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(32px, 4.5vw, 48px); line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 16px; color: var(--keene-cream); }
-.development h2 em { font-style: italic; color: var(--keene-brass-bright); }
-.development p { font-family: var(--font-display); font-style: italic; font-size: 19px; color: rgba(237, 229, 211, 0.7); max-width: 700px; margin: 0 auto; }
 
 /* Buy */
 .buy { padding: 120px 40px; text-align: center; background: radial-gradient(ellipse at top, rgba(26, 43, 61, 0.08) 0%, transparent 60%), var(--paper); }
@@ -156,7 +149,7 @@ active_nav: catalog
 @media (max-width: 640px) {
   .breadcrumb { padding: 20px 20px 0; font-size: 10px; }
   .book-hero, .trip { padding: 60px 20px; }
-  .synopsis, .tells, .pull-quote, .praise, .development, .buy { padding: 70px 20px; }
+  .synopsis, .tells, .pull-quote, .praise, .buy { padding: 70px 20px; }
   .facts-banner { padding: 50px 20px; }
   .facts-inner { grid-template-columns: 1fr; gap: 32px; }
   .fact:not(:last-child)::after { right: 50%; top: auto; bottom: -16px; transform: translateX(50%); width: 60%; height: 1px; }
@@ -278,15 +271,6 @@ active_nav: catalog
       </div>
       {% endfor %}
     </div>
-  </div>
-</section>
-
-<!-- DEVELOPMENT -->
-<section class="development fade-in">
-  <div class="development-inner">
-    <div class="dev-label">★ Currently In Development</div>
-    <h2>{{ francis_keene.development_heading | safe }}</h2>
-    <p>{{ francis_keene.development_body }}</p>
   </div>
 </section>
 
