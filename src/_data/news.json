@@ -1,19 +1,27 @@
 [
   {
+    "date": "2026-10-06",
+    "headline": "<em>The Lab. Annual N°1</em> moves to 2027.",
+    "summary": "We're giving our inaugural annual more room. Submissions reopen January 15, 2027, and N°1 follows later in the year.",
+    "link": "#submissions",
+    "label": "Submission info",
+    "order": 1
+  },
+  {
     "date": "2026-01-15",
     "headline": "<em>The Lab. Annual N°1</em> opens for submissions.",
     "summary": "Our inaugural annual is open for submissions through January 31. Read the call and guidelines.",
     "link": "#submissions",
     "label": "Submission call",
-    "order": 1
+    "order": 2
   },
   {
     "date": "2025-12-10",
-    "headline": "The press goes annual <em>—</em> a note on the rebrand.",
+    "headline": "<em>The Lab.</em> goes annual <em>—</em> a note on the change.",
     "summary": "An editor's note on why we're moving <em>The Lab.</em> from quarterly to annual, and what to expect.",
     "link": "#",
     "label": "Read the note",
-    "order": 2
+    "order": 3
   },
   {
     "date": "2025-11-04",
@@ -21,6 +29,6 @@
     "summary": "Furry's debut novel is available in paperback and eBook through major retailers and independent bookstores.",
     "link": "/books/francis-keene/",
     "label": "Order the book",
-    "order": 3
+    "order": 4
   }
 ]
