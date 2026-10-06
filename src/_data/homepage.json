@@ -24,7 +24,6 @@
     { "when": "Closed", "what": "Submissions reopen <em>January 15, 2027</em>" },
     { "when": "Promoting", "what": "<em>Play</em> — the new horror novel from M. Patrick Furry" },
     { "when": "Editing", "what": "A manuscript by a forthcoming author — more to come" },
-    { "when": "Watching", "what": "Film & TV development on <em>Francis Keene</em>" },
     { "when": "Planning", "what": "<em>The Lab. Annual N°1</em>, coming 2027" }
   ],
 
@@ -33,7 +32,7 @@
 
   "milestones": [
     { "year": "2023", "event": "<em>The Yard Lab</em> founded", "note": "Novato, California" },
-    { "year": "2024", "event": "First seven issues of <em>The Lab. Magazine</em>", "note": "Quarterly · Fall 23 — Summer 24" },
+    { "year": "2024", "event": "Quarterly issues of <em>The Lab. Magazine</em>", "note": "Quarterly, before the move to annual" },
     { "year": "2025", "event": "First novel: <em>The Casual Oblivion of Francis Keene</em>", "note": "M. Patrick Furry · <em>The Lab.</em> goes annual" },
     { "year": "2026", "event": "<em>Play</em>", "note": "M. Patrick Furry" }
   ],
