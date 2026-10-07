@@ -7,9 +7,11 @@
     "published": "2026-01-08",
     "snippet": "When I started <em>Play</em>, I knew the central image — a man entering a 24-hour video store that shouldn't exist — but I didn't know yet why he kept going back. The answer turned out to be older than any technology in the book, and it took three drafts to find it.",
     "image_style": "play",
-    "link": "#",
+    "link": "",
     "featured": true,
-    "order": 1
+    "order": 1,
+    "image": "/assets/play-cover.jpg",
+    "image_alt": "Cover of Play"
   },
   {
     "title": "Why we made <em>The Lab.</em> an annual.",
@@ -19,9 +21,11 @@
     "published": "2025-12-05",
     "snippet": "The decision to move from quarterly to annual wasn't about scaling back. It was about giving each issue room to mean something — and giving our writers more than ninety days of shelf life.",
     "image_style": "infinity",
-    "link": "#",
+    "link": "",
     "featured": false,
-    "order": 2
+    "order": 2,
+    "image": "/assets/yardlab-logo-full-light.png",
+    "image_alt": "The Yard Lab"
   },
   {
     "title": "The Tells: a conversation about <em>Francis Keene</em>.",
@@ -31,8 +35,10 @@
     "published": "2025-11-12",
     "snippet": "On grief, generational inheritance, and writing a conman with a conscience. We sat down with Furry the week before the paperback shipped to talk about the book's long road from short story to novel.",
     "image_style": "quote",
-    "link": "#",
+    "link": "",
     "featured": false,
-    "order": 3
+    "order": 3,
+    "image": "/assets/francis-keene-cover.jpg",
+    "image_alt": "Cover of The Casual Oblivion of Francis Keene"
   }
 ]
