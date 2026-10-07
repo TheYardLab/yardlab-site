@@ -68,6 +68,16 @@ permalink: /index.html
 .article-image-2 { background: radial-gradient(ellipse at 70% 30%, rgba(139, 26, 38, 0.3) 0%, transparent 60%), linear-gradient(135deg, #2d3e50 0%, #1a2b3d 50%, #0f1d2c 100%); }
 .article-image-4 { background: radial-gradient(ellipse at 30% 70%, rgba(244, 237, 224, 0.08) 0%, transparent 60%), linear-gradient(135deg, #1a1410 0%, #14100c 100%); display: flex; align-items: center; justify-content: center; }
 .article-card.featured .article-image { aspect-ratio: 5/4; }
+.article-image { display: flex; align-items: center; justify-content: center; }
+.article-image img.article-cover { height: 82%; width: auto; max-width: 70%; object-fit: contain; box-shadow: 0 14px 34px rgba(0,0,0,0.55); transition: transform 0.4s; }
+.article-image img.article-logo { width: 46%; height: auto; opacity: 0.9; }
+.article-card:hover .article-image img.article-cover { transform: scale(1.02); }
+.article-card.soon, .news-card.soon { cursor: default; }
+.article-card.soon:hover { transform: none; }
+.article-card.soon .article-read { color: var(--ink-faint); }
+.article-card.soon .article-read::after, .news-card.soon .read-more::after { content: ''; }
+.news-card.soon:hover { border-color: var(--paper-edge); transform: none; }
+.news-card.soon .read-more { color: var(--ink-faint); }
 .article-category { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 10px; }
 .article-card h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; letter-spacing: -0.005em; margin-bottom: 10px; font-size: 22px; }
 .article-card.featured h3 { font-size: 36px; }
@@ -328,14 +338,14 @@ permalink: /index.html
 
     <div class="articles-grid">
       {% for article in articles %}
-      <a href="{{ article.link }}" class="article-card{% if article.featured %} featured{% endif %}">
-        <div class="article-image article-image-{% if article.image_style == 'play' %}1{% elif article.image_style == 'infinity' %}2{% else %}4{% endif %}"></div>
+      {% if article.link %}<a href="{{ article.link }}"{% else %}<div{% endif %} class="article-card{% if article.featured %} featured{% endif %}{% if not article.link %} soon{% endif %}">
+        <div class="article-image article-image-{% if article.image_style == 'play' %}1{% elif article.image_style == 'infinity' %}2{% else %}4{% endif %}">{% if article.image %}<img src="{{ article.image }}" alt="{{ article.image_alt }}" loading="lazy" class="{% if article.image_style == 'infinity' %}article-logo{% else %}article-cover{% endif %}">{% endif %}</div>
         <div class="article-category">{{ article.category }} · {{ article.reading_time }}</div>
         <h3>{{ article.title | safe }}</h3>
         <div class="article-byline">{{ article.byline }} &middot; {{ article.published | monthYearLong }}</div>
         <p class="article-snippet">{{ article.snippet | safe }}</p>
-        <span class="article-read">{% if article.featured %}Read the essay{% else %}Continue reading{% endif %}</span>
-      </a>
+        <span class="article-read">{% if not article.link %}Coming soon{% elif article.featured %}Read the essay{% else %}Continue reading{% endif %}</span>
+      {% if article.link %}</a>{% else %}</div>{% endif %}
       {% endfor %}
     </div>
   </div>
@@ -509,12 +519,12 @@ permalink: /index.html
 
     <div class="news-grid">
       {% for item in news %}
-      <a href="{{ item.link }}" class="news-card">
+      {% if item.link %}<a href="{{ item.link }}" class="news-card">{% else %}<div class="news-card soon">{% endif %}
         <div class="news-date">{{ item.date | monthYear }}</div>
         <h4>{{ item.headline | safe }}</h4>
         <p>{{ item.summary | safe }}</p>
         <span class="read-more">{{ item.label }}</span>
-      </a>
+      {% if item.link %}</a>{% else %}</div>{% endif %}
       {% endfor %}
     </div>
   </div>
