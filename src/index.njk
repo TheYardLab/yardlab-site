@@ -39,7 +39,7 @@ permalink: /index.html
 .title-entry { display: flex; flex-direction: column; }
 .title-card { text-decoration: none; color: var(--ink); transition: transform 0.3s; display: block; }
 .title-card:hover { transform: translateY(-4px); }
-.title-cover { aspect-ratio: 5/8; margin-bottom: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(26, 20, 16, 0.1), 0 20px 40px rgba(26, 20, 16, 0.18); position: relative; overflow: hidden; }
+.title-cover { aspect-ratio: 5/8; margin-bottom: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(17, 17, 17, 0.1), 0 20px 40px rgba(17, 17, 17, 0.18); position: relative; overflow: hidden; }
 .title-cover img { width: 100%; height: 100%; object-fit: cover; }
 .title-cover > .cover-keene, .title-cover > .cover-lab { width: 100%; height: 100%; }
 .title-format { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 8px; }
@@ -65,9 +65,9 @@ permalink: /index.html
 .article-card { text-decoration: none; color: var(--ink); display: flex; flex-direction: column; transition: transform 0.3s; }
 .article-card:hover { transform: translateY(-2px); }
 .article-image { aspect-ratio: 4/3; margin-bottom: 24px; position: relative; overflow: hidden; background: var(--ink); }
-.article-image-1 { background: radial-gradient(ellipse at 30% 30%, rgba(184, 153, 104, 0.25) 0%, transparent 60%), linear-gradient(135deg, #1a1410 0%, #2d2218 50%, #1a1410 100%); }
-.article-image-2 { background: radial-gradient(ellipse at 70% 30%, rgba(139, 26, 38, 0.3) 0%, transparent 60%), linear-gradient(135deg, #2d3e50 0%, #1a2b3d 50%, #0f1d2c 100%); }
-.article-image-4 { background: radial-gradient(ellipse at 30% 70%, rgba(244, 237, 224, 0.08) 0%, transparent 60%), linear-gradient(135deg, #1a1410 0%, #14100c 100%); display: flex; align-items: center; justify-content: center; }
+.article-image-1 { background: radial-gradient(ellipse at 30% 30%, rgba(240, 138, 75, 0.25) 0%, transparent 60%), linear-gradient(135deg, #111111 0%, #222222 50%, #111111 100%); }
+.article-image-2 { background: radial-gradient(ellipse at 70% 30%, rgba(177, 58, 10, 0.3) 0%, transparent 60%), linear-gradient(135deg, #2d3e50 0%, #1a2b3d 50%, #0f1d2c 100%); }
+.article-image-4 { background: radial-gradient(ellipse at 30% 70%, rgba(251, 250, 247, 0.08) 0%, transparent 60%), linear-gradient(135deg, #111111 0%, #0a0a0a 100%); display: flex; align-items: center; justify-content: center; }
 .article-card.featured .article-image { aspect-ratio: 5/4; }
 .article-image { display: flex; align-items: center; justify-content: center; }
 .article-image img.article-cover { height: 82%; width: auto; max-width: 70%; object-fit: contain; box-shadow: 0 14px 34px rgba(0,0,0,0.55); transition: transform 0.4s; }
@@ -111,10 +111,10 @@ permalink: /index.html
 .currently-card h3 { font-family: var(--font-display); font-weight: 500; font-size: 32px; line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 32px; color: var(--paper); }
 .currently-card h3 em { font-style: italic; color: var(--gold); }
 .currently-list { list-style: none; }
-.currently-list li { padding: 18px 0; border-bottom: 1px solid rgba(244, 237, 224, 0.12); display: flex; gap: 20px; align-items: baseline; }
+.currently-list li { padding: 18px 0; border-bottom: 1px solid rgba(251, 250, 247, 0.12); display: flex; gap: 20px; align-items: baseline; }
 .currently-list li:last-child { border-bottom: none; }
 .currently-list .when { flex-shrink: 0; font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); min-width: 78px; }
-.currently-list .what { font-family: var(--font-display); font-size: 17px; line-height: 1.4; color: rgba(244, 237, 224, 0.85); }
+.currently-list .what { font-family: var(--font-display); font-size: 17px; line-height: 1.4; color: rgba(251, 250, 247, 0.85); }
 .currently-list .what em { font-style: italic; color: var(--paper); }
 
 /* Lab feature */
@@ -124,9 +124,9 @@ permalink: /index.html
 .lab-feature .section-label::before { background: var(--gold); }
 .lab-feature h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 5.5vw, 72px); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 32px; color: var(--paper); }
 .lab-feature h2 em { font-style: italic; color: var(--gold); }
-.lab-feature p { font-size: 19px; line-height: 1.6; color: rgba(244, 237, 224, 0.78); margin-bottom: 24px; max-width: 540px; }
-.lab-feature .feature-meta { display: flex; gap: 40px; margin: 40px 0; padding: 28px 0; border-top: 1px solid rgba(244, 237, 224, 0.15); border-bottom: 1px solid rgba(244, 237, 224, 0.15); flex-wrap: wrap; }
-.lab-feature .feature-meta div { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244, 237, 224, 0.5); }
+.lab-feature p { font-size: 19px; line-height: 1.6; color: rgba(251, 250, 247, 0.78); margin-bottom: 24px; max-width: 540px; }
+.lab-feature .feature-meta { display: flex; gap: 40px; margin: 40px 0; padding: 28px 0; border-top: 1px solid rgba(251, 250, 247, 0.15); border-bottom: 1px solid rgba(251, 250, 247, 0.15); flex-wrap: wrap; }
+.lab-feature .feature-meta div { font-family: var(--font-ui); font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(251, 250, 247, 0.5); }
 .lab-feature .feature-meta strong { display: block; font-family: var(--font-display); font-style: italic; font-size: 22px; letter-spacing: 0; text-transform: none; color: var(--paper); margin-top: 6px; font-weight: 500; }
 .lab-feature .lab-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 .lab-feature .lab-cover-display { display: flex; justify-content: center; }
@@ -409,7 +409,7 @@ permalink: /index.html
 <section class="lab-feature fade-in" id="lab">
   <div class="lab-feature-inner">
     <div class="lab-feature-text">
-      <div class="section-label">The Lab. <span style="color: rgba(244,237,224,0.3); margin-left: 8px;">N°1</span></div>
+      <div class="section-label">The Lab. <span style="color: rgba(251, 250, 247,0.3); margin-left: 8px;">N°1</span></div>
       <h2>An annual of <em>independent</em> short fiction.</h2>
       <p><em>The Lab.</em> is our annual publication — short stories, novel excerpts, and prose miscellany from emerging and established independent writers. We read every submission we receive, and we pay our writers.</p>
       <p>Each year's issue is curated by our editorial team and produced as a print volume, with the full contents also available digitally to subscribers.</p>

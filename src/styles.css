@@ -8,17 +8,17 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --paper: #f4ede0;
-  --paper-deep: #ebe1ce;
-  --paper-edge: #d9cfb8;
-  --ink: #1a1410;
-  --ink-muted: #5a4f44;
-  --ink-faint: #6c6256;
-  --oxblood: #8b1a26;
-  --oxblood-deep: #6e1320;
-  --gold: #b89968;
-  --rule: rgba(26, 20, 16, 0.15);
-  --rule-strong: rgba(26, 20, 16, 0.4);
+  --paper: #fbfaf7;
+  --paper-deep: #f1efe9;
+  --paper-edge: #e2dfd6;
+  --ink: #111111;
+  --ink-muted: #55534e;
+  --ink-faint: #686560;
+  --oxblood: #b13a0a;
+  --oxblood-deep: #8a2c08;
+  --gold: #f08a4b;
+  --rule: rgba(17, 17, 17, 0.15);
+  --rule-strong: rgba(17, 17, 17, 0.4);
 
   --font-display: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
   --font-body: 'EB Garamond', Georgia, serif;
@@ -73,7 +73,7 @@ a:hover { color: var(--oxblood); }
 
 .announce a {
   color: var(--paper);
-  border-bottom: 1px solid rgba(244, 237, 224, 0.4);
+  border-bottom: 1px solid rgba(251, 250, 247, 0.4);
   padding-bottom: 1px;
 }
 
@@ -90,7 +90,7 @@ a:hover { color: var(--oxblood); }
 .header {
   position: sticky;
   top: 0;
-  background: rgba(244, 237, 224, 0.94);
+  background: rgba(251, 250, 247, 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule);
@@ -279,7 +279,7 @@ nav.primary a.active {
 .btn-outline-light {
   background: transparent;
   color: var(--paper);
-  border: 1px solid rgba(244, 237, 224, 0.4);
+  border: 1px solid rgba(251, 250, 247, 0.4);
 }
 
 .btn-outline-light:hover {
@@ -308,7 +308,7 @@ nav.primary a.active {
 /* Cover for "The Casual Oblivion of Francis Keene" — styled cover used when no JPG exists */
 .cover-keene {
   background:
-    radial-gradient(ellipse at 30% 20%, rgba(184, 153, 104, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 20%, rgba(240, 138, 75, 0.12) 0%, transparent 60%),
     linear-gradient(180deg, #2d3e50 0%, #1a2b3d 60%, #0f1d2c 100%);
   display: flex;
   flex-direction: column;
@@ -325,13 +325,13 @@ nav.primary a.active {
   font-weight: 600;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: #b89968;
+  color: #f08a4b;
 }
 
 .cover-keene .ornament {
   font-family: var(--font-display);
   font-size: 20px;
-  color: #b89968;
+  color: #f08a4b;
   margin: 18px 0;
   opacity: 0.6;
   line-height: 1;
@@ -374,14 +374,14 @@ nav.primary a.active {
 
 /* Cover for "The Lab." annual */
 .cover-lab {
-  background: linear-gradient(180deg, #6e1320 0%, #5a0e1a 100%);
+  background: linear-gradient(180deg, #1c1c1c 0%, #0a0a0a 100%);
   display: flex;
   flex-direction: column;
   padding: 28px 24px;
-  color: #f4ede0;
+  color: #fbfaf7;
   position: relative;
   font-family: var(--font-display);
-  border: 1px solid rgba(184, 153, 104, 0.3);
+  border: 1px solid rgba(240, 138, 75, 0.3);
 }
 
 .cover-lab .lab-top {
@@ -393,7 +393,7 @@ nav.primary a.active {
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #c9a570;
+  color: #f08a4b;
   margin-bottom: 30px;
 }
 
@@ -406,15 +406,15 @@ nav.primary a.active {
   margin-bottom: 6px;
 }
 
-.cover-lab .lab-title .dot { color: #c9a570; }
+.cover-lab .lab-title .dot { color: #f08a4b; }
 
 .cover-lab .lab-tagline {
   font-style: italic;
   font-size: 14px;
   line-height: 1.3;
-  color: rgba(244, 237, 224, 0.85);
+  color: rgba(251, 250, 247, 0.85);
   padding-bottom: 28px;
-  border-bottom: 1px solid rgba(184, 153, 104, 0.3);
+  border-bottom: 1px solid rgba(240, 138, 75, 0.3);
   margin-bottom: auto;
 }
 
@@ -423,7 +423,7 @@ nav.primary a.active {
   font-size: 11px;
   line-height: 1.5;
   margin-top: 28px;
-  color: rgba(244, 237, 224, 0.7);
+  color: rgba(251, 250, 247, 0.7);
 }
 
 .cover-lab .lab-contents strong {
@@ -432,7 +432,7 @@ nav.primary a.active {
   font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #c9a570;
+  color: #f08a4b;
   display: block;
   margin-bottom: 6px;
 }
@@ -491,7 +491,7 @@ nav.primary a.active {
 
 .newsletter p {
   font-size: 19px;
-  color: rgba(244, 237, 224, 0.7);
+  color: rgba(251, 250, 247, 0.7);
   margin-bottom: 40px;
   font-family: var(--font-display);
   font-style: italic;
@@ -504,7 +504,7 @@ nav.primary a.active {
   display: flex;
   max-width: 540px;
   margin: 0 auto;
-  border: 1px solid rgba(244, 237, 224, 0.3);
+  border: 1px solid rgba(251, 250, 247, 0.3);
 }
 
 .newsletter-form input {
@@ -519,7 +519,7 @@ nav.primary a.active {
 }
 
 .newsletter-form input::placeholder {
-  color: rgba(244, 237, 224, 0.5);
+  color: rgba(251, 250, 247, 0.5);
   font-style: italic;
 }
 
@@ -544,14 +544,14 @@ nav.primary a.active {
   font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(244, 237, 224, 0.4);
+  color: rgba(251, 250, 247, 0.4);
   margin-top: 24px;
 }
 
 /* ============ FOOTER ============ */
 footer.site-footer {
-  background: #14100c;
-  color: rgba(244, 237, 224, 0.7);
+  background: #0a0a0a;
+  color: rgba(251, 250, 247, 0.7);
   padding: 80px 40px 40px;
   font-family: var(--font-ui);
   font-size: 14px;
@@ -567,7 +567,7 @@ footer.site-footer {
   grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
   gap: 48px;
   padding-bottom: 60px;
-  border-bottom: 1px solid rgba(244, 237, 224, 0.1);
+  border-bottom: 1px solid rgba(251, 250, 247, 0.1);
 }
 
 .footer-brand .footer-logo {
@@ -590,7 +590,7 @@ footer.site-footer {
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(244, 237, 224, 0.4);
+  color: rgba(251, 250, 247, 0.4);
   margin-bottom: 24px;
 }
 
@@ -599,7 +599,7 @@ footer.site-footer {
   font-style: italic;
   font-size: 16px;
   line-height: 1.5;
-  color: rgba(244, 237, 224, 0.6);
+  color: rgba(251, 250, 247, 0.6);
   max-width: 320px;
 }
 
@@ -614,7 +614,7 @@ footer.site-footer {
 
 .footer-col ul { list-style: none; }
 .footer-col li { margin-bottom: 10px; }
-.footer-col a { color: rgba(244, 237, 224, 0.7); font-size: 14px; }
+.footer-col a { color: rgba(251, 250, 247, 0.7); font-size: 14px; }
 .footer-col a:hover { color: var(--paper); }
 
 .footer-bottom {
@@ -625,7 +625,7 @@ footer.site-footer {
   gap: 24px;
   flex-wrap: wrap;
   font-size: 12px;
-  color: rgba(244, 237, 224, 0.4);
+  color: rgba(251, 250, 247, 0.4);
   letter-spacing: 0.05em;
 }
 
@@ -633,7 +633,7 @@ footer.site-footer {
   font-family: var(--font-display);
   font-style: italic;
   font-size: 13px;
-  color: rgba(244, 237, 224, 0.5);
+  color: rgba(251, 250, 247, 0.5);
 }
 
 .footer-bottom-links {
@@ -642,7 +642,7 @@ footer.site-footer {
 }
 
 .footer-bottom-links a {
-  color: rgba(244, 237, 224, 0.5);
+  color: rgba(251, 250, 247, 0.5);
   font-size: 12px;
 }
 
@@ -767,7 +767,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @media (max-width: 1024px) {
   .header-inner { position: relative; }
   .menu-toggle { display: inline-flex; }
-  nav.primary.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 8px 40px 24px; box-shadow: 0 16px 32px rgba(26, 20, 16, 0.08); }
+  nav.primary.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 8px 40px 24px; box-shadow: 0 16px 32px rgba(17, 17, 17, 0.08); }
   nav.primary.open a { padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 13px; }
 }
 @media (max-width: 640px) {
@@ -807,6 +807,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* Footer legibility: small footer text up from 40% to 60% paper (6.3:1 on footer) */
-.footer-bottom { color: rgba(244, 237, 224, 0.6); }
-.footer-bottom-links a, .footer-bottom .colophon { color: rgba(244, 237, 224, 0.65); }
-.newsletter .fine-print { color: rgba(244, 237, 224, 0.6); }
+.footer-bottom { color: rgba(251, 250, 247, 0.6); }
+.footer-bottom-links a, .footer-bottom .colophon { color: rgba(251, 250, 247, 0.65); }
+.newsletter .fine-print { color: rgba(251, 250, 247, 0.6); }
+
+/* Gallery White: crisp ground, no paper grain */
+body::before { display: none; }
