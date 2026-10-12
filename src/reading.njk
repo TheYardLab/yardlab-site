@@ -1,0 +1,46 @@
+---
+layout: base.njk
+title: What We're Reading | The Yard Lab Publishing Group
+description: Books the editors of The Yard Lab Publishing Group are reading and recommending, from the New York Times Book Review's best books of 2026.
+permalink: /reading/index.html
+active_nav: reading-list
+---
+
+<style>
+.section { max-width: 1400px; margin: 0 auto; padding: 90px 40px; position: relative; }
+.news-card.soon:hover { border-color: var(--paper-edge); transform: none; }
+.news-card.soon .read-more { color: var(--ink-faint); }
+.news-card { background: var(--paper); padding: 32px; border: 1px solid var(--paper-edge); transition: all 0.2s; text-decoration: none; color: var(--ink); display: block; }
+.news-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+.news-date { font-family: var(--font-ui); font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--oxblood); margin-bottom: 16px; }
+.news-card h4 { font-family: var(--font-display); font-weight: 500; font-size: 24px; line-height: 1.15; margin-bottom: 12px; }
+.news-card h4 em { font-style: italic; }
+.news-card p { font-size: 15px; line-height: 1.5; color: var(--ink-muted); margin-bottom: 18px; }
+.news-card p em { font-style: italic; }
+.news-card .read-more { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); }
+.news-card .read-more::after { content: ' →'; }
+.news-card:hover .read-more { color: var(--oxblood); }
+#recommended { border-top: 0 !important; padding-top: 70px !important; }
+@media (max-width: 640px) { .section { padding: 50px 20px; } }
+</style>
+
+<!-- READING LIST -->
+<section class="section" id="recommended" style="border-top: 1px solid var(--rule); padding-top: 60px; padding-bottom: 60px;">
+  <div class="section-label">Recommended Reading</div>
+  <h2 class="section-title">What we're <em>reading</em>.</h2>
+  <p class="section-sub">Ten picks from the <em>New York Times</em> Book Review's best books of 2026 so far — titles we're talking about and pressing into people's hands.</p>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 40px;">
+    {% for book in catalog %}{% if book.nyt_best %}
+    <a href="{{ book.page_link }}" class="news-card" target="_blank" rel="noopener" style="text-decoration:none;">
+      <div class="news-date">{{ book.format }}</div>
+      <h4 style="font-size:19px; margin-bottom:6px;">{{ book.title_html | safe }}</h4>
+      <p style="font-family:var(--font-display); font-style:italic; font-size:14px; color:var(--ink-muted); margin-bottom:10px;">{{ book.author }}</p>
+      <p style="font-size:13px; line-height:1.5; color:var(--ink-muted); margin-bottom:14px;">{{ book.description }}</p>
+      <span class="read-more">Find it at Bookshop</span>
+    </a>
+    {% endif %}{% endfor %}
+  </div>
+  <p style="margin-top:24px; font-family:var(--font-ui); font-size:11px; color:var(--ink-faint); letter-spacing:0.15em; text-transform:uppercase;">Bookshop links support independent bookstores.</p>
+</section>
+

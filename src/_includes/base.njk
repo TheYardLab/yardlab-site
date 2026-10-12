@@ -42,10 +42,11 @@
       </span>
     </a>
     <nav class="primary" id="primary-nav" aria-label="Primary">
-      <a href="/#catalog"{% if active_nav == 'catalog' %} class="active"{% endif %}>Catalog</a>
+      <a href="/#catalog"{% if active_nav == 'catalog' %} class="active"{% endif %}>Books</a>
       <a href="/#lab"{% if active_nav == 'lab' %} class="active"{% endif %}>The Lab.</a>
       {% if publishedArticles | length %}<a href="/#reading-room"{% if active_nav == 'reading' %} class="active"{% endif %}>Reading Room</a>{% endif %}
       <a href="/authors/m-patrick-furry/"{% if active_nav == 'authors' %} class="active"{% endif %}>Authors</a>
+      <a href="/reading/"{% if active_nav == 'reading-list' %} class="active"{% endif %}>Reading List</a>
       <a href="/#submissions"{% if active_nav == 'submissions' %} class="active"{% endif %}>Submissions</a>
       <a href="/#about"{% if active_nav == 'about' %} class="active"{% endif %}>About</a>
     </nav>
@@ -70,7 +71,7 @@
       </div>
 
       <div class="footer-col">
-        <h5>Catalog</h5>
+        <h5>Books</h5>
         <ul>
           {% for book in catalog %}{% if book.in_catalog and book.page_link.indexOf('/books/') == 0 %}
           <li><a href="{{ book.page_link }}">{{ book.title }}</a></li>
@@ -95,6 +96,7 @@
           <li><a href="/#about">About</a></li>
           <li><a href="/#submissions">Submissions</a></li>
           <li><a href="/authors/m-patrick-furry/">Authors</a></li>
+          <li><a href="/reading/">Reading List</a></li>
           {% if publishedArticles | length %}<li><a href="/#reading-room">Reading Room</a></li>{% endif %}
         </ul>
       </div>

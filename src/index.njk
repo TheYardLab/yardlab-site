@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 title: The Yard Lab Publishing Group — Independent Fiction & The Lab. Annual
-description: The Yard Lab Publishing Group is an independent press publishing novels and short fiction, and the home of The Lab. Annual.
+description: The Yard Lab Publishing Group is an independent publisher of novels and short fiction based in Novato, California, and the home of The Lab. Annual.
 permalink: /index.html
 ---
 
@@ -224,6 +224,19 @@ permalink: /index.html
   .milestones-grid { grid-template-columns: 1fr; gap: 20px; }
   .excerpt-block { padding: 40px 24px; }
 }
+
+/* Books-first layout (2026 makeover) */
+.hero-grid { grid-template-columns: 1fr; }
+.hero { padding-bottom: 40px; }
+.hero h1 { max-width: 900px; }
+.hero p.lede { max-width: 640px; }
+.new-notable { border-top: 0; padding-top: 40px; }
+.notice-wrap { max-width: 1400px; margin: 0 auto; padding: 0 40px 90px; }
+.notice { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0 64px; align-items: center; }
+.notice .notice-text p:last-child, .notice .deadline { margin-bottom: 0; }
+.home-mid-grid { grid-template-columns: 1fr; max-width: 900px; margin: 0 auto; }
+@media (max-width: 1024px) { .notice { grid-template-columns: 1fr; gap: 28px; } }
+@media (max-width: 640px) { .notice-wrap { padding: 0 20px 60px; } .notice { padding: 28px 24px; } }
 </style>
 
 <!-- HERO -->
@@ -234,32 +247,11 @@ permalink: /index.html
       <h1>{{ homepage.hero_headline | safe }}</h1>
       <p class="lede">{{ homepage.hero_description | safe }}</p>
       <div class="hero-actions">
-        <a href="#catalog" class="btn btn-primary">Browse The Catalog <span class="arrow">→</span></a>
+        <a href="#catalog" class="btn btn-primary">Browse Our Books <span class="arrow">→</span></a>
         <a href="#submissions" class="btn btn-ghost">Submission Info</a>
       </div>
     </div>
 
-    <div class="hero-feature">
-      <div class="hero-feature-label">Currently Closed</div>
-      <h3>{{ homepage.now_reading_title | safe }}</h3>
-      <p class="issue">{{ homepage.now_reading_issue }}</p>
-      <p>{{ homepage.now_reading_desc | safe }}</p>
-      <div class="deadline">
-        <span>Reopens</span>
-        <strong>{{ homepage.now_reading_deadline }}</strong>
-      </div>
-      <form class="js-notify" action="https://formspree.io/f/mdajpeel" method="POST">
-        <label class="notify-label" for="notify-email">Get a note the day we reopen</label>
-        <div class="notify-form">
-          <input type="email" id="notify-email" name="email" placeholder="your@email.com" autocomplete="email" required>
-          <input type="hidden" name="_subject" value="Newsletter Subscription (reopening notice) — The Yard Lab">
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button type="submit">Notify me</button>
-        </div>
-        <p class="notify-msg" role="status" aria-live="polite"></p>
-      </form>
-      <a href="#submissions" class="small-link">Submission Guidelines</a>
-    </div>
   </div>
 </section>
 
@@ -294,10 +286,10 @@ permalink: /index.html
               <span>Annual · 2027</span>
             </div>
             <div class="lab-title">The Lab<span class="dot">.</span></div>
-            <div class="lab-tagline">An annual of short fiction by independent writers.</div>
+            <div class="lab-tagline">An annual of new short fiction.</div>
             <div class="lab-contents">
               <strong>In Development</strong>
-              Forthcoming 2027 — featuring selected work from open submissions, plus original essays and a featured excerpt.
+              Forthcoming 2027, with selected work from open submissions and a featured excerpt.
             </div>
           </div>
         {% endif %}
@@ -323,24 +315,35 @@ permalink: /index.html
   </div>
 </section>
 
-<!-- NYT RECOMMENDED READING -->
-<section class="section" id="recommended" style="border-top: 1px solid var(--rule); padding-top: 60px; padding-bottom: 60px;">
-  <div class="section-label">Recommended Reading</div>
-  <h2 class="section-title">What we're <em>reading</em>.</h2>
-  <p class="section-sub">Ten picks from the <em>New York Times</em> Book Review's best books of 2026 so far — titles we're talking about and pressing into people's hands.</p>
+<!-- SUBMISSIONS NOTICE -->
+<section class="notice-wrap">
+  <div class="hero-feature notice">
+    <div class="notice-text">
 
-  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 40px;">
-    {% for book in catalog %}{% if book.nyt_best %}
-    <a href="{{ book.page_link }}" class="news-card" target="_blank" rel="noopener" style="text-decoration:none;">
-      <div class="news-date">{{ book.format }}</div>
-      <h4 style="font-size:19px; margin-bottom:6px;">{{ book.title_html | safe }}</h4>
-      <p style="font-family:var(--font-display); font-style:italic; font-size:14px; color:var(--ink-muted); margin-bottom:10px;">{{ book.author }}</p>
-      <p style="font-size:13px; line-height:1.5; color:var(--ink-muted); margin-bottom:14px;">{{ book.description }}</p>
-      <span class="read-more">Find it at Bookshop</span>
-    </a>
-    {% endif %}{% endfor %}
+      <div class="hero-feature-label">Currently Closed</div>
+      <h3>{{ homepage.now_reading_title | safe }}</h3>
+      <p class="issue">{{ homepage.now_reading_issue }}</p>
+      <p>{{ homepage.now_reading_desc | safe }}</p>
+      <div class="deadline">
+        <span>Reopens</span>
+        <strong>{{ homepage.now_reading_deadline }}</strong>
+      </div>
+    </div>
+    <div class="notice-action">
+      <form class="js-notify" action="https://formspree.io/f/mdajpeel" method="POST">
+        <label class="notify-label" for="notify-email">Get a note the day we reopen</label>
+        <div class="notify-form">
+          <input type="email" id="notify-email" name="email" placeholder="your@email.com" autocomplete="email" required>
+          <input type="hidden" name="_subject" value="Newsletter Subscription (reopening notice) — The Yard Lab">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit">Notify me</button>
+        </div>
+        <p class="notify-msg" role="status" aria-live="polite"></p>
+      </form>
+      <a href="#submissions" class="small-link">Submission Guidelines</a>
+    </div>
+  
   </div>
-  <p style="margin-top:24px; font-family:var(--font-ui); font-size:11px; color:var(--ink-faint); letter-spacing:0.15em; text-transform:uppercase;">Bookshop links support independent bookstores.</p>
 </section>
 
 <!-- READING ROOM (shown once at least one article has a link) -->
@@ -388,20 +391,6 @@ permalink: /index.html
       <a href="{{ homepage.excerpt_link }}" class="excerpt-continues">{{ homepage.excerpt_link_text }}</a>
     </div>
 
-    <div class="currently-card">
-      <div class="currently-card-inner">
-        <div class="currently-label">● Currently</div>
-        <h3>{{ homepage.currently_title | safe }}</h3>
-        <ul class="currently-list">
-          {% for item in homepage.currently_items %}
-          <li>
-            <span class="when">{{ item.when }}</span>
-            <span class="what">{{ item.what | safe }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -410,9 +399,9 @@ permalink: /index.html
   <div class="lab-feature-inner">
     <div class="lab-feature-text">
       <div class="section-label">The Lab. <span style="color: rgba(251, 250, 247,0.3); margin-left: 8px;">N°1</span></div>
-      <h2>An annual of <em>independent</em> short fiction.</h2>
-      <p><em>The Lab.</em> is our annual publication — short stories, novel excerpts, and prose miscellany from emerging and established independent writers. We read every submission we receive, and we pay our writers.</p>
-      <p>Each year's issue is curated by our editorial team and produced as a print volume, with the full contents also available digitally to subscribers.</p>
+      <h2>An annual of <em>new</em> short fiction.</h2>
+      <p><em>The Lab.</em> is our annual collection of short fiction and novel excerpts by emerging and established writers. We read every submission we receive, and we pay our writers.</p>
+      <p>Our editors choose each year's issue, and we publish it as a print edition with the full contents available online to subscribers.</p>
       <div class="feature-meta">
         <div>Inaugural Issue<strong>N°1 · Annual 2027</strong></div>
         <div>Submissions<strong>Reopen Jan 15, 2027</strong></div>
@@ -427,10 +416,10 @@ permalink: /index.html
       <div class="cover-lab">
         <div class="lab-top"><span>N°1</span><span>Annual · 2027</span></div>
         <div class="lab-title">The Lab<span class="dot">.</span></div>
-        <div class="lab-tagline">An annual of short fiction by independent writers.</div>
+        <div class="lab-tagline">An annual of new short fiction.</div>
         <div class="lab-contents">
           <strong>In Development</strong>
-          Forthcoming 2027 — featuring selected work from open submissions, plus original essays and a featured excerpt.
+          Forthcoming 2027, with selected work from open submissions and a featured excerpt.
         </div>
       </div>
     </div>
@@ -443,26 +432,6 @@ permalink: /index.html
     <div class="section-label">Our Mission</div>
     <blockquote>{{ homepage.mission_text | safe }}</blockquote>
     <div class="mission-attribution">{{ homepage.mission_attribution }}</div>
-  </div>
-</section>
-
-<!-- MILESTONES -->
-<section class="milestones fade-in">
-  <div class="milestones-inner">
-    <div class="milestones-header">
-      <div class="section-label">A Short History</div>
-      <h2>The press, <em>so far</em>.</h2>
-    </div>
-    <div class="milestones-grid">
-      {% for m in homepage.milestones %}
-      <div class="milestone">
-        <div class="dot"></div>
-        <div class="year">{{ m.year }}</div>
-        <div class="event">{{ m.event | safe }}</div>
-        <div class="note">{{ m.note | safe }}</div>
-      </div>
-      {% endfor %}
-    </div>
   </div>
 </section>
 
@@ -516,22 +485,6 @@ permalink: /index.html
   </div>
 </section>
 
-<!-- TEAM -->
-<section class="team-section fade-in">
-  <div class="section-label">Editorial Board</div>
-  <h2>The people <em>behind</em> the press.</h2>
-  <div class="team-strip">
-    {% for member in team %}
-    <div class="team-member">
-      <div class="team-monogram">{{ member.monogram }}</div>
-      <div class="name">{{ member.name }}</div>
-      <div class="role">{{ member.role }}</div>
-    </div>
-    {% endfor %}
-  </div>
-
-</section>
-
 <!-- NEWS -->
 <section class="news fade-in">
   <div class="news-inner">
@@ -556,7 +509,7 @@ permalink: /index.html
   <div class="newsletter-inner">
     <div class="section-label">From the Press</div>
     <h2>Letters from <em>the lab.</em></h2>
-    <p>A monthly dispatch on new books, the annual, open reading periods, and the work behind the work. No spam.</p>
+    <p>A monthly letter with new releases, author news and reading periods for <em>The Lab.</em> No spam.</p>
     <form class="newsletter-form" action="https://formspree.io/f/mdajpeel" method="POST" id="newsletter-form">
       <input type="email" name="email" placeholder="your@email.com" required>
       <input type="hidden" name="_subject" value="Newsletter Subscription — The Yard Lab">
