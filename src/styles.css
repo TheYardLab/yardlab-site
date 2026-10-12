@@ -13,7 +13,7 @@
   --paper-edge: #d9cfb8;
   --ink: #1a1410;
   --ink-muted: #5a4f44;
-  --ink-faint: #8a7e6e;
+  --ink-faint: #6c6256;
   --oxblood: #8b1a26;
   --oxblood-deep: #6e1320;
   --gold: #b89968;
@@ -746,3 +746,67 @@ footer.site-footer {
   .logo-name { font-size: 22px; }
   .footer-logo-image { max-width: 160px; }
 }
+
+
+/* =========================================================
+   REFINEMENTS — 2026 makeover
+   ========================================================= */
+
+/* Skip link + focus */
+.skip-link { position: absolute; left: 16px; top: -60px; z-index: 1001; background: var(--ink); color: var(--paper); font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 10px 16px; transition: top 0.2s; }
+.skip-link:focus { top: 12px; color: var(--paper); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--oxblood); outline-offset: 3px; }
+.announce a:focus-visible, .newsletter a:focus-visible, .newsletter button:focus-visible, .newsletter input:focus-visible, .site-footer a:focus-visible, .lab-feature a:focus-visible { outline-color: var(--gold); }
+
+/* Mobile menu */
+.menu-toggle { display: none; align-items: center; gap: 8px; background: none; border: 1px solid var(--rule-strong); color: var(--ink); font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 9px 14px; cursor: pointer; }
+.menu-toggle .bars { width: 14px; height: 9px; border-top: 1px solid currentColor; border-bottom: 1px solid currentColor; position: relative; }
+.menu-toggle .bars::after { content: ''; position: absolute; left: 0; right: 0; top: 3px; border-top: 1px solid currentColor; }
+.header-actions .subscribe-link { border-bottom: 1px solid var(--rule-strong); padding-bottom: 2px; }
+
+@media (max-width: 1024px) {
+  .header-inner { position: relative; }
+  .menu-toggle { display: inline-flex; }
+  nav.primary.open { display: flex; flex-direction: column; gap: 0; position: absolute; top: 100%; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 8px 40px 24px; box-shadow: 0 16px 32px rgba(26, 20, 16, 0.08); }
+  nav.primary.open a { padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 13px; }
+}
+@media (max-width: 640px) {
+  .header-actions { gap: 12px; }
+  .header-actions .subscribe-link { display: none; }
+  nav.primary.open { padding: 4px 20px 20px; }
+  .header-inner { gap: 12px; }
+  .logo { gap: 10px; }
+  .logo-text .logo-sub { letter-spacing: 0.2em; }
+  .menu-toggle { padding: 8px 10px; }
+}
+
+/* Catalog card actions (buy / listen) */
+.title-actions { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--rule); }
+.title-actions a { font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--rule-strong); padding-bottom: 3px; }
+.title-actions a:hover { color: var(--oxblood); border-color: var(--oxblood); }
+.title-actions a.buy { color: var(--oxblood); border-color: var(--oxblood); }
+.title-actions a.buy::after { content: ' →'; }
+
+/* Inline notify form (submissions closed) */
+.notify-label { display: block; font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 12px; }
+.notify-form { display: flex; border: 1px solid var(--ink); background: var(--paper); position: relative; }
+.notify-form input[type=email] { flex: 1; min-width: 0; border: 0; background: transparent; padding: 14px 16px; font-family: var(--font-body); font-size: 17px; color: var(--ink); }
+.notify-form input[type=email]::placeholder { color: var(--ink-faint); font-style: italic; }
+.notify-form input[type=email]:focus-visible { outline-offset: -3px; }
+.notify-form button { border: 0; background: var(--ink); color: var(--paper); font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 0 20px; cursor: pointer; transition: background 0.2s; }
+.notify-form button:hover { background: var(--oxblood); }
+.notify-msg { font-family: var(--font-ui); font-size: 12px; color: var(--ink-muted); min-height: 18px; margin-top: 10px; }
+@media (max-width: 480px) {
+  .notify-form { flex-direction: column; }
+  .notify-form button { padding: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* Footer legibility: small footer text up from 40% to 60% paper (6.3:1 on footer) */
+.footer-bottom { color: rgba(244, 237, 224, 0.6); }
+.footer-bottom-links a, .footer-bottom .colophon { color: rgba(244, 237, 224, 0.65); }
+.newsletter .fine-print { color: rgba(244, 237, 224, 0.6); }

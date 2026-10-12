@@ -4,12 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ title or settings.site_name }}</title>
-<meta name="description" content="{{ description or settings.tagline }}">
+<meta name="description" content="{{ description or (settings.tagline | striptags) }}">
+<link rel="canonical" href="{{ settings.site_url }}{{ page.url }}">
+<meta property="og:type" content="{{ og_type or 'website' }}">
+<meta property="og:site_name" content="{{ settings.site_name }}">
+<meta property="og:title" content="{{ title or settings.site_name }}">
+<meta property="og:description" content="{{ description or (settings.tagline | striptags) }}">
+<meta property="og:url" content="{{ settings.site_url }}{{ page.url }}">
+<meta property="og:image" content="{{ settings.site_url }}{{ og_image or '/assets/og-default.png' }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"{{ settings.site_name }}","legalName":"The Yard Lab Publishing Group, LLC","url":"{{ settings.site_url }}","logo":"{{ settings.site_url }}/assets/yardlab-logo-full.png","foundingDate":"{{ settings.founded_year }}","email":"{{ settings.contact_email }}","address":{"@type":"PostalAddress","addressLocality":"Novato","addressRegion":"CA","addressCountry":"US"}}</script>
+{% if schema %}<script type="application/ld+json">{{ schema | dump | safe }}</script>{% endif %}
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="stylesheet" href="/styles.css">
 {% block head %}{% endblock %}
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
+{% set publishedArticles = articles | selectattr("link") %}
 
 <!-- ANNOUNCEMENT -->
 <div class="announce">
@@ -27,24 +41,24 @@
         <span class="logo-sub">Publishing Group · Est. {{ settings.founded_year }}</span>
       </span>
     </a>
-    <nav class="primary">
+    <nav class="primary" id="primary-nav" aria-label="Primary">
       <a href="/#catalog"{% if active_nav == 'catalog' %} class="active"{% endif %}>Catalog</a>
       <a href="/#lab"{% if active_nav == 'lab' %} class="active"{% endif %}>The Lab.</a>
-      <a href="/#reading-room"{% if active_nav == 'reading' %} class="active"{% endif %}>Reading Room</a>
+      {% if publishedArticles | length %}<a href="/#reading-room"{% if active_nav == 'reading' %} class="active"{% endif %}>Reading Room</a>{% endif %}
       <a href="/authors/m-patrick-furry/"{% if active_nav == 'authors' %} class="active"{% endif %}>Authors</a>
       <a href="/#submissions"{% if active_nav == 'submissions' %} class="active"{% endif %}>Submissions</a>
       <a href="/#about"{% if active_nav == 'about' %} class="active"{% endif %}>About</a>
     </nav>
     <div class="header-actions">
-      <a href="#" aria-label="Search">
-        <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-      </a>
-      <a href="/#newsletter">Subscribe</a>
+      <a href="/#newsletter" class="subscribe-link">Subscribe</a>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="primary-nav"><span class="bars" aria-hidden="true"></span>Menu</button>
     </div>
   </div>
 </header>
 
+<main id="main">
 {{ content | safe }}
+</main>
 
 <!-- FOOTER -->
 <footer class="site-footer">
@@ -58,9 +72,9 @@
       <div class="footer-col">
         <h5>Catalog</h5>
         <ul>
-          {% for book in catalog %}
+          {% for book in catalog %}{% if book.in_catalog and book.page_link.indexOf('/books/') == 0 %}
           <li><a href="{{ book.page_link }}">{{ book.title }}</a></li>
-          {% endfor %}
+          {% endif %}{% endfor %}
           <li><a href="/#lab">Forthcoming: The Lab. Annual</a></li>
         </ul>
       </div>
@@ -71,7 +85,7 @@
           <li><a href="/#lab">About the Annual</a></li>
           <li><a href="/#submissions">Submit</a></li>
           <li><a href="/#newsletter">Subscribe</a></li>
-          <li><a href="/#reading-room">Reading Room</a></li>
+          {% if publishedArticles | length %}<li><a href="/#reading-room">Reading Room</a></li>{% endif %}
         </ul>
       </div>
 
@@ -81,7 +95,7 @@
           <li><a href="/#about">About</a></li>
           <li><a href="/#submissions">Submissions</a></li>
           <li><a href="/authors/m-patrick-furry/">Authors</a></li>
-          <li><a href="/#reading-room">Reading Room</a></li>
+          {% if publishedArticles | length %}<li><a href="/#reading-room">Reading Room</a></li>{% endif %}
         </ul>
       </div>
 
@@ -101,13 +115,27 @@
       <div class="footer-bottom-links">
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>
-        <a href="#">© 2026 The Yard Lab Publishing Group, LLC</a>
+        <span>© 2026 The Yard Lab Publishing Group, LLC</span>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
+  (function () {
+    var btn = document.querySelector('.menu-toggle'), nav = document.getElementById('primary-nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('open')) { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
+    });
+  })();
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.08 });

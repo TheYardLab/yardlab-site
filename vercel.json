@@ -3,5 +3,27 @@
   "outputDirectory": "_site",
   "framework": null,
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/play",
+      "destination": "/books/play/",
+      "permanent": true
+    },
+    {
+      "source": "/play/",
+      "destination": "/books/play/",
+      "permanent": true
+    },
+    {
+      "source": "/francis-keene",
+      "destination": "/books/francis-keene/",
+      "permanent": true
+    },
+    {
+      "source": "/francis-keene/",
+      "destination": "/books/francis-keene/",
+      "permanent": true
+    }
+  ]
 }

@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 title: The Yard Lab Publishing Group — Independent Fiction & The Lab. Annual
-description: The Yard Lab Publishing Group publishes horror first and strange fiction second — novellas, short novels, full-length novels — and The Lab. — an annual publication of short fiction by independent writers.
+description: The Yard Lab Publishing Group is an independent press publishing novels and short fiction, and the home of The Lab. Annual.
 permalink: /index.html
 ---
 
@@ -36,6 +36,7 @@ permalink: /index.html
 
 /* Catalog grid */
 .titles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; margin-top: 20px; }
+.title-entry { display: flex; flex-direction: column; }
 .title-card { text-decoration: none; color: var(--ink); transition: transform 0.3s; display: block; }
 .title-card:hover { transform: translateY(-4px); }
 .title-cover { aspect-ratio: 5/8; margin-bottom: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(26, 20, 16, 0.1), 0 20px 40px rgba(26, 20, 16, 0.18); position: relative; overflow: hidden; }
@@ -247,6 +248,16 @@ permalink: /index.html
         <span>Reopens</span>
         <strong>{{ homepage.now_reading_deadline }}</strong>
       </div>
+      <form class="js-notify" action="https://formspree.io/f/mdajpeel" method="POST">
+        <label class="notify-label" for="notify-email">Get a note the day we reopen</label>
+        <div class="notify-form">
+          <input type="email" id="notify-email" name="email" placeholder="your@email.com" autocomplete="email" required>
+          <input type="hidden" name="_subject" value="Newsletter Subscription (reopening notice) — The Yard Lab">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit">Notify me</button>
+        </div>
+        <p class="notify-msg" role="status" aria-live="polite"></p>
+      </form>
       <a href="#submissions" class="small-link">Submission Guidelines</a>
     </div>
   </div>
@@ -260,6 +271,7 @@ permalink: /index.html
 
   <div class="titles-grid">
     {% for book in catalog %}{% if book.in_catalog %}
+    <div class="title-entry">
     <a href="{{ book.page_link }}" class="title-card">
       <div class="title-cover">
         {% if book.cover_style == 'image' and book.cover_image %}
@@ -298,9 +310,15 @@ permalink: /index.html
         <strong>Shelf Talk</strong>
         "{{ book.shelf_talk }}" — {{ book.shelf_talk_by }}
       </div>
-      {% if book.audible_url %}<div style="margin-top:12px;font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-faint);">🎧 Audiobook available</div>{% endif %}
-      <span class="title-link">Read more</span>
+      <span class="title-link">{% if book.page_link.indexOf('/books/') == 0 %}About the book{% else %}Read more{% endif %}</span>
     </a>
+    {% if book.page_link.indexOf('/books/') == 0 %}
+    <div class="title-actions">
+      <a href="{{ book.page_link }}#buy" class="buy">Buy the book</a>
+      {% if book.audible_url %}<a href="{{ book.audible_url }}" target="_blank" rel="noopener">Listen on Audible</a>{% endif %}
+    </div>
+    {% endif %}
+    </div>
     {% endif %}{% endfor %}
   </div>
 </section>
@@ -325,7 +343,9 @@ permalink: /index.html
   <p style="margin-top:24px; font-family:var(--font-ui); font-size:11px; color:var(--ink-faint); letter-spacing:0.15em; text-transform:uppercase;">Bookshop links support independent bookstores.</p>
 </section>
 
-<!-- READING ROOM -->
+<!-- READING ROOM (shown once at least one article has a link) -->
+{% set publishedArticles = articles | selectattr("link") %}
+{% if publishedArticles | length %}
 <section class="reading-room fade-in" id="reading-room">
   <div class="reading-room-inner">
     <div class="reading-room-header">
@@ -350,6 +370,7 @@ permalink: /index.html
     </div>
   </div>
 </section>
+{% endif %}
 
 <!-- HOME MID — featured excerpt + currently -->
 <section class="home-mid fade-in">
@@ -390,7 +411,7 @@ permalink: /index.html
     <div class="lab-feature-text">
       <div class="section-label">The Lab. <span style="color: rgba(244,237,224,0.3); margin-left: 8px;">N°1</span></div>
       <h2>An annual of <em>independent</em> short fiction.</h2>
-      <p><em>The Lab.</em> is our annual publication — short stories, novel excerpts, and prose miscellany from emerging and established independent writers. We read every submission we receive. We pay our writers. We publish work that doesn't quite fit anywhere else.</p>
+      <p><em>The Lab.</em> is our annual publication — short stories, novel excerpts, and prose miscellany from emerging and established independent writers. We read every submission we receive, and we pay our writers.</p>
       <p>Each year's issue is curated by our editorial team and produced as a print volume, with the full contents also available digitally to subscribers.</p>
       <div class="feature-meta">
         <div>Inaugural Issue<strong>N°1 · Annual 2027</strong></div>
@@ -581,6 +602,26 @@ permalink: /index.html
   });
 })();
 
+// Reopening notice (hero)
+(function() {
+  document.querySelectorAll('form.js-notify').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = form.querySelector('button'), msg = form.querySelector('.notify-msg');
+      btn.disabled = true; btn.textContent = 'Sending…';
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function(r) {
+          if (!r.ok) throw new Error();
+          btn.textContent = 'Done'; msg.textContent = "You're on the list. We'll write the day submissions reopen."; form.reset();
+        })
+        .catch(function() {
+          btn.disabled = false; btn.textContent = 'Notify me';
+          msg.textContent = 'Something went wrong. Email us at team@theyardlab.com.';
+        });
+    });
+  });
+})();
+
 // Newsletter form
 (function() {
   var form = document.getElementById('newsletter-form');
@@ -612,3 +653,4 @@ permalink: /index.html
     });
   });
 })();
+</script>
